@@ -13,6 +13,7 @@ tables.TableNames.ForEach(WriteLine);
 WriteLine(new string('-', 80));
 
 var id = Guid.NewGuid();
+var anoMes = DateTime.Now.ToString("yyyy-MM");
 var dataCadastro = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffff");
 WriteLine($"Id: {id}, DataCadastro: {dataCadastro}");
 
@@ -23,6 +24,7 @@ var insertRequest = new PutItemRequest
     Item = new Dictionary<string, AttributeValue>
     {
         { "Id", new() { S = id.ToString() } },
+        { "AnoMes", new() { S = anoMes } },
         { "DataCadastro", new() { S = dataCadastro } },
         { "Cliente", new() { M = new()
             {
@@ -59,7 +61,7 @@ var updatePartialRequest = new UpdateItemRequest
     TableName = "Venda",
     Key = new() {
         { "Id", new() { S = id.ToString() } },
-        { "DataCadastro", new() {S = dataCadastro.ToString() } } },
+        { "AnoMes", new() { S = anoMes } } },
     ExpressionAttributeValues = new Dictionary<string, AttributeValue>
     {
         { ":nome", new AttributeValue{ S = "Beltrano" } },
