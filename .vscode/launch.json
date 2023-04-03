@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "DynamoDb",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-DynamoDb",
+            "program": "${workspaceFolder}/src/DynamoDb/bin/Debug/net7.0/DynamoDbPlayground.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}

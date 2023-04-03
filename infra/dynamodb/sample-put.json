@@ -1,0 +1,32 @@
+{
+    "Id": { "S": "3c95c725-275c-474a-a068-151f8219f294" },
+    "DataCadastro": { "S": "2023-04-03T00:43:00.000Z" },
+    "Cliente": {
+        "M": {
+            "Id": { "S": "3e3ab209-48c4-47cd-a1c9-de34e4a04b8b" },
+            "Nome": { "S": "Fulano" }
+        }
+    },
+    "Itens": {
+        "L": [
+            {
+                "M": {
+                    "Id": { "S": "cdfd7b59-bd98-4b8c-a2ff-fa24f0e56f50" },
+                    "Nome": { "S": "Batedeira" },
+                    "ValorUnitario": { "N": "199.90" },
+                    "Quantidade": { "N": "2" },
+                    "ValorTotal": { "N": "399.8" }
+                }
+            },
+            {
+                "M": {
+                    "Id": { "S": "0d6974f2-117c-45aa-a527-0caaaa0ca355" },
+                    "Nome": { "S": "Liquidificador" },
+                    "ValorUnitario": { "N": "89.00" },
+                    "Quantidade": { "N": "1" },
+                    "ValorTotal": { "N": "89.00" }
+                }
+            }
+        ]
+    }
+}
