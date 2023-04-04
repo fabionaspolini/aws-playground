@@ -1,5 +1,6 @@
 using Amazon;
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using static System.Console;
 
@@ -70,5 +71,35 @@ var updatePartialRequest = new UpdateItemRequest
 };
 var updatePartialResponse = await client.UpdateItemAsync(updatePartialRequest);
 WriteLine($"Update partial response: {updatePartialResponse.HttpStatusCode}");
+WriteLine(new string('-', 80));
+
+// Consultar documento
+var getItemResponse = await client.GetItemAsync("Venda", new()
+{
+    { "AnoMes", new() { S = anoMes.ToString() }},
+    { "Id", new() { S = id.ToString() }},
+});
+WriteLine($"GetItem response\r\n{string.Join("\r\n", getItemResponse.Item.Select(x => $"{x.Key} = {x.Value.S ?? x.Value.N}"))}");
+WriteLine(new string('-', 80));
+
+// Consultar documento no formato json
+var vendaTable = Table.LoadTable(client, "Venda");
+var item = await vendaTable.GetItemAsync(anoMes, id.ToString());
+WriteLine($"Get item response [Table access]\r\n{item.ToJsonPretty()}");
+WriteLine(new string('-', 80));
+
+// Listar registros
+var scanFilters = new ScanFilter();
+// scanFilters.AddCondition("AnoMes", ScanOperator.Equal, anoMes);
+
+var scan = vendaTable.Scan(scanFilters);
+WriteLine($"Scan response count: {scan.Count}");
+WriteLine("Scan items");
+do
+{
+    var scanItems = await scan.GetNextSetAsync();
+    scanItems.ForEach(x => WriteLine(x.ToJson()));
+} while (!scan.IsDone);
+WriteLine(new string('-', 80));
 
 WriteLine("Fim");
