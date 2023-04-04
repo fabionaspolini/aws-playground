@@ -4,7 +4,7 @@ using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using static System.Console;
 
-var clientConfig = new AmazonDynamoDBConfig { RegionEndpoint = RegionEndpoint.USEast1 };
+var clientConfig = new AmazonDynamoDBConfig { RegionEndpoint = RegionEndpoint.USEast1, ServiceURL = "http://localhost:8000" };
 
 var client = new AmazonDynamoDBClient(clientConfig);
 var tables = await client.ListTablesAsync();

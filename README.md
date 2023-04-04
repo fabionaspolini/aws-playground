@@ -1,5 +1,9 @@
 # AWS Playground
 
+Projeto com exemplos de uso da stack AWS com infraestrutura terraform para criação e código fonte C# para utilização.
+
+Na pasta "docs" são encontrados mais detalhes sobre cada componente e alguns comandos de interação pelo AWS CLI.
+
 ## Pré requisitos
 
 1. Conta AWS previamente criada
