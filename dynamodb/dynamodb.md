@@ -6,15 +6,16 @@
 aws dynamodb create-table \
     --table-name Venda \
     --attribute-definitions \
-        AttributeName=AnoMes,AttributeType=S \
         AttributeName=Id,AttributeType=S \
-    --key-schema AttributeName=AnoMes,KeyType=HASH AttributeName=Id,KeyType=RANGE \
+        AttributeName=SK,AttributeType=S \
+    --key-schema AttributeName=Id,KeyType=HASH AttributeName=SK,KeyType=RANGE \
     --table-class STANDARD \
     --billing-mode PAY_PER_REQUEST
 
-aws dynamodb put-item \
-    --table-name Venda \
-    --item "file://infra/sample-put.json"
+aws dynamodb put-item --table-name Vendas --item "file://infra/payloads/put-01-header.json"
+aws dynamodb put-item --table-name Vendas --item "file://infra/payloads/put-01-items.json"
+aws dynamodb put-item --table-name Vendas --item "file://infra/payloads/put-02-header.json"
+aws dynamodb put-item --table-name Vendas --item "file://infra/payloads/put-02-items.json"
 
 aws dynamodb update-item \
     --table-name Venda \
@@ -219,7 +220,47 @@ Capacidade de realizaroperações de insert/update/delte em uma ou mais tabelas 
 - Consome 2x WCUs e RCUs
 
 
-## Sucurity
+## Security
 
 - Acessível através de endpoint sem acesso a internet
 - Integração com Identify Providers para geração de credencial temporária vinculada a uma role IAM de permissões restritas a uma tabela
+
+# Modelo de dados
+
+**Estrutura de relacionamento**
+
+Venda
+- Id
+- Data
+- Cliente
+    - Id
+    - Nome
+- Itens (Array)
+    - Id
+    - Nome
+    - Valor unitário
+    - Quantidade
+    - Valor total
+- Valor total
+- Pagamento
+    - Método (Boleto, Cartão, Pix)
+    - Valor
+- ExpireOn
+
+**Requisitos**
+
+1. Precisa suportar grande volume de gravação
+2. Precisa recuperar todos os detalhes de uma venda rapidamente
+3: Precisa recuperar todas as vendas de um cliente rapidamente e exibir dados do cabeçalho e do pagamento
+4: Nesta base de dados devem estar presentes somente os registros do último ano
+
+**Decições**
+
+- Primary key
+    - Partition key por id da venda => Para requisito 1 e 2
+    - Sort key para separarmos linhas do cabeçalho + pagamento e itens => Para requisito 3, separamos a gravação dos itens em outra linha para reduzir RCU na consulta de vendas do cliente
+- Criar global secundary index (GSI) => Para requisito 3
+    - Partition key: Cliente.Id
+    - Sorting key: Igual da primary key
+- Criar campo `ExpireOn` para ser utilizado no TTL. Definir com data da venda + 1 ano => Para requisito 4
+- Ao final da modelagem, a base de dados não é totalmente focada na orientação a documentos. Separamos nosso documento em duas linhas pelo fator custo.

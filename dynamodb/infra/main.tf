@@ -1,30 +1,48 @@
-resource "aws_dynamodb_table" "venda" {
-  name         = "Venda"
+resource "aws_dynamodb_table" "vendas" {
+  name = "Vendas"
 
   # > Capacity settings: On-demand
   # billing_mode = "PAY_PER_REQUEST"
 
   # > Capacity settings: Provisined
-  billing_mode = "PROVISIONED"
+  billing_mode   = "PROVISIONED"
   read_capacity  = 1
   write_capacity = 1
   # -- end of Capacity settings
 
-  hash_key       = "AnoMes" # Particionamento por este campo - YYYYMM
-  range_key      = "Id" # Composição adicional da chave primária. Identificador único em conjunto com o hash_key
+  hash_key  = "Id" # Particionamento dos dados
+  range_key = "SK" # Composição adicional da chave primária. Identificador único em conjunto com o hash_key
 
-  attribute {
-    name = "AnoMes"
-    type = "S"
+  ttl {
+    attribute_name = "ExpireOn"
+    enabled        = true
   }
+
+  global_secondary_index {
+    name               = "VendasPorClienteIndex"
+    hash_key           = "Cliente.Id"
+    range_key          = "SK"
+    write_capacity     = 1
+    read_capacity      = 1
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["Cliente.Id", "Data", "ValorTotal", "Pagamento.Método"]
+  }
+
+  # stream_enabled   = true
+  # stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
     name = "Id"
     type = "S"
   }
 
-#   ttl {
-#     attribute_name = "TimeToExist"
-#     enabled        = false
-#   }
+  attribute {
+    name = "SK"
+    type = "S"
+  }
+
+  attribute {
+    name = "Cliente.Id"
+    type = "S"
+  }
 }
