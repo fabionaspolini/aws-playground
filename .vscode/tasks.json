@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/AwsPlayground.sln",
+                "${workspaceFolder}/AwsPlayground.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -23,7 +23,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/DynamoDb/DynamoDbPlayground.csproj",
+                "${workspaceFolder}/dynamodb/src/DynamoDbPlayground.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

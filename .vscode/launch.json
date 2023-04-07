@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-DynamoDb",
-            "program": "${workspaceFolder}/src/DynamoDb/bin/Debug/net7.0/DynamoDbPlayground.dll",
+            "program": "${workspaceFolder}/dynamodb/src/bin/Debug/net7.0/DynamoDbPlayground.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src",
+            "cwd": "${workspaceFolder}/dynamodb/src",
             "console": "internalConsole",
             "stopAtEntry": false
         },
