@@ -1,6 +1,6 @@
 # TL;DR
 
-Exemplo de utilização pela CLI.
+[Cheat sheet](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CheatSheet.html)
 
 ```bash
 aws dynamodb create-table \
