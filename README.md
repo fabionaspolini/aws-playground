@@ -43,10 +43,30 @@ Todos as outras stacks a partir daqui, serão criadas e gerenciadas pelo terrafo
 
 Obs.: Nomes de bucket são únicos por região, por isso adicionamos o comando `aws sts get-caller-identity --query "Account" --output text` para concatenar o ID da sua account ao nome do bucket (Também poderia ser utilizada a variável de ambiente AWS_ACCOUNT_ID configurada previamente).
 
-## Alternativa Localstack
+## Exemplos
+
+Cada subpasta possui a estrutura `infra` com o código terraform e a pasta `src` com o código C#.
+
+Para provisionar os recursos na AWS, acesso a pasta infra pelo console e digite:
+
+```bash
+# Para criar/modificar
+terraform apply -auto-approve
+
+# Para destruir
+terraform apply -auto-approve -destroy
+```
+
+Lista de exemplos:
+
+- [DynamoDB](dynamodb/dynamodb.md)
+
+## Alternativa com Localstack
 
 [Localstack](https://localstack.cloud/) é um projeto para emular na máquina local vários serviços AWS.  
 Deve ser utilizado apens como ambiente de testes do desenvolvedor. Nunca em produção!
+
+> Obs.: Exemplos do terraform não são compatíveis com localstack, apenas por CLI e aplicação.
 
 ```bash
 docker run -d \
@@ -79,7 +99,3 @@ Na página de [status](https://app.localstack.cloud/status) é possível ver o q
 Clique em ***resources*** para acessar os detalhes do mesmo.
 
 > Obs.: Todas as documentações presentes neste repositório estão apontando para o aws cli oficial, gerindo recursos na AWS. Substitua `aws` ou `awslocal` para utilizar o localstack.
-
-## Exemplos
-
-- [DynamoDB](dynamodb/README.md)

@@ -7,7 +7,7 @@ using static System.Console;
 var clientConfig = new AmazonDynamoDBConfig
 {
     RegionEndpoint = RegionEndpoint.USEast1,
-    ServiceURL = "http://localhost:4566"
+    ServiceURL = "http://localhost:4566",
 };
 
 var client = new AmazonDynamoDBClient(clientConfig);
@@ -59,6 +59,7 @@ var insertRequest = new PutItemRequest
 };
 var insertResponse = await client.PutItemAsync(insertRequest); // Insere ou atualiza completamente o documento com a partition key (id) informada
 WriteLine($"Insert response: {insertResponse.HttpStatusCode}");
+return;
 
 // Atualização parcial do objeto
 var updatePartialRequest = new UpdateItemRequest
