@@ -19,13 +19,15 @@ resource "aws_dynamodb_table" "vendas" {
   }
 
   global_secondary_index {
-    name               = "VendasPorClienteIndex"
-    hash_key           = "Cliente.Id"
-    range_key          = "SK"
-    write_capacity     = 1
-    read_capacity      = 1
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["Cliente.Id", "Data", "ValorTotal", "Pagamento.Método"]
+    name            = "VendasPorClienteIndex"
+    hash_key        = "ClienteId"
+    range_key       = "SK"
+    write_capacity  = 1
+    read_capacity   = 1
+    projection_type = "ALL"
+
+    # projection_type    = "INCLUDE"
+    # non_key_attributes = ["Data", "ValorTotal", "Pagamento.Metodo", "Itens"] # Propriedes anihadas não são refletidas
   }
 
   # stream_enabled   = true
@@ -42,7 +44,7 @@ resource "aws_dynamodb_table" "vendas" {
   }
 
   attribute {
-    name = "Cliente.Id"
+    name = "ClienteId"
     type = "S"
   }
 }

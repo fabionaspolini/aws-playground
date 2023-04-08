@@ -12,14 +12,14 @@ aws dynamodb create-table \
     --table-class STANDARD \
     --billing-mode PAY_PER_REQUEST
 
-aws dynamodb put-item --table-name Vendas --item "file://infra/payloads/put-01-header.json"
-aws dynamodb put-item --table-name Vendas --item "file://infra/payloads/put-01-items.json"
-aws dynamodb put-item --table-name Vendas --item "file://infra/payloads/put-02-header.json"
-aws dynamodb put-item --table-name Vendas --item "file://infra/payloads/put-02-items.json"
+aws dynamodb put-item --table-name Vendas --item "file://payloads/put-01-header.json"
+aws dynamodb put-item --table-name Vendas --item "file://payloads/put-01-items.json"
+aws dynamodb put-item --table-name Vendas --item "file://payloads/put-02-header.json"
+aws dynamodb put-item --table-name Vendas --item "file://payloads/put-02-items.json"
 
 aws dynamodb update-item \
     --table-name Venda \
-    --key '{ "Id": { "S": "3c95c725-275c-474a-a068-151f8219f294"}, "AnoMes": { "S": "2023-04" } }' \
+    --key '{ "Id": { "S": "ec8b14d5-b372-47ae-a164-87071cd46e87"}, "AnoMes": { "S": "2023-04" } }' \
     --update-expression "SET #cliente.#nome = :newval" \
     --expression-attribute-names '{"#cliente": "Cliente", "#nome": "Nome"}' \
     --expression-attribute-values '{":newval":{"S":"Beltrano"}}'
@@ -172,6 +172,14 @@ Para garantir o uso free tier em testes simples, desabilite o autoscaling e fixe
         - Se estourar provisionamento por causa de acessos de escrita ao indice, a tabela principal também será limitada (throttled)
     - Pode ser incluído após criar tabela
 
+- Todo campo a ser utilizado como index deve ser top-level attribute (String, Number, or Binary). [AWS Doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html).
+- Pode ser informação a projeção de propriedades
+    - KEYS_ONLY: Somente Primary key
+    - INCLUDE: PK + atribuos informados. Não funciona propriedades aninhadas no formato "subpropriedade.prop", mas é possível incluir toda a subpropriedade.
+    - ALL: Tudo
+- Não existem indices únicos além da Primary key
+- Necessário informar manualmente o nome do indice a ser utilizado na consulta (query)
+
 ## DynamoDB Accelerator (DAX)
 
 Cache em memória do Dynamo.
@@ -243,7 +251,7 @@ Venda
     - Valor total
 - Valor total
 - Pagamento
-    - Método (Boleto, Cartão, Pix)
+    - Metodo (Boleto, Cartão, Pix)
     - Valor
 - ExpireOn
 
@@ -264,3 +272,9 @@ Venda
     - Sorting key: Igual da primary key
 - Criar campo `ExpireOn` para ser utilizado no TTL. Definir com data da venda + 1 ano => Para requisito 4
 - Ao final da modelagem, a base de dados não é totalmente focada na orientação a documentos. Separamos nosso documento em duas linhas pelo fator custo.
+
+
+# Materiais de apoio
+
+- https://www.youtube.com/watch?v=GzyMqh3BBzk&ab_channel=NickChapsas
+- [.NET: Document model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html)
