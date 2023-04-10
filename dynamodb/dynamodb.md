@@ -276,5 +276,5 @@ Venda
 
 # Materiais de apoio
 
-- https://www.youtube.com/watch?v=GzyMqh3BBzk&ab_channel=NickChapsas
+- [Nick Chapsas / Getting started with AWS DynamoDB in .NET](https://www.youtube.com/watch?v=GzyMqh3BBzk&ab_channel=NickChapsas)
 - [.NET: Document model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html)

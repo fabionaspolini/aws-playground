@@ -7,6 +7,8 @@ public static class DocumentExtensions
 {
     public static string Humanize(this Document document, string? baseProperty = null)
     {
+        if (document == null || !document.Any())
+            return string.Empty;
         var text = string.Join(", ", document.OrderBy(x => x.Value switch
         {
             DynamoDBList => 2,
@@ -28,16 +30,16 @@ public static class DocumentExtensions
     public static string Humanize(this AttributeValue value) => value.S ?? value.N;
 
     // Convert datetime to UNIX time
-    public static string ToUnixTime(this DateTime dateTime)
+    public static long ToUnixTime(this DateTime dateTime)
     {
         var dto = new DateTimeOffset(dateTime.ToUniversalTime());
-        return dto.ToUnixTimeSeconds().ToString();
+        return dto.ToUnixTimeSeconds();
     }
 
     // Convert datetime to UNIX time including miliseconds
-    public static string ToUnixTimeMilliSeconds(this DateTime dateTime)
+    public static long ToUnixTimeMilliSeconds(this DateTime dateTime)
     {
         var dto = new DateTimeOffset(dateTime.ToUniversalTime());
-        return dto.ToUnixTimeMilliseconds().ToString();
+        return dto.ToUnixTimeMilliseconds();
     }
 }

@@ -1,6 +1,6 @@
 {
     "Id": { "S": "ec8b14d5-b372-47ae-a164-87071cd46e87" },
-    "SK": { "S": "header" },
+    "SK": { "S": "cabeçalho" },
     "ExpireOn": { "N": "4079288778" },
     "Data": { "S": "2023-04-03T00:43:00.000Z" },
     "ClienteId": { "S": "3e3ab209-48c4-47cd-a1c9-de34e4a04b8b" },
