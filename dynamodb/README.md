@@ -278,3 +278,5 @@ Venda
 
 - [Nick Chapsas / Getting started with AWS DynamoDB in .NET](https://www.youtube.com/watch?v=GzyMqh3BBzk&ab_channel=NickChapsas)
 - [.NET: Document model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html)
+- [PocoDynamo](https://github.com/ServiceStack/PocoDynamo): ORM for .NET
+- [PocoDynamo post](https://dev.to/gsaadeh/a-better-way-to-work-with-aws-dynamodb-and-net-3fop)

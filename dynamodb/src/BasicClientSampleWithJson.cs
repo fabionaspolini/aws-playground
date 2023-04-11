@@ -20,46 +20,6 @@ public class BasicClientSampleWithJson
         _client = client;
     }
 
-    public async Task<TData?> GetItemAsync<TData>(Guid id, string sk)
-    {
-        Write($"{ClassName}.GetItemAsync(Id: {id}, SK: {sk})...");
-        try
-        {
-            var request = new GetItemRequest
-            {
-                TableName = "Vendas",
-                Key = new Dictionary<string, AttributeValue>
-            {
-                { "Id", new(id.ToString()) },
-                { "SK", new(sk) },
-            }
-            };
-            var response = await _client.GetItemAsync(request);
-            // if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
-            //     throw new AmazonDynamoDBException("GetItemAsync exception.");
-
-            if (response.Item.Count == 0)
-                return default;
-
-            var itemAsDocument = Document.FromAttributeMap(response.Item);
-            var item = JsonSerializer.Deserialize<TData>(itemAsDocument.ToJson());
-            return item;
-        }
-        finally
-        {
-            WriteLine("OK.");
-        }
-    }
-
-    public async Task GetItemAndPrintAsync(Guid id)
-    {
-        var venda = (await GetItemAsync<Venda>(id, "cabeçalho"))!;
-        var itens = (await GetItemAsync<VendaItemRoot>(id, "itens"))!;
-
-        WriteLine($"{ClassName}.GetItemAndPrintAsync(id: {id})");
-        WriteLine($"ClienteId: {venda.ClienteId}, Cliente.Nome: {venda.Cliente.Nome}, ValorTotal: {venda.ValorTotal}, Itens: {itens.Itens.Length}");
-    }
-
     public async Task PutItemAsync(string table, object entity)
     {
         Write($"{ClassName}.PutItemAsync(table: {table}, entity: {entity.GetType().Name})...");
@@ -121,34 +81,44 @@ public class BasicClientSampleWithJson
         WriteLine($"Venda inserida");
         PrintLine();
     }
+
+    public async Task<TData?> GetItemAsync<TData>(Guid id, string sk)
+    {
+        Write($"{ClassName}.GetItemAsync(Id: {id}, SK: {sk})...");
+        try
+        {
+            var request = new GetItemRequest
+            {
+                TableName = "Vendas",
+                Key = new Dictionary<string, AttributeValue>
+            {
+                { "Id", new(id.ToString()) },
+                { "SK", new(sk) },
+            }
+            };
+            var response = await _client.GetItemAsync(request);
+            // if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
+            //     throw new AmazonDynamoDBException("GetItemAsync exception.");
+
+            if (response.Item.Count == 0)
+                return default;
+
+            var itemAsDocument = Document.FromAttributeMap(response.Item);
+            var item = JsonSerializer.Deserialize<TData>(itemAsDocument.ToJson());
+            return item;
+        }
+        finally
+        {
+            WriteLine("OK.");
+        }
+    }
+
+    public async Task GetItemAndPrintAsync(Guid id)
+    {
+        var venda = (await GetItemAsync<Venda>(id, "cabeçalho"))!;
+        var itens = (await GetItemAsync<VendaItemRoot>(id, "itens"))!;
+
+        WriteLine($"{ClassName}.GetItemAndPrintAsync(id: {id})");
+        WriteLine($"ClienteId: {venda.ClienteId}, Cliente.Nome: {venda.Cliente.Nome}, ValorTotal: {venda.ValorTotal}, Itens: {itens.Itens.Length}");
+    }
 }
-
-public record class Venda(
-    Guid Id,
-    string SK,
-    long ExpireOn,
-    DateTime Data,
-    Cliente Cliente,
-    decimal ValorTotal,
-    Pagamento Pagamento)
-{
-    public Guid? ClienteId => Cliente?.Id;
-}
-
-public record class Cliente(Guid Id, string Nome);
-
-public record class Pagamento(string Metodo, decimal Valor);
-
-public record class VendaItem(
-    Guid Id,
-    string Nome,
-    decimal ValorUnitario,
-    decimal Quantidade,
-    decimal ValorTotal);
-
-public record class VendaItemRoot(
-    Guid Id,
-    string SK,
-    long ExpireOn,
-    Guid ClienteId,
-    VendaItem[] Itens);

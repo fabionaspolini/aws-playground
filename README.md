@@ -59,7 +59,7 @@ terraform apply -auto-approve -destroy
 
 Lista de exemplos:
 
-- [DynamoDB](dynamodb/dynamodb.md)
+- [DynamoDB](dynamodb/README.md)
 
 ## Alternativa com Localstack
 

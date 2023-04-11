@@ -1,17 +1,38 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamoDbPlayground", "dynamodb\src\DynamoDbPlayground.csproj", "{BB1F48E7-E601-4068-A2AB-9E555C8D6F75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamoDbPlayground", "dynamodb\src\DynamoDbPlayground.csproj", "{BB1F48E7-E601-4068-A2AB-9E555C8D6F75}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamoDb", "DynamoDb", "{3A1A9926-E47C-49B7-A373-77AD9F8267E7}"
+	ProjectSection(SolutionItems) = preProject
+		dynamodb\README.md = dynamodb\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{F899533F-4062-45B9-AED2-876CFF42C9C5}"
+	ProjectSection(SolutionItems) = preProject
+		dynamodb\infra\config.tf = dynamodb\infra\config.tf
+		dynamodb\infra\main.tf = dynamodb\infra\main.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "payloads", "payloads", "{8B576A82-565E-42EB-B859-2B0226EC32D1}"
+	ProjectSection(SolutionItems) = preProject
+		dynamodb\payloads\put-01-header.json = dynamodb\payloads\put-01-header.json
+		dynamodb\payloads\put-01-items.json = dynamodb\payloads\put-01-items.json
+		dynamodb\payloads\put-02-header.json = dynamodb\payloads\put-02-header.json
+		dynamodb\payloads\put-02-items.json = dynamodb\payloads\put-02-items.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3C66DD4-AF7C-477E-BB7C-6A4A6D254E85}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BB1F48E7-E601-4068-A2AB-9E555C8D6F75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -19,6 +40,15 @@ Global
 		{BB1F48E7-E601-4068-A2AB-9E555C8D6F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB1F48E7-E601-4068-A2AB-9E555C8D6F75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{BB1F48E7-E601-4068-A2AB-9E555C8D6F75} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
+		{F899533F-4062-45B9-AED2-876CFF42C9C5} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
+		{8B576A82-565E-42EB-B859-2B0226EC32D1} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {277EE416-CD21-45A4-98BE-8C431904FB59}
 	EndGlobalSection
 EndGlobal
