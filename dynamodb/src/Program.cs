@@ -1,5 +1,6 @@
 using Amazon;
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using AwsPlayground;
 using ServiceStack.Aws.DynamoDb;
 using static ServiceStack.Diagnostics.Events;
@@ -48,19 +49,35 @@ var client = new AmazonDynamoDBClient(clientConfig);
 //await basicClientSampleWithJson.GetItemAndPrintAsync(jsonVendaId);
 
 // ===== Exemplos utilizando abstração PocoDynamo =====
-var pocoDynamoVendaId = Guid.Parse("932b69ff-5ae6-4bc2-8207-93dc137ee917");
-var pocoDynamoClienteId = Guid.Parse("de5562e9-3464-48e8-bf40-377e68df9b22");
-var pocoDynamoDb = new PocoDynamo(client);
-pocoDynamoDb.RegisterTable<Venda>();
-pocoDynamoDb.RegisterTable<VendaItemRoot>();
-var pocoDynamoClientSample = new PocoDynamoSample(pocoDynamoDb);
-await pocoDynamoClientSample.PutItemAndPrintAsync(pocoDynamoVendaId, pocoDynamoClienteId);
-await pocoDynamoClientSample.GetItemAndPrintAsync(pocoDynamoVendaId);
+//var pocoDynamoVendaId = Guid.Parse("932b69ff-5ae6-4bc2-8207-93dc137ee917");
+//var pocoDynamoClienteId = Guid.Parse("de5562e9-3464-48e8-bf40-377e68df9b22");
+//var pocoDynamoDb = new PocoDynamo(client);
+//pocoDynamoDb.RegisterTable<Venda>();
+//pocoDynamoDb.RegisterTable<VendaItemRoot>();
+//var pocoDynamoClientSample = new PocoDynamoSample(pocoDynamoDb);
+//await pocoDynamoClientSample.PutItemAndPrintAsync(pocoDynamoVendaId, pocoDynamoClienteId);
+//await pocoDynamoClientSample.GetItemAndPrintAsync(pocoDynamoVendaId);
+//await pocoDynamoClientSample.ScanAsync();
+//await pocoDynamoClientSample.ScanAsync(valorTotalMaiorIgual: 400);
+//await pocoDynamoClientSample.ScanAsync(valorTotalMenorIgual: 400);
+//await pocoDynamoClientSample.ScanAsync(nomeClienteContém: "lano");
+//await pocoDynamoClientSample.ScanAsync(nomeClienteContém: "lano", valorTotalMaiorIgual: 400);
+//await pocoDynamoClientSample.ScanAsync(nomeClienteContém: "aaaaa");
+
+// ===== Exemplos utilizando abstração do SDK AWS: .NET Object Persistence Model =====
+var persistenceModelVendaId = Guid.Parse("06e860f4-ddb7-4b17-8b37-64460ae6d1f5");
+var persistenceModelClienteId = Guid.Parse("f5bd14fb-264c-4ec3-a633-28abb5528732");
+var persistenceModelContext = new DynamoDBContext(client);
+
+var pocoDynamoClientSample = new ObjectPersistenceModelSample(persistenceModelContext);
+await pocoDynamoClientSample.PutItemAndPrintAsync(persistenceModelVendaId, persistenceModelClienteId);
+await pocoDynamoClientSample.GetItemAndPrintAsync(persistenceModelVendaId);
 await pocoDynamoClientSample.ScanAsync();
 await pocoDynamoClientSample.ScanAsync(valorTotalMaiorIgual: 400);
 await pocoDynamoClientSample.ScanAsync(valorTotalMenorIgual: 400);
-await pocoDynamoClientSample.ScanAsync(nomeClienteContém: "lano");
+/*await pocoDynamoClientSample.ScanAsync(nomeClienteContém: "lano"); // Não localiza campo aninhado para filtrar
 await pocoDynamoClientSample.ScanAsync(nomeClienteContém: "lano", valorTotalMaiorIgual: 400);
-await pocoDynamoClientSample.ScanAsync(nomeClienteContém: "aaaaa");
+await pocoDynamoClientSample.ScanAsync(nomeClienteContém: "aaaaa");*/
 
 WriteLine("Fim");
+

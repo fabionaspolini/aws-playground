@@ -280,3 +280,6 @@ Venda
 - [.NET: Document model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html)
 - [PocoDynamo](https://github.com/ServiceStack/PocoDynamo): ORM for .NET
 - [PocoDynamo post](https://dev.to/gsaadeh/a-better-way-to-work-with-aws-dynamodb-and-net-3fop)
+
+- https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKHighLevel.html
+- https://github.com/marcodafonseca/Dynamo.ORM
