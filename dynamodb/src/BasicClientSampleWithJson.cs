@@ -8,7 +8,7 @@ using static AwsPlayground.Extensions;
 namespace AwsPlayground;
 
 /// <summary>
-/// Exemplos utilizando o SDK AWS + serialização como json
+/// Exemplos utilizando o SDK AWS + serialização como json nativo
 /// </summary>
 public class BasicClientSampleWithJson
 {
@@ -35,8 +35,8 @@ public class BasicClientSampleWithJson
             }
             };
             var response = await _client.GetItemAsync(request);
-            if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
-                throw new AmazonDynamoDBException("GetItemAsync exception.");
+            // if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
+            //     throw new AmazonDynamoDBException("GetItemAsync exception.");
 
             if (response.Item.Count == 0)
                 return default;
@@ -73,8 +73,8 @@ public class BasicClientSampleWithJson
             Item = itemAsAttributes
         };
         var response = await _client.PutItemAsync(putItemRequest);
-        if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
-            throw new AmazonDynamoDBException("PutItemAsync exception.");
+        // if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
+        //     throw new AmazonDynamoDBException("PutItemAsync exception.");
         WriteLine("OK.");
     }
 

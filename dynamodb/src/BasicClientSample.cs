@@ -1,4 +1,5 @@
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
 using static System.Console;
 using static AwsPlayground.Extensions;
@@ -6,10 +7,11 @@ using static AwsPlayground.Extensions;
 namespace AwsPlayground;
 
 /// <summary>
-// Exemplos utilizando o SDK AWS se nenhuma abstração
+// Exemplos utilizando o SDK AWS sem nenhuma abstração
 /// </summary>
 public class BasicClientSample
 {
+    private const string ClassName = nameof(BasicClientSample);
     private readonly AmazonDynamoDBClient _client;
 
     public BasicClientSample(AmazonDynamoDBClient client)
@@ -26,67 +28,9 @@ public class BasicClientSample
         PrintLine();
     }
 
-    public async Task GetItemAsync(Guid id, string sk)
-    {
-        WriteLine($"BasicClientSample.GetItemAsync(Id: {id}, SK: {sk})");
-        var request = new GetItemRequest
-        {
-            TableName = "Vendas",
-            Key = new Dictionary<string, AttributeValue>
-            {
-                { "Id", new(id.ToString()) },
-                { "SK", new(sk) },
-            }
-        };
-        var response = await _client.GetItemAsync(request);
-        if (response.Item.Count == 0)
-        {
-            Write($"Documento Id: {id} e sk: {sk} não encontrado.");
-            PrintLine();
-            return;
-        }
-
-        // var itemAsDocument = Document.FromAttributeMap(response.Item);
-        // var item = JsonSerializer.Deserialize<DTO>(itemAsDocument);
-
-        WriteLine(response.Item.Humanize());
-        PrintLine();
-    }
-
-    public async Task QueryAsync(string sk, Guid? id = null, Guid? clienteId = null)
-    {
-        WriteLine($"BasicClientSample.ConsultarItemAsync(Id: {id}, ClienteId: {clienteId}, SK: {sk})");
-        var request = new QueryRequest
-        {
-            TableName = "Vendas",
-            IndexName = id.HasValue ? null : "VendasPorClienteIndex",
-            KeyConditionExpression = id.HasValue
-                ? "Id = :id and SK = :sk"
-                : "ClienteId = :clienteId and SK = :sk"
-        };
-        if (id.HasValue)
-            request.ExpressionAttributeValues.Add(":id", new(id.ToString()));
-        if (clienteId.HasValue)
-            request.ExpressionAttributeValues.Add(":clienteId", new(clienteId.ToString()));
-        request.ExpressionAttributeValues.Add(":sk", new(sk.ToString()));
-
-        var response = await _client.QueryAsync(request);
-        if (response.Items.Count == 0)
-        {
-            Write("Nenhum item encontrado");
-            PrintLine();
-            return;
-        }
-        WriteLine($"Items: {response.Items.Count}");
-
-        response.Items.ForEach(x => WriteLine(x.Humanize()));
-
-        PrintLine();
-    }
-
     public async Task PutItemAsync(Guid vendaId, Guid clienteId)
     {
-        WriteLine($"BasicClientSample.PutItemAsync(vendaId: {vendaId}, clienteId: {clienteId})");
+        WriteLine($"{ClassName}.PutItemAsync(vendaId: {vendaId}, clienteId: {clienteId})");
         var requestHeader = new PutItemRequest
         {
             TableName = "Vendas",
@@ -152,7 +96,7 @@ public class BasicClientSample
 
     public async Task UpdateItemAsync(Guid vendaId)
     {
-        WriteLine($"BasicClientSample.UpdateItemAsync (vendaId: {vendaId})");
+        WriteLine($"{ClassName}.UpdateItemAsync(vendaId: {vendaId})");
 
         var request = new UpdateItemRequest
         {
@@ -171,6 +115,108 @@ public class BasicClientSample
         _ = await _client.UpdateItemAsync(request);
 
         WriteLine($"Item atualizado");
+        PrintLine();
+    }
+
+    public async Task GetItemAsync(Guid id, string sk)
+    {
+        WriteLine($"{ClassName}.GetItemAsync(Id: {id}, SK: {sk})");
+        var request = new GetItemRequest
+        {
+            TableName = "Vendas",
+            Key = new Dictionary<string, AttributeValue>
+            {
+                { "Id", new(id.ToString()) },
+                { "SK", new(sk) },
+            }
+        };
+        var response = await _client.GetItemAsync(request);
+        // if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
+        //     throw new AmazonDynamoDBException("GetItemAsync exception.");
+        if (response.Item.Count == 0)
+        {
+            WriteLine($"Documento Id: {id} e sk: {sk} não encontrado.");
+            PrintLine();
+            return;
+        }
+
+        WriteLine(response.Item.Humanize());
+        PrintLine();
+    }
+
+    public async Task QueryAsync(string sk, Guid? id = null, Guid? clienteId = null)
+    {
+        WriteLine($"{ClassName}.QueryAsync(Id: {id}, ClienteId: {clienteId}, SK: {sk})");
+        var request = new QueryRequest
+        {
+            TableName = "Vendas",
+            IndexName = id.HasValue ? null : "VendasPorClienteIndex",
+            KeyConditionExpression = id.HasValue
+                ? "Id = :id and SK = :sk"
+                : "ClienteId = :clienteId and SK = :sk"
+        };
+        if (id.HasValue)
+            request.ExpressionAttributeValues.Add(":id", new(id.ToString()));
+        if (clienteId.HasValue)
+            request.ExpressionAttributeValues.Add(":clienteId", new(clienteId.ToString()));
+        request.ExpressionAttributeValues.Add(":sk", new(sk.ToString()));
+
+        var response = await _client.QueryAsync(request);
+        if (response.Items.Count == 0)
+        {
+            Write("Nenhum item encontrado");
+            PrintLine();
+            return;
+        }
+        WriteLine($"Items: {response.Items.Count}");
+
+        response.Items.ForEach(x => WriteLine(x.Humanize()));
+
+        PrintLine();
+    }
+
+    /// <summary>
+    /// Operação lenta por não ser direcionada a uma partition key definida
+    /// </summary>
+    /// <param name="valorTotalMaiorIgual"></param>
+    /// <param name="valorTotalMenorIgual"></param>
+    /// <returns></returns>
+    public async Task ScanAsync(
+        decimal? valorTotalMaiorIgual = null,
+        decimal? valorTotalMenorIgual = null,
+        string? nomeClienteContém = null)
+    {
+        WriteLine($"{ClassName}.ScanAsync(valorTotalMaiorIgual: {valorTotalMaiorIgual}, valorTotalMenorIgual: {valorTotalMenorIgual}, nomeClienteContém: {nomeClienteContém})");
+        var request = new ScanRequest
+        {
+            TableName = "Vendas",
+        };
+
+        if (valorTotalMaiorIgual.HasValue)
+            request.ScanFilter.Add("ValorTotal", new Condition()
+            {
+                ComparisonOperator = ComparisonOperator.GE,
+                AttributeValueList = new() { new() { N = valorTotalMaiorIgual.Value.ToString() } }
+            });
+
+        if (valorTotalMenorIgual.HasValue)
+            request.ScanFilter.Add("ValorTotal", new Condition()
+            {
+                ComparisonOperator = ComparisonOperator.LE,
+                AttributeValueList = new() { new() { N = valorTotalMenorIgual.Value.ToString() } },
+            });
+
+        if (!string.IsNullOrWhiteSpace(nomeClienteContém))
+        {
+            // Não é permitido usar FitlerExpression e ScanFilter na mesma operação
+            request.FilterExpression = $"contains(Cliente.Nome, :nomeContains)";
+            request.ExpressionAttributeValues.Add(":nomeContains", new(nomeClienteContém));
+        }
+
+
+        var response = await _client.ScanAsync(request);
+        WriteLine($"Items: {response.Items.Count}");
+        response.Items.ForEach(x => WriteLine(x.Humanize()));
         PrintLine();
     }
 
