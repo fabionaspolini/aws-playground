@@ -106,6 +106,9 @@ dotnet lambda deploy-function --function-name simple-function-context-details --
 dotnet lambda delete-function --function-name simple-function
 dotnet lambda delete-function --function-name simple-function-context-details
 
+
+dotnet lambda deploy-function --function-name simple-aot-function --function-role simple-aot-function-lambda --tracing-mode Active
+
 # Executar
 aws lambda invoke --function-name simple-function-context-details out \
     --log-type Tail \
@@ -119,6 +122,8 @@ dotnet publish
 
 ```bash
 dotnet publish -c Release -o publish --framework net6.0 -r linux-musl-x64 -p PublishReadyToRun=true --no-self-contained
+
+dotnet publish -c Release -o publish --framework net7.0 -r linux-musl-x64
 ```
 
 

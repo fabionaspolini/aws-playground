@@ -1,16 +1,30 @@
 {
     "version": "0.2.0",
     "configurations": [
+        // DynamoDB
         {
             "name": "DynamoDb",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-DynamoDb",
+            "preLaunchTask": "build-dynamoDb",
             "program": "${workspaceFolder}/services/dynamodb/src/bin/Debug/net7.0/DynamoDbPlayground.dll",
             "args": [],
             "cwd": "${workspaceFolder}/services/dynamodb/src",
             "console": "internalConsole",
             "stopAtEntry": false
+        },
+        // Lambda
+        {
+            "name": "Lambda / simple-aot-function",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-simple-aot-function",
+            "program": "dotnet-lambda-test-tool-7.0.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/lambda/src/simple-aot-function",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "name": "Lambda / simple-function",
@@ -35,6 +49,6 @@
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
-        }
+        },
     ]
 }

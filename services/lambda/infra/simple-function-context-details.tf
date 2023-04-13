@@ -61,5 +61,5 @@ resource "aws_lambda_function" "simple-function-context-details" {
 
 resource "aws_cloudwatch_log_group" "simple-function-context-details" {
   name              = "/aws/lambda/simple-function-context-details"
-  retention_in_days = 5
+  retention_in_days = 1
 }

@@ -1,8 +1,9 @@
 {
     "version": "2.0.0",
     "tasks": [
+        // Geral
         {
-            "label": "build-Solution",
+            "label": "build-solution",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -17,8 +18,9 @@
                 "isDefault": true
             }
         },
+        // DynamoDb
         {
-            "label": "build-DynamoDb",
+            "label": "build-dynamoDb",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -29,7 +31,39 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // lambda / simple-function
+        // Lambda / simple-aot-function
+        {
+            "label": "build-lambda-simple-aot-function",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/lambda/src/simple-aot-function/SimpleAotFunction.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "deploy-lambda-simple-aot-function",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "lambda",
+                "deploy-function",
+                "--function-name",
+                "simple-aot-function",
+                "--function-role",
+                "simple-aot-function-lambda",
+                "--tracing-mode",
+                "Active"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-aot-function"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        // Lambda / simple-function
         {
             "label": "build-lambda-simple-function",
             "command": "dotnet",
@@ -61,7 +95,7 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // lambda / simple-function-context-details
+        // Lambda / simple-function-context-details
         {
             "label": "build-lambda-simple-function-context-details",
             "command": "dotnet",
