@@ -29,21 +29,21 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // lambda 01
+        // lambda / simple-function
         {
-            "label": "build-lambda-01-simple-function",
+            "label": "build-lambda-simple-function",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/01-simple-function/SimpleFunction.csproj",
+                "${workspaceFolder}/services/lambda/src/simple-function/SimpleFunction.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "deploy-lambda-01-simple-function",
+            "label": "deploy-lambda-simple-function",
             "command": "dotnet",
             "type": "shell",
             "args": [
@@ -57,25 +57,25 @@
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/services/lambda/src/01-simple-function"
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-function"
             },
             "problemMatcher": "$msCompile"
         },
-        // lambda 02
+        // lambda / simple-function-context-details
         {
-            "label": "build-lambda-02-simple-function-context-details",
+            "label": "build-lambda-simple-function-context-details",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/02-simple-function-context-details/SimpleFunctionContextDetails.csproj",
+                "${workspaceFolder}/services/lambda/src/simple-function-context-details/SimpleFunctionContextDetails.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "deploy-lambda-02-simple-function-context-details",
+            "label": "deploy-lambda-simple-function-context-details",
             "command": "dotnet",
             "type": "shell",
             "args": [
@@ -89,7 +89,7 @@
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/services/lambda/src/02-simple-function-context-details"
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-context-details"
             },
             "problemMatcher": "$msCompile"
         }

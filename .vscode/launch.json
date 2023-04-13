@@ -13,25 +13,25 @@
             "stopAtEntry": false
         },
         {
-            "name": "Lambda / 01-simple-function",
+            "name": "Lambda / simple-function",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-lambda-01-simple-function",
+            "preLaunchTask": "build-lambda-simple-function",
             "program": "dotnet-lambda-test-tool-6.0.exe",
             "args": [],
-            "cwd": "${workspaceFolder}/services/lambda/src/01-simple-function",
+            "cwd": "${workspaceFolder}/services/lambda/src/simple-function",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
-            "name": "Lambda / 02-simple-function-context-details",
+            "name": "Lambda / simple-function-context-details",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-lambda-02-simple-function-context-details",
+            "preLaunchTask": "build-lambda-simple-function-context-details",
             "program": "dotnet-lambda-test-tool-6.0.exe",
             "args": [],
-            "cwd": "${workspaceFolder}/services/lambda/src/02-simple-function-context-details",
+            "cwd": "${workspaceFolder}/services/lambda/src/simple-function-context-details",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"

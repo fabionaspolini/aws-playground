@@ -2,6 +2,10 @@ variable "lambda_function_name" {
   default = "simple-function"
 }
 
+variable "publish_zip_file" {
+  default = "./temp/simple-function.zip"
+}
+
 data "aws_iam_policy" "AWSXRayDaemonWriteAccess" {
   name = "AWSXRayDaemonWriteAccess"
 }
@@ -32,12 +36,12 @@ resource "aws_iam_role" "lambda" {
 
 data "archive_file" "publish" {
   type        = "zip"
-  source_dir  = "../src/01-simple-function/publish"
-  output_path = "./temp/publish.zip"
+  source_dir  = "../src/simple-function/publish"
+  output_path = var.publish_zip_file
 }
 
 resource "aws_lambda_function" "simple-function" {
-  filename      = "./temp/publish.zip"
+  filename      = var.publish_zip_file
   function_name = var.lambda_function_name
   role          = aws_iam_role.lambda.arn
   handler       = "SimpleFunction::SimpleFunction.Function::FunctionHandler"
