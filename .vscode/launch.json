@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-DynamoDb",
-            "program": "${workspaceFolder}/dynamodb/src/bin/Debug/net7.0/DynamoDbPlayground.dll",
+            "program": "${workspaceFolder}/services/dynamodb/src/bin/Debug/net7.0/DynamoDbPlayground.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/dynamodb/src",
+            "cwd": "${workspaceFolder}/services/dynamodb/src",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -16,10 +16,10 @@
             "name": "Lambda / 01-simple-function",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-lambda-02-simple-function",
+            "preLaunchTask": "build-lambda-01-simple-function",
             "program": "dotnet-lambda-test-tool-6.0.exe",
             "args": [],
-            "cwd": "${workspaceFolder}/lambda/src/02-simple-function",
+            "cwd": "${workspaceFolder}/services/lambda/src/01-simple-function",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
@@ -31,7 +31,7 @@
             "preLaunchTask": "build-lambda-02-simple-function-context-details",
             "program": "dotnet-lambda-test-tool-6.0.exe",
             "args": [],
-            "cwd": "${workspaceFolder}/lambda/src/02-simple-function-context-details",
+            "cwd": "${workspaceFolder}/services/lambda/src/02-simple-function-context-details",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"

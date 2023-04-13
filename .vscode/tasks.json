@@ -23,7 +23,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/dynamodb/src/DynamoDbPlayground.csproj",
+                "${workspaceFolder}/services/dynamodb/src/DynamoDbPlayground.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -36,7 +36,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/lambda/src/01-simple-function/SimpleFunction.csproj",
+                "${workspaceFolder}/services/lambda/src/01-simple-function/SimpleFunction.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -57,7 +57,7 @@
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/lambda/src/01-simple-function"
+                "cwd": "${workspaceFolder}/services/lambda/src/01-simple-function"
             },
             "problemMatcher": "$msCompile"
         },
@@ -68,7 +68,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/lambda/src/02-simple-function-context-details/SimpleFunctionContextDetails.csproj",
+                "${workspaceFolder}/services/lambda/src/02-simple-function-context-details/SimpleFunctionContextDetails.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -89,7 +89,7 @@
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/lambda/src/02-simple-function-context-details"
+                "cwd": "${workspaceFolder}/services/lambda/src/02-simple-function-context-details"
             },
             "problemMatcher": "$msCompile"
         }
