@@ -85,6 +85,13 @@ aws lambda invoke --function-name <function-name> out \
     --query 'LogResult' \
     --output text |  base64 -d
 ```
+### Limpar ambiente
+
+Recursos para apagar em caso de testes manuais:
+
+- Lambda function
+- Cloud watch / Log group
+- IAM / Role
 
 ## Notas
 
@@ -94,6 +101,8 @@ Lambda deploy
 # Deploy
 dotnet lambda deploy-function --function-name simple-function --function-role simple-function-lamda --tracing-mode Active
 dotnet lambda deploy-function --function-name simple-function-context-details --function-role simple-function-context-details-lamda --tracing-mode Active
+dotnet lambda delete-function --function-name simple-function
+dotnet lambda delete-function --function-name simple-function-context-details
 
 # Executar
 aws lambda invoke --function-name simple-function-context-details out \

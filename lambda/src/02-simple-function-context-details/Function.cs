@@ -30,8 +30,8 @@ public class Function
     /// <returns></returns>
     public SampleResponse FunctionHandler(SampleRequest request, ILambdaContext context)
     {
-        AWSXRayRecorder.Instance.AddAnnotation("minha annotation", "my value");
-        AWSXRayRecorder.Instance.AddMetadata("meu metadata", "my value");
+        AWSXRayRecorder.Instance.AddAnnotation("minha annotation", "my value"); // Não aparece no console
+        AWSXRayRecorder.Instance.AddMetadata("meu metadata", "my value"); // Não aparece no console
 
         context.Logger.LogInformation("Exemplo simples de uma função lambda que converter os caracteres para maiúsculo.");
         context.Logger.LogInformation($"Input: {JsonSerializer.Serialize(request, SampleJsonSerializerContext.Default.SampleRequest)}");
@@ -60,16 +60,26 @@ public class Function
             context.Logger.LogInformation($">>>>> ENVIRONMENT VARIABLES <<<<< ");
             foreach (var (key, value) in environments)
                 context.Logger.LogInformation($"{key}: {value}");
+
+            AWSXRayRecorder.Instance.AddAnnotation("minha annotation env", "my value"); // Não aparece no console
+            AWSXRayRecorder.Instance.AddMetadata("meu metadata env", "my value"); // Aparece no subsegment relacionado as vaira´veis de ambiente
         }
         finally
         {
             AWSXRayRecorder.Instance.EndSubsegment();
         }
 
+        if (request.Sleep.HasValue)
+        {
+            AWSXRayRecorder.Instance.BeginSubsegment("sleep");
+            Thread.Sleep(request.Sleep.Value);
+            AWSXRayRecorder.Instance.EndSubsegment();
+        }
+
         context.Logger.LogInformation("====== FIM ======");
         return new SampleResponse
         {
-            Text = request?.TextToUpper?.ToUpper()
+            Text = request.TextToUpper?.ToUpper()
         };
     }
 }
@@ -78,6 +88,7 @@ public class SampleRequest
 {
     public string? TextToUpper { get; set; }
     public string? BuscarCep { get; set; }
+    public int? Sleep { get; set; }
 }
 
 public class SampleResponse
