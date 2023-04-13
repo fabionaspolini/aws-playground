@@ -1,8 +1,8 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamoDbPlayground", "dynamodb\src\DynamoDbPlayground.csproj", "{BB1F48E7-E601-4068-A2AB-9E555C8D6F75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamoDbPlayground", "services\dynamodb\src\DynamoDbPlayground.csproj", "{BB1F48E7-E601-4068-A2AB-9E555C8D6F75}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamoDb", "DynamoDb", "{3A1A9926-E47C-49B7-A373-77AD9F8267E7}"
 	ProjectSection(SolutionItems) = preProject
@@ -33,9 +33,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lambda", "Lambda", "{7E4306
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C1F90A39-C011-4858-B203-E2B518ABE367}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunction", "lambda\src\01-simple-function\SimpleFunction.csproj", "{398DE916-32E5-43E0-84E3-65CC78319AFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunction", "services\lambda\src\01-simple-function\SimpleFunction.csproj", "{398DE916-32E5-43E0-84E3-65CC78319AFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionContextDetails", "lambda\src\02-simple-function-context-details\SimpleFunctionContextDetails.csproj", "{BCDF0980-42F4-44EE-A919-AE5D78376C8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionContextDetails", "services\lambda\src\02-simple-function-context-details\SimpleFunctionContextDetails.csproj", "{BCDF0980-42F4-44EE-A919-AE5D78376C8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8ADB1E8A-70C9-4182-9CA6-5D34038C403E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +62,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{7E430694-CAC8-4E7B-AEE9-20BD99427806} = {8ADB1E8A-70C9-4182-9CA6-5D34038C403E}
+		{3A1A9926-E47C-49B7-A373-77AD9F8267E7} = {8ADB1E8A-70C9-4182-9CA6-5D34038C403E}
 		{BB1F48E7-E601-4068-A2AB-9E555C8D6F75} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
 		{F899533F-4062-45B9-AED2-876CFF42C9C5} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
 		{8B576A82-565E-42EB-B859-2B0226EC32D1} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
