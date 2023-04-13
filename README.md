@@ -52,7 +52,7 @@ Cada subpasta possui a estrutura `infra` com o código terraform e a pasta `src`
 | -- aws-service-name
       │── [+] infra ⫸ Código terraform para gerenciamento da infra
       │── [+] src   ⫸ Código C# utilizando o recurso
-      │── README.md ⫸ Instruções e informações específicas do serviço
+      └── README.md ⫸ Instruções e informações específicas do serviço
 ```
 
 Para provisionar os recursos na AWS, acesso a pasta infra pelo console e digite:
