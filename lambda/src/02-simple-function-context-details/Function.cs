@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
+using Amazon.Lambda.Serialization.SystemTextJson;
+using Amazon.XRay.Recorder.Core;
+using Amazon.XRay.Recorder.Handlers.AwsSdk;
+using SimpleFunctionContextDetails;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
+// [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))] // Default com serealização utilizando reflection
+[assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<SampleJsonSerializerContext>))] // Source generator para não usar reflection na serealização dos objetos e melhorar performance
 
 namespace SimpleFunctionContextDetails;
 
@@ -11,34 +17,83 @@ namespace SimpleFunctionContextDetails;
 
 public class Function
 {
+    public Function()
+    {
+        AWSSDKHandler.RegisterXRayForAllServices();
+    }
+
     /// <summary>
     /// A simple function that takes a string and does a ToUpper
     /// </summary>
-    /// <param name="input"></param>
+    /// <param name="request"></param>
     /// <param name="context"></param>
     /// <returns></returns>
-    public string FunctionHandler(string input, ILambdaContext context)
+    public SampleResponse FunctionHandler(SampleRequest request, ILambdaContext context)
     {
+        AWSXRayRecorder.Instance.AddAnnotation("minha annotation", "my value");
+        AWSXRayRecorder.Instance.AddMetadata("meu metadata", "my value");
+
         context.Logger.LogInformation("Exemplo simples de uma função lambda que converter os caracteres para maiúsculo.");
-        context.Logger.LogInformation($"Input: {input}");
+        context.Logger.LogInformation($"Input: {JsonSerializer.Serialize(request, SampleJsonSerializerContext.Default.SampleRequest)}");
         context.Logger.LogInformation($">>>>> CONTEXT DATA <<<<<");
 
         // Exemplo simples para imprimir todas as variáveis de contexto. Na prática é ruim pois usa reflection
-        var properties = context.GetType().GetProperties().ToDictionary(x => x.Name, x => x.GetValue(context));
-        foreach (var (key, value) in properties)
-            context.Logger.LogInformation($"{key}: {value}");
-        context.Logger.LogInformation($"context.Identity.IdentityId: {context.Identity?.IdentityId}");
+        AWSXRayRecorder.Instance.BeginSubsegment("Iniciando log de informações do contexto");
+        try
+        {
+            var properties = context.GetType().GetProperties().ToDictionary(x => x.Name, x => x.GetValue(context));
+            foreach (var (key, value) in properties)
+                context.Logger.LogInformation($"{key}: {value}");
+            context.Logger.LogInformation($"context.Identity.IdentityId: {context.Identity?.IdentityId}");
+        }
+        finally
+        {
+            AWSXRayRecorder.Instance.EndSubsegment();
+        }
 
-        var environments = Environment.GetEnvironmentVariables().Cast<DictionaryEntry>();
-        context.Logger.LogInformation(new string('-', 80));
+        AWSXRayRecorder.Instance.BeginSubsegment("Iniciando log de variáveis de ambiente");
+        try
+        {
+            var environments = Environment.GetEnvironmentVariables().Cast<DictionaryEntry>();
+            context.Logger.LogInformation(new string('-', 80));
 
-        context.Logger.LogInformation($">>>>> ENVIRONMENT VARIABLES <<<<< ");
-        foreach (var (key, value) in environments)
-            context.Logger.LogInformation($"{key}: {value}");
+            context.Logger.LogInformation($">>>>> ENVIRONMENT VARIABLES <<<<< ");
+            foreach (var (key, value) in environments)
+                context.Logger.LogInformation($"{key}: {value}");
+        }
+        finally
+        {
+            AWSXRayRecorder.Instance.EndSubsegment();
+        }
 
         context.Logger.LogInformation("====== FIM ======");
-        return input.ToUpper();
+        return new SampleResponse
+        {
+            Text = request?.TextToUpper?.ToUpper()
+        };
     }
+}
+
+public class SampleRequest
+{
+    public string? TextToUpper { get; set; }
+    public string? BuscarCep { get; set; }
+}
+
+public class SampleResponse
+{
+    public string? Text { get; set; }
+    public string? CepInfo { get; set; }
+}
+
+/// <summary>
+/// Source generator para não usar reflection na serealização dos objetos e melhorar performance
+/// </summary>
+[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+[JsonSerializable(typeof(SampleRequest))]
+[JsonSerializable(typeof(SampleResponse))]
+public partial class SampleJsonSerializerContext : JsonSerializerContext
+{
 }
 
 #pragma warning restore CA1822

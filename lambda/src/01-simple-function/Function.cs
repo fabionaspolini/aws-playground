@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Amazon.Lambda.Core;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -11,7 +10,7 @@ namespace SimpleFunction;
 public class Function
 {
     /// <summary>
-    /// A simple function that takes a string and does a ToUpper
+    /// Função simples, sem nenhum processamento. Serve para comparar o tempo de startup e runtime com outras funções a medida que são incluidas biliotecas e processos.
     /// </summary>
     /// <param name="input"></param>
     /// <param name="context"></param>

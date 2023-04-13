@@ -51,7 +51,9 @@
                 "--function-name",
                 "simple-function-context-details",
                 "--function-role",
-                "simple-function-context-details-lamda"
+                "simple-function-context-details-lamda",
+                "--tracing-mode",
+                "Active"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/lambda/src/02-simple-function-context-details"

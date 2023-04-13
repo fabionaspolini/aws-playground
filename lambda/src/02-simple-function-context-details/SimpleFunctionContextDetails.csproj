@@ -13,5 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.1" />
+    <PackageReference Include="AWSXRayRecorder.Core" Version="2.14.0" />
+    <PackageReference Include="scott.munro.AWSXRayRecorder.Handlers.AwsSdk" Version="2.8.4" />
   </ItemGroup>
 </Project>

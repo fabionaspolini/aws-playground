@@ -8,6 +8,11 @@
 - Utilizar source generator para diminuir uso de reflection na serealização e deserealizaão ([Tópico: Geração de origem para serialização JSON](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-handler.html#csharp-handler-types)).
 - Suporta [top level statement](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-handler.html#top-level-statements).
 - Alterar nível de log com a environment `AWS_LAMBDA_HANDLER_LOG_LEVEL`
+- IAM policies para vincular a roles
+  - AWSXRayDaemonWriteAccess: Para permitir tracing com x-ray
+  - AWSLambdaBasicExecutionRole: Para permitir criar log group, log stream e enviar logs
+- X-Ray não rastreia todas as operações, segundo [documentação](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-tracing.html): "A taxa de amostragem é uma solicitação por segundo e 5% de solicitações adicionais"
+- [Compilação .NET AOT](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/dotnet-native-aot.html)
 
 ## .NET
 
@@ -66,7 +71,8 @@ dotnet lambda deploy-function
 dotnet lambda deploy-function \
     --function-name <function-name> \
     --function-role <function-iam-role> \
-    --function-handler <novo-function-handler> # sobrescrever configuração do arquivo aws-lambda-tools-defaults.json
+    --function-handler <novo-function-handler> # sobrescrever configuração do arquivo aws-lambda-tools-defaults.json \
+    --tracing-mode <PassThrough or Active> # ativar x-ray
 ```
 
 Invocar lambda:
@@ -86,8 +92,8 @@ Lambda deploy
 
 ```bash
 # Deploy
-dotnet lambda deploy-function --function-name simple-function --function-role simple-function-lamda
-dotnet lambda deploy-function --function-name simple-function-context-details --function-role simple-function-context-details-lamda
+dotnet lambda deploy-function --function-name simple-function --function-role simple-function-lamda --tracing-mode Active
+dotnet lambda deploy-function --function-name simple-function-context-details --function-role simple-function-context-details-lamda --tracing-mode Active
 
 # Executar
 aws lambda invoke --function-name simple-function-context-details out \
