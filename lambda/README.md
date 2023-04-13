@@ -13,6 +13,8 @@
   - AWSLambdaBasicExecutionRole: Para permitir criar log group, log stream e enviar logs
 - X-Ray não rastreia todas as operações, segundo [documentação](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-tracing.html): "A taxa de amostragem é uma solicitação por segundo e 5% de solicitações adicionais"
 - [Compilação .NET AOT](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/dotnet-native-aot.html)
+- O terraform não faz o build/publish da aplicação, antes do `terraform apply` execute o script `publish.sh` para publicar a aplicação e gerar o arquivo `publish.zip` (Binários ficam na raiz do zip)
+- O módulo "archive_file" copia o arquivo para para `output_path` ou gera um zip neste local
 
 ## .NET
 
@@ -99,8 +101,8 @@ Lambda deploy
 
 ```bash
 # Deploy
-dotnet lambda deploy-function --function-name simple-function --function-role simple-function-lamda --tracing-mode Active
-dotnet lambda deploy-function --function-name simple-function-context-details --function-role simple-function-context-details-lamda --tracing-mode Active
+dotnet lambda deploy-function --function-name simple-function --function-role simple-function-lambda --tracing-mode Active
+dotnet lambda deploy-function --function-name simple-function-context-details --function-role simple-function-context-details-lambda --tracing-mode Active
 dotnet lambda delete-function --function-name simple-function
 dotnet lambda delete-function --function-name simple-function-context-details
 
@@ -118,3 +120,20 @@ dotnet publish
 ```bash
 dotnet publish -c Release -o publish --framework net6.0 -r linux-musl-x64 -p PublishReadyToRun=true --no-self-contained
 ```
+
+
+
+Trusted entities
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "lambda.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}

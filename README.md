@@ -60,6 +60,9 @@ Cada subpasta possui a estrutura `infra` com o código terraform e a pasta `src`
 Para provisionar os recursos na AWS, acesso a pasta infra pelo console e digite:
 
 ```bash
+# Fazer download dos módulos. Apenas necessário quando vinculado novos módulos/providers externos.
+terraform init -backend-config="bucket=terraform-state-${AWS_ACCOUNT_ID}"
+
 # Para criar/modificar
 terraform apply -auto-approve
 

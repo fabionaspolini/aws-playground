@@ -4,10 +4,15 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 4.61"
     }
+
+    archive = {
+      source = "hashicorp/archive"
+      version = "2.3.0"
+    }
   }
   backend "s3" {
     # bucket = "terraform-state-$AWS_ACCOUNT_ID" # Não é permitido utilizar environment neste bloco. Estamos injetando no comando: terraform init -backend-config="bucket=terraform-state-${AWS_ACCOUNT_ID}"
-    key    = "dynamodb"
+    key    = "lambda"
     region = "us-east-1"
   }
 }

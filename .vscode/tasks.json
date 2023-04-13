@@ -29,6 +29,39 @@
             ],
             "problemMatcher": "$msCompile"
         },
+        // lambda 01
+        {
+            "label": "build-lambda-01-simple-function",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/lambda/src/01-simple-function/SimpleFunction.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "deploy-lambda-01-simple-function",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "lambda",
+                "deploy-function",
+                "--function-name",
+                "simple-function",
+                "--function-role",
+                "simple-function-lambda",
+                "--tracing-mode",
+                "Active"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/lambda/src/01-simple-function"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        // lambda 02
         {
             "label": "build-lambda-02-simple-function-context-details",
             "command": "dotnet",
@@ -51,7 +84,7 @@
                 "--function-name",
                 "simple-function-context-details",
                 "--function-role",
-                "simple-function-context-details-lamda",
+                "simple-function-context-details-lambda",
                 "--tracing-mode",
                 "Active"
             ],

@@ -13,6 +13,18 @@
             "stopAtEntry": false
         },
         {
+            "name": "Lambda / 01-simple-function",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-02-simple-function",
+            "program": "dotnet-lambda-test-tool-6.0.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/lambda/src/02-simple-function",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
             "name": "Lambda / 02-simple-function-context-details",
             "type": "coreclr",
             "request": "launch",
