@@ -273,13 +273,16 @@ Venda
 - Criar campo `ExpireOn` para ser utilizado no TTL. Definir com data da venda + 1 ano => Para requisito 4
 - Ao final da modelagem, a base de dados não é totalmente focada na orientação a documentos. Separamos nosso documento em duas linhas pelo fator custo.
 
+# .NET
 
-# Materiais de apoio
+ORMs:
+
+- [PocoDynamo](https://github.com/ServiceStack/PocoDynamo): ORM pago com amplo suporte a features do Dynamo
+    - [PocoDynamo post](https://dev.to/gsaadeh/a-better-way-to-work-with-aws-dynamodb-and-net-3fop)
+- [.NET: Object persistence model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKHighLevel.html): ORM nativo do AWS SDK. Apresenta problema de filtro em propriedades anihadas.
+- https://github.com/marcodafonseca/Dynamo.ORM: Não testei
+
+# Extra
 
 - [Nick Chapsas / Getting started with AWS DynamoDB in .NET](https://www.youtube.com/watch?v=GzyMqh3BBzk&ab_channel=NickChapsas)
 - [.NET: Document model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html)
-- [PocoDynamo](https://github.com/ServiceStack/PocoDynamo): ORM for .NET
-- [PocoDynamo post](https://dev.to/gsaadeh/a-better-way-to-work-with-aws-dynamodb-and-net-3fop)
-
-- https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKHighLevel.html
-- https://github.com/marcodafonseca/Dynamo.ORM
