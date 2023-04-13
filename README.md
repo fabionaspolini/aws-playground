@@ -52,12 +52,12 @@ Cada subpasta possui a estrutura `infra` com o código terraform e a pasta `src`
 
 ```
 |── services                ⫸ Serviços testados de forma simples, sem muita relação forte de outros componentes AWS
-|    └── aws-service-name     ⫸ Nome do serviço sendo avaliado
-|         │── [+] infra         ⫸ Código terraform para gerenciamento da infra
-|         │── [+] src           ⫸ Código C# utilizando o recurso
-|         └── README.md         ⫸ Instruções e informações específicas do serviço. A ultima seção "Notas" é um bloco de anotações com comandos completos, sem abstrações.
-└── stacks             ⫸ Projeto completo com serviços relacionados e toda infraestrutura necessária para contruir uma aplicação
-     └── [+] shared      ⫸ Recursos compartilhados, como: VPC, subnet, IAM policies, entre outros
+|   └── aws-service-name        ⫸ Nome do serviço sendo avaliado
+|       │── [+] infra               ⫸ Código terraform para gerenciamento da infra
+|       │── [+] src                 ⫸ Código C# utilizando o recurso
+|       └── README.md               ⫸ Instruções e informações específicas do serviço. A ultima seção "Notas" é um bloco de anotações com comandos completos, sem abstrações.
+└── stacks                  ⫸ Projeto completo com serviços relacionados e toda infraestrutura necessária para contruir uma aplicação
+    └── [+] shared              ⫸ Recursos compartilhados, como: VPC, subnet, IAM policies, entre outros
 ```
 
 Para provisionar os recursos na AWS, acesso a pasta infra pelo console e digite:
