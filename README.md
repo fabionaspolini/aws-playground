@@ -6,6 +6,8 @@ Focado no gerenciamento de recursos através de terraform e código fonte C#.
 
 Nas pastas de exemplos também são possíveis encontrar comandos via aws cli.
 
+[Documentação oficial AWS.](https://docs.aws.amazon.com/index.html)
+
 ## Pré requisitos
 
 1. Conta AWS previamente criada
@@ -65,7 +67,7 @@ terraform apply -auto-approve
 terraform apply -auto-approve -destroy
 ```
 
-Lista de exemplos:
+## Exemplos
 
 - [DynamoDB](dynamodb/README.md)
 

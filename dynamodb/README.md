@@ -1,4 +1,6 @@
-# Cheat sheet
+# DynamoDB
+
+## Cheat sheet
 
 [AWS docs](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CheatSheet.html)
 
@@ -25,12 +27,12 @@ aws dynamodb update-item \
     --expression-attribute-values '{":newval":{"S":"Beltrano"}}'
 ```
 
-# Overview
+## Overview
 
 Base de dados serveless, NoSQL e orientada a documentos.  
 Gerenciado pela AWS automaticamente e você apenas cria suas tabelas.
 
-## Primary key
+### Primary key
 
 Definida durante a criação da tabela e deve ser pensada de forma a organizar seus dados de acordo com seu caso de uso.
 
@@ -92,7 +94,7 @@ A PK ficaria:
 Perceba que nem sempre é interessante nomear os campos a serem utilizado como partition/sort key visando alguma caracteristica da entidade.  
 Neste segunto exemplo seriá mais lógico nomear apenas como `sk`. Nada impede de aplicar a mesma lógica na partition key.
 
-## Dimensionamento
+### Dimensionamento
 
 - On-demand: Você não se preocupa com nada
     - Cobrado por RRU (Read Request Units) e WRU (Write Resquet Units)
@@ -123,7 +125,7 @@ Exemplo 12 requisições por segundo de 8 KB
 - WCU standard                  : 12 * (8 KB / 1 KB) = 96 WCU.
 - WCU transacional              : 12 * 2 * (8 KB / 1 KB) = 192 WCU.
 
-### Free tier
+#### Free tier
 
 [Página oficial](https://aws.amazon.com/pt/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=categories%23databases)
 
@@ -156,7 +158,7 @@ Para garantir o uso free tier em testes simples, desabilite o autoscaling e fixe
     - Utiliza condições para escrita
     - Utiliza um campo como controle de versão do registro
 
-## Indices
+### Indices
 
 - Local Secundary Index (LSI)
     - Permite filtrar por atributos diferentes da sort key
@@ -180,7 +182,7 @@ Para garantir o uso free tier em testes simples, desabilite o autoscaling e fixe
 - Não existem indices únicos além da Primary key
 - Necessário informar manualmente o nome do indice a ser utilizado na consulta (query)
 
-## DynamoDB Accelerator (DAX)
+### DynamoDB Accelerator (DAX)
 
 Cache em memória do Dynamo.
 
@@ -195,7 +197,7 @@ Cache em memória do Dynamo.
 - Irá gerar em endpoint específico, no código .net é necessário utilizar a classe `ClusterDaxClient` para acessa-lo
     - [AWS doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.run-application-dotnet.03-GetItem-Test.html)
 
-## DynamoDB Streams
+### DynamoDB Streams
 
 - Formatos para escrita no stream:
     - KEYS_ONLY: Somente chave pk/sk
@@ -205,7 +207,7 @@ Cache em memória do Dynamo.
 - Ao ativar, não são populados registros retroativos
 - Adicionar trigger para lambda function ou Kinesis data stream
 
-## Time To Live (TTL)
+### Time To Live (TTL)
 
 Recurso para deletar registro automaticmente definindo uma data de expiração.
 
@@ -220,7 +222,7 @@ Recurso para deletar registro automaticmente definindo uma data de expiração.
 - Itens são deletados nos LSIs e GSIs
 - Processo de delete também executa o stream
 
-## Transactions
+### Transactions
 
 Capacidade de realizaroperações de insert/update/delte em uma ou mais tabelas de forma coordenada
 
@@ -228,12 +230,12 @@ Capacidade de realizaroperações de insert/update/delte em uma ou mais tabelas 
 - Consome 2x WCUs e RCUs
 
 
-## Security
+### Security
 
 - Acessível através de endpoint sem acesso a internet
 - Integração com Identify Providers para geração de credencial temporária vinculada a uma role IAM de permissões restritas a uma tabela
 
-# Modelo de dados
+## Modelo de dados
 
 **Estrutura de relacionamento**
 
@@ -273,7 +275,7 @@ Venda
 - Criar campo `ExpireOn` para ser utilizado no TTL. Definir com data da venda + 1 ano => Para requisito 4
 - Ao final da modelagem, a base de dados não é totalmente focada na orientação a documentos. Separamos nosso documento em duas linhas pelo fator custo.
 
-# .NET
+## .NET
 
 ORMs:
 
@@ -282,7 +284,7 @@ ORMs:
 - [.NET: Object persistence model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKHighLevel.html): ORM nativo do AWS SDK. Apresenta problema de filtro em propriedades anihadas.
 - https://github.com/marcodafonseca/Dynamo.ORM: Não testei
 
-# Extra
+## Extra
 
 - [Nick Chapsas / Getting started with AWS DynamoDB in .NET](https://www.youtube.com/watch?v=GzyMqh3BBzk&ab_channel=NickChapsas)
 - [.NET: Document model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html)
