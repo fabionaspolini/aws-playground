@@ -1,3 +1,7 @@
+variable "lambda_function_name" {
+  default = "simple-function"
+}
+
 data "aws_iam_policy" "AWSXRayDaemonWriteAccess" {
   name = "AWSXRayDaemonWriteAccess"
 }
@@ -6,8 +10,8 @@ data "aws_iam_policy" "AWSLambdaBasicExecutionRole" {
   name = "AWSLambdaBasicExecutionRole"
 }
 
-resource "aws_iam_role" "simple-function-lambda" {
-  name = "simple-function-lambda"
+resource "aws_iam_role" "lambda" {
+  name = "${var.lambda_function_name}-lambda"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -34,8 +38,8 @@ data "archive_file" "publish" {
 
 resource "aws_lambda_function" "simple-function" {
   filename      = "./temp/publish.zip"
-  function_name = "simple-function"
-  role          = aws_iam_role.simple-function-lambda.arn
+  function_name = var.lambda_function_name
+  role          = aws_iam_role.lambda.arn
   handler       = "SimpleFunction::SimpleFunction.Function::FunctionHandler"
   runtime       = "dotnet6"
 
@@ -50,6 +54,13 @@ resource "aws_lambda_function" "simple-function" {
       foo = "bar"
     }
   }
+
+  depends_on = [
+    aws_cloudwatch_log_group.lambda
+  ]
 }
 
-# configurar log groud e retention
+resource "aws_cloudwatch_log_group" "lambda" {
+  name              = "/aws/lambda/${var.lambda_function_name}"
+  retention_in_days = 5
+}
