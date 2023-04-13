@@ -7,26 +7,46 @@
 - Retorno DTO para processos sincronos. O dado é serealizado em JSON.
 - Utilizar source generator para diminuir uso de reflection na serealização e deserealizaão ([Tópico: Geração de origem para serialização JSON](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-handler.html#csharp-handler-types)).
 - Suporta [top level statement](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-handler.html#top-level-statements).
+- Alterar nível de log com a environment `AWS_LAMBDA_HANDLER_LOG_LEVEL`
 
 ## .NET
 
 ### Configurar ambiente
 
 - [CLI do .NET Core](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-package-cli.html)
+- [Visual Studio Code](https://github.com/aws/aws-lambda-dotnet/tree/master/Tools/LambdaTestTool)
 - [Visual Studio](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-package-toolkit.html)
 
 Instalar templates:
+
 ```bash
 dotnet new -i Amazon.Lambda.Templates
-```
 
-Listar templates:
-```bash
+# Listar
 dotnet new --list | grep AWS
 
 # Help do template
 dotnet new lambda.EmptyFunction --help
 ```
+
+Instalar pacote de ferramentas para deploy `Amazon.Lambda.Tools`:
+
+```bash
+dotnet tool install -g Amazon.Lambda.Tools
+
+# Para atualizar
+dotnet tool update -g Amazon.Lambda.Tools
+```
+
+**Configurar [Visual Studio Code debugger](https://github.com/aws/aws-lambda-dotnet/tree/master/Tools/LambdaTestTool)**:
+
+```bash
+# De acordo com seu runtime
+dotnet tool update -g Amazon.Lambda.TestTool-6.0
+dotnet tool update -g Amazon.Lambda.TestTool-7.0
+```
+
+Criar configuração no arquivo [.vscode\launch.json](..\.vscode\launch.json) para inicializar debugger.
 
 ### Criar função
 
@@ -36,24 +56,50 @@ dotnet new lambda.EmptyFunction --name MyFunction
 
 ### Deploy pelo AWS CLI
 
-Instalar `Amazon.Lambda.Tools`
-```bash
-dotnet tool install -g Amazon.Lambda.Tools
+Deploy function to AWS Lambda:
 
-# ou para atualizar
-dotnet tool update -g Amazon.Lambda.Tools
-```
-
-Deploy function to AWS Lambda
 ```bash
+# Fazer assim na primeira vez para configurar atributos para criação da ROLE IAM
 dotnet lambda deploy-function
 
-# ou informando parâmetros
-dotnet lambda deploy-function --function-name <function-name> --function-role <function-iam-role>
+# Para atualizar
+dotnet lambda deploy-function \
+    --function-name <function-name> \
+    --function-role <function-iam-role> \
+    --function-handler <novo-function-handler> # sobrescrever configuração do arquivo aws-lambda-tools-defaults.json
+```
+
+Invocar lambda:
+
+```bash
+aws lambda invoke --function-name <function-name> out \
+    --log-type Tail \
+    --cli-binary-format raw-in-base64-out \
+    --payload '"aaa"' \
+    --query 'LogResult' \
+    --output text |  base64 -d
 ```
 
 ## Notas
 
+Lambda deploy
+
 ```bash
-dotnet lambda deploy-function --function-name simple-function --function-role simple-function-role
+# Deploy
+dotnet lambda deploy-function --function-name simple-function --function-role simple-function-lamda
+dotnet lambda deploy-function --function-name simple-function-context-details --function-role simple-function-context-details-lamda
+
+# Executar
+aws lambda invoke --function-name simple-function-context-details out \
+    --log-type Tail \
+    --cli-binary-format raw-in-base64-out \
+    --payload '"aaa"' \
+    --query 'LogResult' \
+    --output text |  base64 -d
+```
+
+dotnet publish
+
+```bash
+dotnet publish -c Release -o publish --framework net6.0 -r linux-musl-x64 -p PublishReadyToRun=true --no-self-contained
 ```

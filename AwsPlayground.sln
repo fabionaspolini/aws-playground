@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C1F90A39-C01
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunction", "lambda\src\01-simple-function\SimpleFunction.csproj", "{398DE916-32E5-43E0-84E3-65CC78319AFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionContextDetails", "lambda\src\02-simple-function-context-details\SimpleFunctionContextDetails.csproj", "{BCDF0980-42F4-44EE-A919-AE5D78376C8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{398DE916-32E5-43E0-84E3-65CC78319AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{398DE916-32E5-43E0-84E3-65CC78319AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{398DE916-32E5-43E0-84E3-65CC78319AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDF0980-42F4-44EE-A919-AE5D78376C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDF0980-42F4-44EE-A919-AE5D78376C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDF0980-42F4-44EE-A919-AE5D78376C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDF0980-42F4-44EE-A919-AE5D78376C8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{8B576A82-565E-42EB-B859-2B0226EC32D1} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
 		{C1F90A39-C011-4858-B203-E2B518ABE367} = {7E430694-CAC8-4E7B-AEE9-20BD99427806}
 		{398DE916-32E5-43E0-84E3-65CC78319AFB} = {C1F90A39-C011-4858-B203-E2B518ABE367}
+		{BCDF0980-42F4-44EE-A919-AE5D78376C8C} = {C1F90A39-C011-4858-B203-E2B518ABE367}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277EE416-CD21-45A4-98BE-8C431904FB59}

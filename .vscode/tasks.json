@@ -28,6 +28,35 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-lambda-02-simple-function-context-details",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/lambda/src/02-simple-function-context-details/SimpleFunctionContextDetails.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "deploy-lambda-02-simple-function-context-details",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "lambda",
+                "deploy-function",
+                "--function-name",
+                "simple-function-context-details",
+                "--function-role",
+                "simple-function-context-details-lamda"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/lambda/src/02-simple-function-context-details"
+            },
+            "problemMatcher": "$msCompile"
         }
     ]
 }

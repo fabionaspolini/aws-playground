@@ -13,9 +13,16 @@
             "stopAtEntry": false
         },
         {
-            "name": ".NET Core Attach",
+            "name": "Lambda / 02-simple-function-context-details",
             "type": "coreclr",
-            "request": "attach"
+            "request": "launch",
+            "preLaunchTask": "build-lambda-02-simple-function-context-details",
+            "program": "dotnet-lambda-test-tool-6.0.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/lambda/src/02-simple-function-context-details",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
         }
     ]
 }

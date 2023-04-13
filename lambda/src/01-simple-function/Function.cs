@@ -1,9 +1,12 @@
+using System.Text.Json;
 using Amazon.Lambda.Core;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace SimpleFunction;
+
+#pragma warning disable CA1822 // Warning para marcar método FunctionHandler como estático
 
 public class Function
 {
@@ -16,7 +19,8 @@ public class Function
     public string FunctionHandler(string input, ILambdaContext context)
     {
         context.Logger.LogInformation("Exemplo simples de uma função lambda que converter os caracteres para maiúsculo.");
-        context.Logger.LogInformation($"Input: {input}");
         return input.ToUpper();
     }
 }
+
+#pragma warning restore CA1822
