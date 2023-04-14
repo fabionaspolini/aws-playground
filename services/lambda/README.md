@@ -11,8 +11,7 @@
 
 ## Visão geral
 
-[Documentação.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/lambda-csharp.html)
-
+- [Documentação AWS + .NET](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/lambda-csharp.html)
 - Suporta async/await no manipulador
 - Retornar `void` ou `Task` para processos assíscronos
 - Retorno DTO para processos sincronos. O dado é serealizado em JSON.
