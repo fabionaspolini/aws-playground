@@ -71,6 +71,9 @@ terraform apply -auto-approve
 
 # Para destruir
 terraform apply -auto-approve -destroy
+
+# Limpeza total
+apply-all.sh -destroy
 ```
 
 ## Exemplos

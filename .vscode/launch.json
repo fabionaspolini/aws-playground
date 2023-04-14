@@ -50,5 +50,17 @@
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
         },
+        {
+            "name": "Lambda / simple-function-no-reflection",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-simple-function-no-reflection",
+            "program": "dotnet-lambda-test-tool-6.0.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/lambda/src/simple-function-no-reflection",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
     ]
 }

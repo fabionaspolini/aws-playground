@@ -126,6 +126,38 @@
                 "cwd": "${workspaceFolder}/services/lambda/src/simple-function-context-details"
             },
             "problemMatcher": "$msCompile"
+        },
+        // Lambda / simple-function-no-reflection
+        {
+            "label": "build-lambda-simple-function-no-reflection",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/lambda/src/simple-function-no-reflection/SimpleFunctionNoReflection.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "deploy-lambda-simple-function-no-reflection",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "lambda",
+                "deploy-function",
+                "--function-name",
+                "simple-function-no-reflection",
+                "--function-role",
+                "simple-function-no-reflection-lambda",
+                "--tracing-mode",
+                "Active"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-no-reflection"
+            },
+            "problemMatcher": "$msCompile"
         }
     ]
 }
