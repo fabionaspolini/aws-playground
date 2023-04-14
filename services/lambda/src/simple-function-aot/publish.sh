@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Este binário não funcionou no deploy realizado
+
 dotnet publish \
     --output "publish" \
     --configuration "Release" \
