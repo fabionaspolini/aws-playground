@@ -9,7 +9,7 @@ using SimpleFunctionContextDetails;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 // [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))] // Default com serialização utilizando reflection
-[assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<SampleJsonSerializerContext>))] // Source generator para não usar reflection na serialização dos objetos e melhorar performance
+[assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>))] // Source generator para não usar reflection na serialização dos objetos e melhorar performance
 
 namespace SimpleFunctionContextDetails;
 
@@ -34,7 +34,7 @@ public class Function
         AWSXRayRecorder.Instance.AddMetadata("meu metadata", "my value"); // Não aparece no console
 
         context.Logger.LogInformation("Exemplo simples de uma função lambda que converter os caracteres para maiúsculo.");
-        context.Logger.LogInformation($"Input: {JsonSerializer.Serialize(request, SampleJsonSerializerContext.Default.SampleRequest)}");
+        context.Logger.LogInformation($"Input: {JsonSerializer.Serialize(request, LambdaFunctionJsonSerializerContext.Default.SampleRequest)}");
         context.Logger.LogInformation($">>>>> CONTEXT DATA <<<<<");
 
         // Exemplo simples para imprimir todas as variáveis de contexto. Na prática é ruim pois usa reflection
@@ -103,7 +103,7 @@ public class SampleResponse
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(SampleRequest))]
 [JsonSerializable(typeof(SampleResponse))]
-public partial class SampleJsonSerializerContext : JsonSerializerContext
+public partial class LambdaFunctionJsonSerializerContext : JsonSerializerContext
 {
 }
 
