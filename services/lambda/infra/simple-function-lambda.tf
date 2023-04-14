@@ -45,7 +45,7 @@ resource "aws_lambda_function" "simple-function" {
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10
-  architectures = [ "x86_64" ]
+  architectures = ["x86_64"]
 
   source_code_hash = data.archive_file.publish-simple-function.output_base64sha256
 
