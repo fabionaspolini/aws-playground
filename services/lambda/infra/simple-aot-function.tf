@@ -43,8 +43,11 @@ resource "aws_iam_role" "simple-aot-function" {
 #   filename      = "./.temp/simple-aot-function.zip"
 #   function_name = "simple-aot-function"
 #   role          = aws_iam_role.simple-aot-function.arn
-#   handler       = "SimpleFunction::SimpleFunction.Function::FunctionHandler"
-#   runtime       = "dotnet6"
+#   handler       = "bootstrap"
+#   runtime       = "provided.al2"
+#   memory_size   = 256
+#   timeout       = 10
+#   architectures = [ "x86_64" ]
 
 #   source_code_hash = data.archive_file.publish-simple-aot-function.output_base64sha256
 

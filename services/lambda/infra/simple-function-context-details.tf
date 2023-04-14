@@ -43,6 +43,9 @@ resource "aws_lambda_function" "simple-function-context-details" {
   role          = aws_iam_role.simple-function-context-details.arn
   handler       = "SimpleFunctionContextDetails::SimpleFunctionContextDetails.Function::FunctionHandler"
   runtime       = "dotnet6"
+  memory_size   = 256
+  timeout       = 10
+  architectures = [ "x86_64" ]
 
   source_code_hash = data.archive_file.publish-simple-function-context-details.output_base64sha256
 

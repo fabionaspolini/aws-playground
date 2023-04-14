@@ -42,6 +42,7 @@ public class Function
     /// <returns></returns>
     public static string FunctionHandler(string input, ILambdaContext context)
     {
+        context.Logger.LogInformation("Exemplo simples de uma função lambda que converter os caracteres para maiúsculo.");
         return input.ToUpper();
     }
 }

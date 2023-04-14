@@ -11,6 +11,6 @@
   "function-architecture": "x86_64",
   "function-runtime": "dotnet6",
   "function-memory-size": 256,
-  "function-timeout": 30,
+  "function-timeout": 10,
   "function-handler": "SimpleFunctionContextDetails::SimpleFunctionContextDetails.Function::FunctionHandler"
 }
