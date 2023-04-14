@@ -127,6 +127,21 @@
             },
             "problemMatcher": "$msCompile"
         },
+        {
+            "label": "delete-lambda-simple-function-aot",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "lambda",
+                "delete-function",
+                "--function-name",
+                "simple-function-aot"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-aot"
+            },
+            "problemMatcher": "$msCompile"
+        },
         // Lambda / simple-function-no-reflection
         {
             "label": "build-lambda-simple-function-no-reflection",
