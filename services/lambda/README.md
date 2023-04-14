@@ -128,15 +128,15 @@ Lambda deploy
 ```bash
 # Deploy
 dotnet lambda deploy-function --function-name simple-function --function-role simple-function-lambda --tracing-mode Active
-dotnet lambda deploy-function --function-name simple-function-context-details --function-role simple-function-context-details-lambda --tracing-mode Active
+dotnet lambda deploy-function --function-name context-details --function-role context-details-lambda --tracing-mode Active
 dotnet lambda delete-function --function-name simple-function
-dotnet lambda delete-function --function-name simple-function-context-details
+dotnet lambda delete-function --function-name context-details
 
 
 dotnet lambda deploy-function --function-name simple-function-aot --function-role simple-function-aot-lambda --tracing-mode Active
 
 # Executar
-aws lambda invoke --function-name simple-function-context-details out \
+aws lambda invoke --function-name context-details out \
     --log-type Tail \
     --cli-binary-format raw-in-base64-out \
     --payload '"aaa"' \

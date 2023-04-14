@@ -95,35 +95,35 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // Lambda / simple-function-context-details
+        // Lambda / context-details
         {
-            "label": "build-lambda-simple-function-context-details",
+            "label": "build-lambda-context-details",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/simple-function-context-details/SimpleFunctionContextDetails.csproj",
+                "${workspaceFolder}/services/lambda/src/context-details/ContextDetails.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "deploy-lambda-simple-function-context-details",
+            "label": "deploy-lambda-context-details",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "lambda",
                 "deploy-function",
                 "--function-name",
-                "simple-function-context-details",
+                "context-details",
                 "--function-role",
-                "simple-function-context-details-lambda",
+                "context-details-lambda",
                 "--tracing-mode",
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-context-details"
+                "cwd": "${workspaceFolder}/services/lambda/src/context-details"
             },
             "problemMatcher": "$msCompile"
         },

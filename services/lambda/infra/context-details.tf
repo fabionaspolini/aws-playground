@@ -1,5 +1,5 @@
-resource "aws_iam_role" "simple-function-context-details" {
-  name = "simple-function-context-details-lambda"
+resource "aws_iam_role" "context-details" {
+  name = "context-details-lambda"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -19,9 +19,9 @@ resource "aws_iam_role" "simple-function-context-details" {
 }
 
 # Exemplo para executar script local pelo terraform apenas para facilitar o deploy durante os estudos. Numa pipeline de CI/CD isso já estaria previamente gerado e seria desnecessário.
-resource "null_resource" "publish-simple-function-context-details" {
+resource "null_resource" "publish-context-details" {
   provisioner "local-exec" {
-    working_dir = "../src/simple-function-context-details"
+    working_dir = "../src/context-details"
     command     = "publish.sh"
     interpreter = ["bash"]
   }
@@ -30,24 +30,24 @@ resource "null_resource" "publish-simple-function-context-details" {
   }
 }
 
-data "archive_file" "publish-simple-function-context-details" {
+data "archive_file" "publish-context-details" {
   type        = "zip"
-  source_dir  = "../src/simple-function-context-details/publish"
-  output_path = "./.temp/simple-function-context-details.zip"
-  depends_on  = [null_resource.publish-simple-function-context-details]
+  source_dir  = "../src/context-details/publish"
+  output_path = "./.temp/context-details.zip"
+  depends_on  = [null_resource.publish-context-details]
 }
 
-resource "aws_lambda_function" "simple-function-context-details" {
-  filename      = "./.temp/simple-function-context-details.zip"
-  function_name = "simple-function-context-details"
-  role          = aws_iam_role.simple-function-context-details.arn
-  handler       = "SimpleFunctionContextDetails::SimpleFunctionContextDetails.Function::FunctionHandler"
+resource "aws_lambda_function" "context-details" {
+  filename      = "./.temp/context-details.zip"
+  function_name = "context-details"
+  role          = aws_iam_role.context-details.arn
+  handler       = "ContextDetails::ContextDetails.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10
   architectures = [ "x86_64" ]
 
-  source_code_hash = data.archive_file.publish-simple-function-context-details.output_base64sha256
+  source_code_hash = data.archive_file.publish-context-details.output_base64sha256
 
   tracing_config {
     mode = "Active"
@@ -59,10 +59,10 @@ resource "aws_lambda_function" "simple-function-context-details" {
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.simple-function-context-details]
+  depends_on = [aws_cloudwatch_log_group.context-details]
 }
 
-resource "aws_cloudwatch_log_group" "simple-function-context-details" {
-  name              = "/aws/lambda/simple-function-context-details"
+resource "aws_cloudwatch_log_group" "context-details" {
+  name              = "/aws/lambda/context-details"
   retention_in_days = 1
 }

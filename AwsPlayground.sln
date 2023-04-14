@@ -35,7 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C1F90A39-C01
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunction", "services\lambda\src\simple-function\SimpleFunction.csproj", "{398DE916-32E5-43E0-84E3-65CC78319AFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionContextDetails", "services\lambda\src\simple-function-context-details\SimpleFunctionContextDetails.csproj", "{BCDF0980-42F4-44EE-A919-AE5D78376C8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextDetails", "services\lambda\src\context-details\ContextDetails.csproj", "{BCDF0980-42F4-44EE-A919-AE5D78376C8C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8ADB1E8A-70C9-4182-9CA6-5D34038C403E}"
 EndProject

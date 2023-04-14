@@ -39,13 +39,13 @@
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
-            "name": "Lambda / simple-function-context-details",
+            "name": "Lambda / context-details",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-lambda-simple-function-context-details",
+            "preLaunchTask": "build-lambda-context-details",
             "program": "dotnet-lambda-test-tool-6.0.exe",
             "args": [],
-            "cwd": "${workspaceFolder}/services/lambda/src/simple-function-context-details",
+            "cwd": "${workspaceFolder}/services/lambda/src/context-details",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
