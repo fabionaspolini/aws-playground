@@ -5,7 +5,7 @@
 - Suporta async/await no manipulador
 - Retornar `void` ou `Task` para processos assíscronos
 - Retorno DTO para processos sincronos. O dado é serealizado em JSON.
-- Utilizar source generator para diminuir uso de reflection na serealização e deserealizaão ([Tópico: Geração de origem para serialização JSON](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-handler.html#csharp-handler-types)).
+- Utilizar source generator para diminuir uso de reflection na serialização e deserealizaão ([Tópico: Geração de origem para serialização JSON](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-handler.html#csharp-handler-types)).
 - Suporta [top level statement](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-handler.html#top-level-statements).
 - Alterar nível de log com a environment `AWS_LAMBDA_HANDLER_LOG_LEVEL`
 - IAM policies para vincular a roles

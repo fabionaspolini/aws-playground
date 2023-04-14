@@ -8,8 +8,8 @@ using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using SimpleFunctionContextDetails;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-// [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))] // Default com serealização utilizando reflection
-[assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<SampleJsonSerializerContext>))] // Source generator para não usar reflection na serealização dos objetos e melhorar performance
+// [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))] // Default com serialização utilizando reflection
+[assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<SampleJsonSerializerContext>))] // Source generator para não usar reflection na serialização dos objetos e melhorar performance
 
 namespace SimpleFunctionContextDetails;
 
@@ -98,7 +98,7 @@ public class SampleResponse
 }
 
 /// <summary>
-/// Source generator para não usar reflection na serealização dos objetos e melhorar performance
+/// Source generator para não usar reflection na serialização dos objetos e melhorar performance
 /// </summary>
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(SampleRequest))]

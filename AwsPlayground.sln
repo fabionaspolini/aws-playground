@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleAotFunction", "services\lambda\src\simple-aot-function\SimpleAotFunction.csproj", "{15749A30-6B83-4A82-B47B-CF530A62117E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionNoReflection", "services\lambda\src\simple-function-no-reflection\SimpleFunctionNoReflection.csproj", "{94DD455F-9B83-4157-8968-37F3755C5F0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{15749A30-6B83-4A82-B47B-CF530A62117E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15749A30-6B83-4A82-B47B-CF530A62117E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15749A30-6B83-4A82-B47B-CF530A62117E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94DD455F-9B83-4157-8968-37F3755C5F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94DD455F-9B83-4157-8968-37F3755C5F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94DD455F-9B83-4157-8968-37F3755C5F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94DD455F-9B83-4157-8968-37F3755C5F0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +83,7 @@ Global
 		{398DE916-32E5-43E0-84E3-65CC78319AFB} = {C1F90A39-C011-4858-B203-E2B518ABE367}
 		{BCDF0980-42F4-44EE-A919-AE5D78376C8C} = {C1F90A39-C011-4858-B203-E2B518ABE367}
 		{15749A30-6B83-4A82-B47B-CF530A62117E} = {C1F90A39-C011-4858-B203-E2B518ABE367}
+		{94DD455F-9B83-4157-8968-37F3755C5F0C} = {C1F90A39-C011-4858-B203-E2B518ABE367}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277EE416-CD21-45A4-98BE-8C431904FB59}

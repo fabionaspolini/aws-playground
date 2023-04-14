@@ -7,6 +7,8 @@ namespace SimpleFunction;
 
 #pragma warning disable CA1822 // Warning para marcar método FunctionHandler como estático
 
+// Função mais simples possível, somente o básico `dotnet new lambda.EmptyFunction --name MyFunction`
+
 public class Function
 {
     /// <summary>
