@@ -1,3 +1,11 @@
+- [Lambda](#lambda)
+  - [.NET](#net)
+    - [Configurar ambiente](#configurar-ambiente)
+    - [Criar função](#criar-função)
+    - [Deploy pelo AWS CLI](#deploy-pelo-aws-cli)
+    - [Limpar ambiente](#limpar-ambiente)
+  - [Notas](#notas)
+
 # Lambda
 
 [Documentação.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/lambda-csharp.html)

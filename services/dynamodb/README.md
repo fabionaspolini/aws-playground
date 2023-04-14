@@ -1,4 +1,20 @@
-# DynamoDB
+**DynamoDB**
+
+- [Cheat sheet](#cheat-sheet)
+- [Overview](#overview)
+  - [Primary key](#primary-key)
+  - [Dimensionamento](#dimensionamento)
+    - [Free tier](#free-tier)
+- [Read \& Write](#read--write)
+- [Indices](#indices)
+- [DynamoDB Accelerator (DAX)](#dynamodb-accelerator-dax)
+- [DynamoDB Streams](#dynamodb-streams)
+- [Time To Live (TTL)](#time-to-live-ttl)
+- [Transactions](#transactions)
+- [Security](#security)
+- [Modelo de dados](#modelo-de-dados)
+- [.NET](#net)
+- [Extra](#extra)
 
 ## Cheat sheet
 
@@ -158,7 +174,7 @@ Para garantir o uso free tier em testes simples, desabilite o autoscaling e fixe
     - Utiliza condições para escrita
     - Utiliza um campo como controle de versão do registro
 
-### Indices
+## Indices
 
 - Local Secundary Index (LSI)
     - Permite filtrar por atributos diferentes da sort key
@@ -182,7 +198,7 @@ Para garantir o uso free tier em testes simples, desabilite o autoscaling e fixe
 - Não existem indices únicos além da Primary key
 - Necessário informar manualmente o nome do indice a ser utilizado na consulta (query)
 
-### DynamoDB Accelerator (DAX)
+## DynamoDB Accelerator (DAX)
 
 Cache em memória do Dynamo.
 
@@ -197,7 +213,7 @@ Cache em memória do Dynamo.
 - Irá gerar em endpoint específico, no código .net é necessário utilizar a classe `ClusterDaxClient` para acessa-lo
     - [AWS doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.run-application-dotnet.03-GetItem-Test.html)
 
-### DynamoDB Streams
+## DynamoDB Streams
 
 - Formatos para escrita no stream:
     - KEYS_ONLY: Somente chave pk/sk
@@ -206,8 +222,11 @@ Cache em memória do Dynamo.
     - NEW_AND_OLD_IMAGES: Ambas versões
 - Ao ativar, não são populados registros retroativos
 - Adicionar trigger para lambda function ou Kinesis data stream
+- Targets
+  - Lambda
+  - Kinesis
 
-### Time To Live (TTL)
+## Time To Live (TTL)
 
 Recurso para deletar registro automaticmente definindo uma data de expiração.
 
@@ -222,7 +241,7 @@ Recurso para deletar registro automaticmente definindo uma data de expiração.
 - Itens são deletados nos LSIs e GSIs
 - Processo de delete também executa o stream
 
-### Transactions
+## Transactions
 
 Capacidade de realizaroperações de insert/update/delte em uma ou mais tabelas de forma coordenada
 
@@ -230,7 +249,7 @@ Capacidade de realizaroperações de insert/update/delte em uma ou mais tabelas 
 - Consome 2x WCUs e RCUs
 
 
-### Security
+## Security
 
 - Acessível através de endpoint sem acesso a internet
 - Integração com Identify Providers para geração de credencial temporária vinculada a uma role IAM de permissões restritas a uma tabela
