@@ -1,10 +1,10 @@
 # DynamoDB
 
+- [Visão geral](#visão-geral)
 - [Cheat sheet](#cheat-sheet)
-- [Overview](#overview)
-  - [Primary key](#primary-key)
-  - [Dimensionamento](#dimensionamento)
-    - [Free tier](#free-tier)
+- [Primary key](#primary-key)
+- [Dimensionamento](#dimensionamento)
+  - [Free tier](#free-tier)
 - [Read \& Write](#read--write)
 - [Indices](#indices)
 - [DynamoDB Accelerator (DAX)](#dynamodb-accelerator-dax)
@@ -15,6 +15,11 @@
 - [Modelo de dados](#modelo-de-dados)
 - [.NET](#net)
 - [Extra](#extra)
+
+## Visão geral
+
+Base de dados serveless, NoSQL e orientada a documentos.  
+Gerenciado pela AWS automaticamente e você apenas cria suas tabelas.
 
 ## Cheat sheet
 
@@ -43,12 +48,7 @@ aws dynamodb update-item \
     --expression-attribute-values '{":newval":{"S":"Beltrano"}}'
 ```
 
-## Overview
-
-Base de dados serveless, NoSQL e orientada a documentos.  
-Gerenciado pela AWS automaticamente e você apenas cria suas tabelas.
-
-### Primary key
+## Primary key
 
 Definida durante a criação da tabela e deve ser pensada de forma a organizar seus dados de acordo com seu caso de uso.
 
@@ -110,7 +110,7 @@ A PK ficaria:
 Perceba que nem sempre é interessante nomear os campos a serem utilizado como partition/sort key visando alguma caracteristica da entidade.  
 Neste segunto exemplo seriá mais lógico nomear apenas como `sk`. Nada impede de aplicar a mesma lógica na partition key.
 
-### Dimensionamento
+## Dimensionamento
 
 - On-demand: Você não se preocupa com nada
     - Cobrado por RRU (Read Request Units) e WRU (Write Resquet Units)
@@ -141,7 +141,7 @@ Exemplo 12 requisições por segundo de 8 KB
 - WCU standard                  : 12 * (8 KB / 1 KB) = 96 WCU.
 - WCU transacional              : 12 * 2 * (8 KB / 1 KB) = 192 WCU.
 
-#### Free tier
+### Free tier
 
 [Página oficial](https://aws.amazon.com/pt/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=categories%23databases)
 

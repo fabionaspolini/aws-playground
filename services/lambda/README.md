@@ -1,11 +1,15 @@
 # Lambda
 
+- [Visão geral](#visão-geral)
+  - [Terraform](#terraform)
 - [.NET](#net)
   - [Configurar ambiente](#configurar-ambiente)
   - [Criar função](#criar-função)
-  - [Deploy pelo AWS CLI](#deploy-pelo-aws-cli)
+  - [Deploy pelo CLI](#deploy-pelo-cli)
   - [Limpar ambiente](#limpar-ambiente)
 - [Notas](#notas)
+
+## Visão geral
 
 [Documentação.](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/lambda-csharp.html)
 
@@ -22,6 +26,10 @@
 - [Compilação .NET AOT](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/dotnet-native-aot.html)
     - Necessário estar no Linux para realizar este deploy
     - Instalar [libraries no linux para linker de publish AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/).
+
+
+### Terraform
+
 - O terraform não faz o build/publish da aplicação, antes do `terraform apply` execute o script `publish.sh` para publicar a aplicação e gerar o arquivo `publish.zip` (Binários ficam na raiz do zip)
 - O módulo "archive_file" copia o arquivo para para `output_path` ou gera um zip neste local
 
@@ -80,7 +88,7 @@ sudo apk add clang build-base zlib-dev
 dotnet new lambda.EmptyFunction --name MyFunction
 ```
 
-### Deploy pelo AWS CLI
+### Deploy pelo CLI
 
 Deploy function to AWS Lambda:
 
