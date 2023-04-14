@@ -31,35 +31,35 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // Lambda / simple-function-aot
+        // Lambda / context-details
         {
-            "label": "build-lambda-simple-function-aot",
+            "label": "build-lambda-context-details",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/simple-function-aot/SimpleFunctionAot.csproj",
+                "${workspaceFolder}/services/lambda/src/context-details/ContextDetails.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "deploy-lambda-simple-function-aot",
+            "label": "deploy-lambda-context-details",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "lambda",
                 "deploy-function",
                 "--function-name",
-                "simple-function-aot",
+                "context-details",
                 "--function-role",
-                "simple-function-aot-lambda",
+                "context-details-lambda",
                 "--tracing-mode",
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-aot"
+                "cwd": "${workspaceFolder}/services/lambda/src/context-details"
             },
             "problemMatcher": "$msCompile"
         },
@@ -95,35 +95,35 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // Lambda / context-details
+        // Lambda / simple-function-aot
         {
-            "label": "build-lambda-context-details",
+            "label": "build-lambda-simple-function-aot",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/context-details/ContextDetails.csproj",
+                "${workspaceFolder}/services/lambda/src/simple-function-aot/SimpleFunctionAot.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "deploy-lambda-context-details",
+            "label": "deploy-lambda-simple-function-aot",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "lambda",
                 "deploy-function",
                 "--function-name",
-                "context-details",
+                "simple-function-aot",
                 "--function-role",
-                "context-details-lambda",
+                "simple-function-aot-lambda",
                 "--tracing-mode",
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/services/lambda/src/context-details"
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-aot"
             },
             "problemMatcher": "$msCompile"
         },
