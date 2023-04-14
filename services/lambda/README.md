@@ -14,7 +14,7 @@
 - X-Ray não rastreia todas as operações, segundo [documentação](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-tracing.html): "A taxa de amostragem é uma solicitação por segundo e 5% de solicitações adicionais"
 - [Compilação .NET AOT](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/dotnet-native-aot.html)
     - Necessário estar no Linux para realizar este deploy
-    - Instalar [tool de publish AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/).
+    - Instalar [libraries no linux para linker de publish AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/).
 - O terraform não faz o build/publish da aplicação, antes do `terraform apply` execute o script `publish.sh` para publicar a aplicação e gerar o arquivo `publish.zip` (Binários ficam na raiz do zip)
 - O módulo "archive_file" copia o arquivo para para `output_path` ou gera um zip neste local
 
@@ -56,6 +56,16 @@ dotnet tool update -g Amazon.Lambda.TestTool-7.0
 ```
 
 Criar configuração no arquivo [.vscode\launch.json](..\.vscode\launch.json) para inicializar debugger.
+
+Para deploy AOT
+
+```bash
+# Ubuntu
+sudo apt-get install clang zlib1g-dev
+
+# Alpine
+sudo apk add clang build-base zlib-dev
+```
 
 ### Criar função
 
