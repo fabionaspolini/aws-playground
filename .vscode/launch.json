@@ -15,13 +15,13 @@
         },
         // Lambda
         {
-            "name": "Lambda / simple-aot-function",
+            "name": "Lambda / simple-function-aot",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-lambda-simple-aot-function",
+            "preLaunchTask": "build-lambda-simple-function-aot",
             "program": "dotnet-lambda-test-tool-7.0.exe",
             "args": [],
-            "cwd": "${workspaceFolder}/services/lambda/src/simple-aot-function",
+            "cwd": "${workspaceFolder}/services/lambda/src/simple-function-aot",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"

@@ -72,13 +72,13 @@ If already installed check if new version is available.
 
 Execute unit tests
 ```
-    cd "SimpleAotFunction/test/SimpleAotFunction.Tests"
+    cd "SimpleFunctionAot/test/SimpleFunctionAot.Tests"
     dotnet test
 ```
 
 Deploy function to AWS Lambda
 ```
-    cd "SimpleAotFunction/src/SimpleAotFunction"
+    cd "SimpleFunctionAot/src/SimpleFunctionAot"
     dotnet lambda deploy-function
 ```
 

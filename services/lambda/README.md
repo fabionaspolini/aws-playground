@@ -133,7 +133,7 @@ dotnet lambda delete-function --function-name simple-function
 dotnet lambda delete-function --function-name simple-function-context-details
 
 
-dotnet lambda deploy-function --function-name simple-aot-function --function-role simple-aot-function-lambda --tracing-mode Active
+dotnet lambda deploy-function --function-name simple-function-aot --function-role simple-function-aot-lambda --tracing-mode Active
 
 # Executar
 aws lambda invoke --function-name simple-function-context-details out \

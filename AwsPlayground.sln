@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionContextDetail
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8ADB1E8A-70C9-4182-9CA6-5D34038C403E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleAotFunction", "services\lambda\src\simple-aot-function\SimpleAotFunction.csproj", "{15749A30-6B83-4A82-B47B-CF530A62117E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionAot", "services\lambda\src\simple-function-aot\SimpleFunctionAot.csproj", "{15749A30-6B83-4A82-B47B-CF530A62117E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionNoReflection", "services\lambda\src\simple-function-no-reflection\SimpleFunctionNoReflection.csproj", "{94DD455F-9B83-4157-8968-37F3755C5F0C}"
 EndProject

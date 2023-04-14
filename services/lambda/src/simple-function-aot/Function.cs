@@ -3,7 +3,7 @@ using Amazon.Lambda.RuntimeSupport;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using System.Text.Json.Serialization;
 
-namespace SimpleAotFunction;
+namespace SimpleFunctionAot;
 
 public class Function
 {

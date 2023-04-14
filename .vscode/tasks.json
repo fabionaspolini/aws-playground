@@ -31,35 +31,35 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // Lambda / simple-aot-function
+        // Lambda / simple-function-aot
         {
-            "label": "build-lambda-simple-aot-function",
+            "label": "build-lambda-simple-function-aot",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/simple-aot-function/SimpleAotFunction.csproj",
+                "${workspaceFolder}/services/lambda/src/simple-function-aot/SimpleFunctionAot.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "deploy-lambda-simple-aot-function",
+            "label": "deploy-lambda-simple-function-aot",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "lambda",
                 "deploy-function",
                 "--function-name",
-                "simple-aot-function",
+                "simple-function-aot",
                 "--function-role",
-                "simple-aot-function-lambda",
+                "simple-function-aot-lambda",
                 "--tracing-mode",
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/services/lambda/src/simple-aot-function"
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-aot"
             },
             "problemMatcher": "$msCompile"
         },
