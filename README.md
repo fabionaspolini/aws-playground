@@ -1,5 +1,12 @@
 # AWS Playground
 
+- [Pré requisitos](#pré-requisitos)
+- [Setup inicial](#setup-inicial)
+- [Estrutura do repositório](#estrutura-do-repositório)
+- [Exemplos](#exemplos)
+  - [Services](#services)
+- [Alternativa com Localstack](#alternativa-com-localstack)
+
 Repostório com exemplos de uso da stack AWS.
 
 Focado no gerenciamento de recursos através de terraform e código fonte C#.
