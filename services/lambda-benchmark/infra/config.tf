@@ -7,7 +7,7 @@ terraform {
     }
 
     archive = {
-      source = "hashicorp/archive"
+      source  = "hashicorp/archive"
       version = "2.3.0"
     }
   }
@@ -23,7 +23,8 @@ provider "aws" {
   region = "us-east-1"
   default_tags {
     tags = {
-      managed-by = "terraform/services/lambda-benchmark"
+      managed-by = "terraform"
+      owner      = "services/lambda-benchmark"
     }
   }
 }
