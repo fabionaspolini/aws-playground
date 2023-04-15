@@ -1,12 +1,15 @@
 #!/bin/sh
+
+dir="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
 docker run --rm \
-    --volume "/home/fabio/sources/samples/aws-playground":/tmp/source/ \
+    --volume "$dir":/tmp/source/ \
     -i -u 1000:1000 \
     -e DOTNET_CLI_HOME=/tmp/dotnet \
     -e XDG_DATA_HOME=/tmp/xdg \
     public.ecr.aws/sam/build-dotnet7:latest-x86_64 \
-        dotnet publish "/tmp/source/services/lambda/src/simple-function-aot" \
-            --output "/tmp/source/services/lambda/src/simple-function-aot/publish" \
+        dotnet publish "/tmp/source" \
+            --output "/tmp/source/publish" \
             --configuration "Release" \
             --framework "net7.0" \
             --self-contained true \
