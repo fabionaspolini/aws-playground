@@ -8,7 +8,7 @@ using static AwsPlayground.Extensions;
 namespace AwsPlayground;
 
 /// <summary>
-/// Exemplos utilizando abstraÁ„o do SDK AWS: .NET Object Persistence Model <see href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKHighLevel.html"/>.
+/// Exemplos utilizando abstra√ß√£o do SDK AWS: .NET Object Persistence Model <see href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DotNetSDKHighLevel.html"/>.
 /// </summary>
 public class ObjectPersistenceModelSample
 {
@@ -30,7 +30,7 @@ public class ObjectPersistenceModelSample
         WriteLine($"{ClassName}.PutItemAndPrintAsync(vendaId: {vendaId}, clienteId: {clienteId})");
         var venda = new Venda(
             Id: vendaId,
-            SK: "cabeÁalho",
+            SK: "cabe√ßalho",
             ExpireOn: DateTime.UtcNow.AddDays(2).ToUnixTime(),
             Data: DateTime.UtcNow,
             Cliente: new(
@@ -38,7 +38,7 @@ public class ObjectPersistenceModelSample
                 Nome: "Fulano from C# JSON"),
             ValorTotal: 488.8m,
             Pagamento: new(
-                Metodo: "Cart„o",
+                Metodo: "Cart√£o",
                 Valor: 488.8m));
         var itens = new VendaItemRoot(
             Id: vendaId,
@@ -85,7 +85,7 @@ public class ObjectPersistenceModelSample
 
     public async Task GetItemAndPrintAsync(Guid id)
     {
-        var venda = (await GetItemAsync<Venda>(id, "cabeÁalho"))!;
+        var venda = (await GetItemAsync<Venda>(id, "cabe√ßalho"))!;
         var itens = (await GetItemAsync<VendaItemRoot>(id, "itens"))!;
 
         WriteLine($"{ClassName}.GetItemAndPrintAsync(id: {id})");
@@ -94,7 +94,7 @@ public class ObjectPersistenceModelSample
     }
 
     /// <summary>
-    /// OperaÁ„o lenta por n„o ser direcionada a uma partition key definida
+    /// Opera√ß√£o lenta por n√£o ser direcionada a uma partition key definida
     /// </summary>
     /// <param name="valorTotalMaiorIgual"></param>
     /// <param name="valorTotalMenorIgual"></param>
@@ -102,19 +102,19 @@ public class ObjectPersistenceModelSample
     public async Task ScanAsync(
         decimal? valorTotalMaiorIgual = null,
         decimal? valorTotalMenorIgual = null,
-        string? nomeClienteContÈm = null)
+        string? nomeClienteCont√©m = null)
     {
-        WriteLine($"{ClassName}.ScanAsync(valorTotalMaiorIgual: {valorTotalMaiorIgual}, valorTotalMenorIgual: {valorTotalMenorIgual}, nomeClienteContÈm: {nomeClienteContÈm})");
+        WriteLine($"{ClassName}.ScanAsync(valorTotalMaiorIgual: {valorTotalMaiorIgual}, valorTotalMenorIgual: {valorTotalMenorIgual}, nomeClienteCont√©m: {nomeClienteCont√©m})");
 
         var conditions = new List<ScanCondition>();
-        conditions.Add(new("SK", ScanOperator.Equal, "cabeÁalho"));
+        conditions.Add(new("SK", ScanOperator.Equal, "cabe√ßalho"));
 
         if (valorTotalMaiorIgual.HasValue)
             conditions.Add(new("ValorTotal", ScanOperator.GreaterThanOrEqual, valorTotalMaiorIgual));
         if (valorTotalMenorIgual.HasValue)
             conditions.Add(new("ValorTotal", ScanOperator.LessThanOrEqual, valorTotalMenorIgual));
-        //if (!string.IsNullOrWhiteSpace(nomeClienteContÈm))
-        //    conditions.Add(new("Cliente.Cliente", ScanOperator.Contains, nomeClienteContÈm)); // N„o localiza campo aninhado para filtrar :(
+        //if (!string.IsNullOrWhiteSpace(nomeClienteCont√©m))
+        //    conditions.Add(new("Cliente.Cliente", ScanOperator.Contains, nomeClienteCont√©m)); // N√£o localiza campo aninhado para filtrar :(
 
         //var config = new ScanOperationConfig();
         //config.FilterExpression.ExpressionStatement

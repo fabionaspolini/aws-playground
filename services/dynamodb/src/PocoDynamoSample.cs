@@ -5,8 +5,8 @@ using static AwsPlayground.Extensions;
 namespace AwsPlayground;
 
 /// <summary>
-/// Exemplos utilizando abstraÁ„o PocoDynamo <see href="https://github.com/ServiceStack/PocoDynamo"/>.
-/// <para>PorÈm, essa lib n„o È gratuita para uso empresarial</para>
+/// Exemplos utilizando abstra√ß√£o PocoDynamo <see href="https://github.com/ServiceStack/PocoDynamo"/>.
+/// <para>Por√©m, essa lib n√£o √© gratuita para uso empresarial</para>
 /// </summary>
 public class PocoDynamoSample
 {
@@ -27,7 +27,7 @@ public class PocoDynamoSample
         WriteLine($"{ClassName}.PutItemAndPrintAsync(vendaId: {vendaId}, clienteId: {clienteId})");
         var venda = new Venda(
             Id: vendaId,
-            SK: "cabeÁalho",
+            SK: "cabe√ßalho",
             ExpireOn: DateTime.UtcNow.AddDays(2).ToUnixTime(),
             Data: DateTime.UtcNow,
             Cliente: new(
@@ -35,7 +35,7 @@ public class PocoDynamoSample
                 Nome: "Fulano from C# JSON"),
             ValorTotal: 488.8m,
             Pagamento: new(
-                Metodo: "Cart„o",
+                Metodo: "Cart√£o",
                 Valor: 488.8m));
         var itens = new VendaItemRoot(
             Id: vendaId,
@@ -82,7 +82,7 @@ public class PocoDynamoSample
 
     public async Task GetItemAndPrintAsync(Guid id)
     {
-        var venda = (await GetItemAsync<Venda>(id, "cabeÁalho"))!;
+        var venda = (await GetItemAsync<Venda>(id, "cabe√ßalho"))!;
         var itens = (await GetItemAsync<VendaItemRoot>(id, "itens"))!;
 
         WriteLine($"{ClassName}.GetItemAndPrintAsync(id: {id})");
@@ -91,7 +91,7 @@ public class PocoDynamoSample
     }
 
     /// <summary>
-    /// OperaÁ„o lenta por n„o ser direcionada a uma partition key definida
+    /// Opera√ß√£o lenta por n√£o ser direcionada a uma partition key definida
     /// </summary>
     /// <param name="valorTotalMaiorIgual"></param>
     /// <param name="valorTotalMenorIgual"></param>
@@ -99,28 +99,28 @@ public class PocoDynamoSample
     public async Task ScanAsync(
         decimal? valorTotalMaiorIgual = null,
         decimal? valorTotalMenorIgual = null,
-        string? nomeClienteContÈm = null)
+        string? nomeClienteCont√©m = null)
     {
-        WriteLine($"{ClassName}.ScanAsync(valorTotalMaiorIgual: {valorTotalMaiorIgual}, valorTotalMenorIgual: {valorTotalMenorIgual}, nomeClienteContÈm: {nomeClienteContÈm})");
+        WriteLine($"{ClassName}.ScanAsync(valorTotalMaiorIgual: {valorTotalMaiorIgual}, valorTotalMenorIgual: {valorTotalMenorIgual}, nomeClienteCont√©m: {nomeClienteCont√©m})");
 
-        // PocoDynamo tambÈm suporta scan nativo repassando o objeto "ScanRequest" conforme exemplo em "BasicClientSample".
+        // PocoDynamo tamb√©m suporta scan nativo repassando o objeto "ScanRequest" conforme exemplo em "BasicClientSample".
 
         var query = _db.FromScan<Venda>();
-        //query.Filter(x => x.SK == "cabeÁalho");
+        //query.Filter(x => x.SK == "cabe√ßalho");
 
         //if (valorTotalMaiorIgual.HasValue)
-        //  query.Filter(x => x.ValorTotal >= valorTotalMaiorIgual.Value); // Concatenar filtros dessa forma gera a claus˙la errado a express„o :( => FilterExpression = "(SK = :p0) AND (ValorTotal >= :p0)"
+        //  query.Filter(x => x.ValorTotal >= valorTotalMaiorIgual.Value); // Concatenar filtros dessa forma gera a claus√∫la errado a express√£o :( => FilterExpression = "(SK = :p0) AND (ValorTotal >= :p0)"
 
         //if (valorTotalMenorIgual.HasValue)
         //    query.Filter(x => x.ValorTotal <= valorTotalMenorIgual.Value);
 
-        query.Filter("SK = :sk", new { sk = "cabeÁalho" });
+        query.Filter("SK = :sk", new { sk = "cabe√ßalho" });
         if (valorTotalMaiorIgual.HasValue)
             query.Filter("ValorTotal >= :valorTotalMaiorIgual", new { valorTotalMaiorIgual });
         if (valorTotalMenorIgual.HasValue)
             query.Filter("ValorTotal <= :valorTotalMenorIgual", new { valorTotalMenorIgual });
-        if (!string.IsNullOrWhiteSpace(nomeClienteContÈm))
-            query.Filter("contains(Cliente.Nome, :nomeClienteContem)", new { nomeClienteContem = nomeClienteContÈm }); // case sensitive
+        if (!string.IsNullOrWhiteSpace(nomeClienteCont√©m))
+            query.Filter("contains(Cliente.Nome, :nomeClienteContem)", new { nomeClienteContem = nomeClienteCont√©m }); // case sensitive
 
 
         //var response = await query.ExecAsync();
