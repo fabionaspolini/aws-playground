@@ -8,7 +8,7 @@
 - [Read \& Write](#read--write)
 - [Indices](#indices)
 - [DynamoDB Accelerator (DAX)](#dynamodb-accelerator-dax)
-- [DynamoDB Streams](#dynamodb-streams)
+- [Streams](#streams)
 - [Time To Live (TTL)](#time-to-live-ttl)
 - [Transactions](#transactions)
 - [Security](#security)
@@ -213,7 +213,7 @@ Cache em memória do Dynamo.
 - Irá gerar em endpoint específico, no código .net é necessário utilizar a classe `ClusterDaxClient` para acessa-lo
     - [AWS doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.run-application-dotnet.03-GetItem-Test.html)
 
-## DynamoDB Streams
+## Streams
 
 - Formatos para escrita no stream:
     - KEYS_ONLY: Somente chave pk/sk
