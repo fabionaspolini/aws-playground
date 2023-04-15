@@ -1,7 +1,7 @@
 # Para habiltiar/desabilitar o deploy da function, atualize a constante "deploy_aot_functions" no arquivo "locals.tf".
 # Comando "terraform apply" no windows não suporta este build.
 
-resource "aws_iam_role" "simple-function-aot" {
+resource "aws_iam_role" "simple_function_aot" {
   name = "simple-function-aot-lambda"
 
   assume_role_policy = jsonencode({
@@ -18,12 +18,15 @@ resource "aws_iam_role" "simple-function-aot" {
     ]
   })
 
-  managed_policy_arns = [data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn, data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn]
+  managed_policy_arns = [
+    data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn,
+    data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn
+  ]
 }
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish-simple-function-aot" {
+resource "null_resource" "publish_simple_function_aot" {
   count = local.deploy_aot_functions ? 1 : 0
   provisioner "local-exec" {
     working_dir = "../src/simple-function-aot"
@@ -35,26 +38,26 @@ resource "null_resource" "publish-simple-function-aot" {
   }
 }
 
-data "archive_file" "publish-simple-function-aot" {
+data "archive_file" "publish_simple_function_aot" {
   count       = local.deploy_aot_functions ? 1 : 0
   type        = "zip"
   source_dir  = "../src/simple-function-aot/publish"
   output_path = "./.temp/simple-function-aot.zip"
-  depends_on  = [null_resource.publish-simple-function-aot]
+  depends_on  = [null_resource.publish_simple_function_aot]
 }
 
-resource "aws_lambda_function" "simple-function-aot" {
+resource "aws_lambda_function" "simple_function_aot" {
   count         = local.deploy_aot_functions ? 1 : 0
   filename      = "./.temp/simple-function-aot.zip"
   function_name = "simple-function-aot"
-  role          = aws_iam_role.simple-function-aot.arn
+  role          = aws_iam_role.simple_function_aot.arn
   handler       = "bootstrap"
   runtime       = "provided.al2"
   memory_size   = 256
   timeout       = 10
   architectures = ["x86_64"]
 
-  source_code_hash = data.archive_file.publish-simple-function-aot[0].output_base64sha256
+  source_code_hash = data.archive_file.publish_simple_function_aot[0].output_base64sha256
 
   tracing_config {
     mode = "Active"
@@ -66,10 +69,10 @@ resource "aws_lambda_function" "simple-function-aot" {
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.simple-function-aot]
+  depends_on = [aws_cloudwatch_log_group.simple_function_aot]
 }
 
-resource "aws_cloudwatch_log_group" "simple-function-aot" {
+resource "aws_cloudwatch_log_group" "simple_function_aot" {
   name              = "/aws/lambda/simple-function-aot"
   retention_in_days = 1
 }

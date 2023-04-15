@@ -1,4 +1,4 @@
-resource "aws_iam_role" "context-details" {
+resource "aws_iam_role" "context_details" {
   name = "context-details-lambda"
 
   assume_role_policy = jsonencode({
@@ -15,12 +15,15 @@ resource "aws_iam_role" "context-details" {
     ]
   })
 
-  managed_policy_arns = [data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn, data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn]
+  managed_policy_arns = [
+    data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn,
+    data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn
+  ]
 }
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish-context-details" {
+resource "null_resource" "publish_context_details" {
   provisioner "local-exec" {
     working_dir = "../src/context-details"
     command     = "publish.sh"
@@ -31,24 +34,24 @@ resource "null_resource" "publish-context-details" {
   }
 }
 
-data "archive_file" "publish-context-details" {
+data "archive_file" "publish_context_details" {
   type        = "zip"
   source_dir  = "../src/context-details/publish"
   output_path = "./.temp/context-details.zip"
-  depends_on  = [null_resource.publish-context-details]
+  depends_on  = [null_resource.publish_context_details]
 }
 
-resource "aws_lambda_function" "context-details" {
+resource "aws_lambda_function" "context_details" {
   filename      = "./.temp/context-details.zip"
   function_name = "context-details"
-  role          = aws_iam_role.context-details.arn
+  role          = aws_iam_role.context_details.arn
   handler       = "ContextDetails::ContextDetails.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10
   architectures = ["x86_64"]
 
-  source_code_hash = data.archive_file.publish-context-details.output_base64sha256
+  source_code_hash = data.archive_file.publish_context_details.output_base64sha256
 
   tracing_config {
     mode = "Active"
@@ -60,10 +63,10 @@ resource "aws_lambda_function" "context-details" {
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.context-details]
+  depends_on = [aws_cloudwatch_log_group.context_details]
 }
 
-resource "aws_cloudwatch_log_group" "context-details" {
+resource "aws_cloudwatch_log_group" "context_details" {
   name              = "/aws/lambda/context-details"
   retention_in_days = 1
 }

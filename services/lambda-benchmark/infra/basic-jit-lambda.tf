@@ -1,4 +1,4 @@
-resource "aws_iam_role" "benchmark-basic-jit" {
+resource "aws_iam_role" "benchmark_basic_jit" {
   name = "benchmark-basic-jit-lambda"
 
   assume_role_policy = jsonencode({
@@ -15,12 +15,15 @@ resource "aws_iam_role" "benchmark-basic-jit" {
     ]
   })
 
-  managed_policy_arns = [data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn, data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn]
+  managed_policy_arns = [
+    data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn,
+    data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn
+  ]
 }
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish-benchmark-basic-jit" {
+resource "null_resource" "publish_benchmark_basic_jit" {
   provisioner "local-exec" {
     working_dir = "../src/basic-jit"
     command     = "publish.sh"
@@ -31,24 +34,24 @@ resource "null_resource" "publish-benchmark-basic-jit" {
   }
 }
 
-data "archive_file" "publish-benchmark-basic-jit" {
+data "archive_file" "publish_benchmark_basic_jit" {
   type        = "zip"
   source_dir  = "../src/basic-jit/publish"
   output_path = "./.temp/basic-jit.zip"
-  depends_on  = [null_resource.publish-benchmark-basic-jit]
+  depends_on  = [null_resource.publish_benchmark_basic_jit]
 }
 
-resource "aws_lambda_function" "benchmark-basic-jit" {
+resource "aws_lambda_function" "benchmark_basic_jit" {
   filename      = "./.temp/basic-jit.zip"
   function_name = "benchmark-basic-jit"
-  role          = aws_iam_role.benchmark-basic-jit.arn
+  role          = aws_iam_role.benchmark_basic_jit.arn
   handler       = "BasicJit::BasicJit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10
   architectures = ["x86_64"]
 
-  source_code_hash = data.archive_file.publish-benchmark-basic-jit.output_base64sha256
+  source_code_hash = data.archive_file.publish_benchmark_basic_jit.output_base64sha256
 
   tracing_config {
     mode = "Active"
@@ -60,10 +63,10 @@ resource "aws_lambda_function" "benchmark-basic-jit" {
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.benchmark-basic-jit]
+  depends_on = [aws_cloudwatch_log_group.benchmark_basic_jit]
 }
 
-resource "aws_cloudwatch_log_group" "benchmark-basic-jit" {
+resource "aws_cloudwatch_log_group" "benchmark_basic_jit" {
   name              = "/aws/lambda/benchmark-basic-jit"
   retention_in_days = 1
 }
