@@ -15,6 +15,18 @@
         },
         // Lambda
         {
+            "name": "Lambda / benchmark-basic-jit",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-benchmark-basic-jit",
+            "program": "dotnet-lambda-test-tool-6.0",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/lambda/src/benchmark-basic-jit",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
             "name": "Lambda / context-details",
             "type": "coreclr",
             "request": "launch",
