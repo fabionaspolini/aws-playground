@@ -12,5 +12,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 256,
   "function-timeout": 10,
-  "function-handler": "BenchmarkBasicJit::BenchmarkBasicJit.Function::FunctionHandler"
+  "function-handler": "BasicJit::BasicJit.Function::FunctionHandler"
 }

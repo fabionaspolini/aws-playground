@@ -72,13 +72,13 @@ If already installed check if new version is available.
 
 Execute unit tests
 ```
-    cd "BenchmarkBasicJit/test/BenchmarkBasicJit.Tests"
+    cd "BasicJit/test/BasicJit.Tests"
     dotnet test
 ```
 
 Deploy function to AWS Lambda
 ```
-    cd "BenchmarkBasicJit/src/BenchmarkBasicJit"
+    cd "BasicJit/src/BasicJit"
     dotnet lambda deploy-function
 ```
 

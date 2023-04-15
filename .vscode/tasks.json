@@ -38,7 +38,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/benchmark-basic-aot/BenchmarkBasicAot.csproj",
+                "${workspaceFolder}/services/lambda/src/benchmark-basic-aot/BasicAot.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -85,7 +85,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/benchmark-basic-jit/BenchmarkBasicJit.csproj",
+                "${workspaceFolder}/services/lambda/src/benchmark-basic-jit/BasicJit.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

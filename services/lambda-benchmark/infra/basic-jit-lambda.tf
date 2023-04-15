@@ -22,7 +22,7 @@ resource "aws_iam_role" "benchmark-basic-jit" {
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
 resource "null_resource" "publish-benchmark-basic-jit" {
   provisioner "local-exec" {
-    working_dir = "../src/benchmark-basic-jit"
+    working_dir = "../src/basic-jit"
     command     = "publish.sh"
     interpreter = ["bash"]
   }
@@ -33,16 +33,16 @@ resource "null_resource" "publish-benchmark-basic-jit" {
 
 data "archive_file" "publish-benchmark-basic-jit" {
   type        = "zip"
-  source_dir  = "../src/benchmark-basic-jit/publish"
-  output_path = "./.temp/benchmark-basic-jit.zip"
+  source_dir  = "../src/basic-jit/publish"
+  output_path = "./.temp/basic-jit.zip"
   depends_on  = [null_resource.publish-benchmark-basic-jit]
 }
 
 resource "aws_lambda_function" "benchmark-basic-jit" {
-  filename      = "./.temp/benchmark-basic-jit.zip"
+  filename      = "./.temp/basic-jit.zip"
   function_name = "benchmark-basic-jit"
   role          = aws_iam_role.benchmark-basic-jit.arn
-  handler       = "BenchmarkBasicJit::BenchmarkBasicJit.Function::FunctionHandler"
+  handler       = "BasicJit::BasicJit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10

@@ -43,9 +43,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionAot", "servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionJitNoReflection", "services\lambda\src\simple-function-jit-no-reflection\SimpleFunctionJitNoReflection.csproj", "{94DD455F-9B83-4157-8968-37F3755C5F0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkBasicJit", "services\lambda\src\benchmark-basic-jit\BenchmarkBasicJit.csproj", "{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicJit", "services\lambda-benchmark\src\basic-jit\BasicJit.csproj", "{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkBasicAot", "services\lambda\src\benchmark-basic-aot\BenchmarkBasicAot.csproj", "{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAot", "services\lambda-benchmark\src\basic-aot\BasicAot.csproj", "{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

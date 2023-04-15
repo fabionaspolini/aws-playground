@@ -26,7 +26,7 @@ resource "aws_iam_role" "benchmark-basic-aot" {
 resource "null_resource" "publish-benchmark-basic-aot" {
   count = local.deploy_aot_functions ? 1 : 0
   provisioner "local-exec" {
-    working_dir = "../src/benchmark-basic-aot"
+    working_dir = "../src/basic-aot"
     command     = "publish-with-docker.sh"
     interpreter = ["bash"]
   }
@@ -38,14 +38,14 @@ resource "null_resource" "publish-benchmark-basic-aot" {
 data "archive_file" "publish-benchmark-basic-aot" {
   count       = local.deploy_aot_functions ? 1 : 0
   type        = "zip"
-  source_dir  = "../src/benchmark-basic-aot/publish"
-  output_path = "./.temp/benchmark-basic-aot.zip"
+  source_dir  = "../src/basic-aot/publish"
+  output_path = "./.temp/basic-aot.zip"
   depends_on  = [null_resource.publish-benchmark-basic-aot]
 }
 
 resource "aws_lambda_function" "benchmark-basic-aot" {
   count         = local.deploy_aot_functions ? 1 : 0
-  filename      = "./.temp/benchmark-basic-aot.zip"
+  filename      = "./.temp/basic-aot.zip"
   function_name = "benchmark-basic-aot"
   role          = aws_iam_role.benchmark-basic-aot.arn
   handler       = "bootstrap"
