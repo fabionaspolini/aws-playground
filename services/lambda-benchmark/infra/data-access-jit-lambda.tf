@@ -15,7 +15,11 @@ resource "aws_iam_role" "benchmark-data-access-jit" {
     ]
   })
 
-  managed_policy_arns = [data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn, data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn]
+  managed_policy_arns = [
+    data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn,
+    data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn,
+    resource.aws_iam_policy.manage_network_interface.arn
+  ]
 }
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
@@ -45,10 +49,15 @@ resource "aws_lambda_function" "benchmark-data-access-jit" {
   handler       = "DataAccess.Jit::DataAccess.Jit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
-  timeout       = 10
+  timeout       = 30
   architectures = ["x86_64"]
 
   source_code_hash = data.archive_file.publish-benchmark-data-access-jit.output_base64sha256
+
+  vpc_config {
+    subnet_ids         = data.aws_subnets.main.ids
+    security_group_ids = [local.security_group_id]
+  }
 
   tracing_config {
     mode = "Active"
@@ -60,7 +69,10 @@ resource "aws_lambda_function" "benchmark-data-access-jit" {
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.benchmark-data-access-jit]
+  depends_on = [
+    aws_cloudwatch_log_group.benchmark-data-access-jit,
+    aws_iam_role.benchmark-data-access-jit
+  ]
 }
 
 resource "aws_cloudwatch_log_group" "benchmark-data-access-jit" {
