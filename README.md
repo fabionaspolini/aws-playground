@@ -16,7 +16,11 @@ Focado no gerenciamento de recursos através de terraform e código fonte C#.
 
 Nas pastas de exemplos também são possíveis encontrar comandos via aws cli.
 
+Informações focadas em Terraform no arquivo **[README.terraform.md](README.terraform.md)**.
+
 [Documentação oficial AWS.](https://docs.aws.amazon.com/index.html)
+[Página oficial Terraform.](https://www.terraform.io/)
+[Documentação do profile AWS para Terraform.](https://registry.terraform.io/providers/hashicorp/aws/latest)
 
 ## Pré requisitos
 
