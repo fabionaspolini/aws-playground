@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
@@ -10,7 +9,7 @@ namespace BenchmarkBasicJit;
 
 public class Function
 {
-#pragma warning disable CA1822
+#pragma warning disable CA1822 // Método sem referência passível de virar static
     public SampleResponse[] FunctionHandler(SampleRequest request, ILambdaContext context)
     {
         context.Logger.LogInformation("Iniciando");
@@ -39,6 +38,7 @@ public partial class LambdaFunctionJsonSerializerContext : JsonSerializerContext
 {
 }
 
+#pragma warning disable SYSLIB1037 // Source generator deserialization
 public record class SampleRequest(PersonRequest? Person, MathRequest? Math, int Count = 1);
 public record class PersonRequest(string FirstName, string LastName);
 public record class MathRequest(double A, double B);
@@ -46,3 +46,4 @@ public record class MathRequest(double A, double B);
 public record class SampleResponse(PersonResponse? Person, MathResponse? Math);
 public record class PersonResponse(string FullName, string WelcomeMessage);
 public record class MathResponse(double C);
+#pragma warning restore SYSLIB1037

@@ -34,6 +34,9 @@
 
 ## .NET
 
+- JIT: Just In Time. Linking e conversão para instrução nativa do SO ocorre em tempo de execução. O binário gerado pelo `dotnet build` é multi plataforma.
+- AOT: Ahead Of Time. Compilado antecipa processo de linking e gera o binário nativo para o SO. O binário gerado pelo `dotnet build` é específico para a plataforma indicada (linux, windows, x86_64, arm64).
+
 ### Configurar ambiente
 
 - [CLI do .NET Core](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/csharp-package-cli.html)
