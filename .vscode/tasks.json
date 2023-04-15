@@ -221,35 +221,35 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // Lambda / simple-function-no-reflection
+        // Lambda / simple-function-jit-no-reflection
         {
-            "label": "build-lambda-simple-function-no-reflection",
+            "label": "build-lambda-simple-function-jit-no-reflection",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/simple-function-no-reflection/SimpleFunctionNoReflection.csproj",
+                "${workspaceFolder}/services/lambda/src/simple-function-jit-no-reflection/SimpleFunctionJitNoReflection.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "deploy-lambda-simple-function-no-reflection",
+            "label": "deploy-lambda-simple-function-jit-no-reflection",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "lambda",
                 "deploy-function",
                 "--function-name",
-                "simple-function-no-reflection",
+                "simple-function-jit-no-reflection",
                 "--function-role",
-                "simple-function-no-reflection-lambda",
+                "simple-function-jit-no-reflection-lambda",
                 "--tracing-mode",
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-no-reflection"
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-jit-no-reflection"
             },
             "problemMatcher": "$msCompile"
         }

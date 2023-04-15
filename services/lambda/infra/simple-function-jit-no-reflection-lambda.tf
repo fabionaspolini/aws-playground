@@ -1,5 +1,5 @@
-resource "aws_iam_role" "simple-function-no-reflection" {
-  name = "simple-function-no-reflection-lambda"
+resource "aws_iam_role" "simple-function-jit-no-reflection" {
+  name = "simple-function-jit-no-reflection-lambda"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -20,9 +20,9 @@ resource "aws_iam_role" "simple-function-no-reflection" {
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish-simple-function-no-reflection" {
+resource "null_resource" "publish-simple-function-jit-no-reflection" {
   provisioner "local-exec" {
-    working_dir = "../src/simple-function-no-reflection"
+    working_dir = "../src/simple-function-jit-no-reflection"
     command     = "publish.sh"
     interpreter = ["bash"]
   }
@@ -31,24 +31,24 @@ resource "null_resource" "publish-simple-function-no-reflection" {
   }
 }
 
-data "archive_file" "publish-simple-function-no-reflection" {
+data "archive_file" "publish-simple-function-jit-no-reflection" {
   type        = "zip"
-  source_dir  = "../src/simple-function-no-reflection/publish"
-  output_path = "./.temp/simple-function-no-reflection.zip"
-  depends_on  = [null_resource.publish-simple-function-no-reflection]
+  source_dir  = "../src/simple-function-jit-no-reflection/publish"
+  output_path = "./.temp/simple-function-jit-no-reflection.zip"
+  depends_on  = [null_resource.publish-simple-function-jit-no-reflection]
 }
 
-resource "aws_lambda_function" "simple-function-no-reflection" {
-  filename      = "./.temp/simple-function-no-reflection.zip"
-  function_name = "simple-function-no-reflection"
-  role          = aws_iam_role.simple-function-no-reflection.arn
-  handler       = "SimpleFunctionNoReflection::SimpleFunctionNoReflection.Function::FunctionHandler"
+resource "aws_lambda_function" "simple-function-jit-no-reflection" {
+  filename      = "./.temp/simple-function-jit-no-reflection.zip"
+  function_name = "simple-function-jit-no-reflection"
+  role          = aws_iam_role.simple-function-jit-no-reflection.arn
+  handler       = "SimpleFunctionJitNoReflection::SimpleFunctionJitNoReflection.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10
   architectures = ["x86_64"]
 
-  source_code_hash = data.archive_file.publish-simple-function-no-reflection.output_base64sha256
+  source_code_hash = data.archive_file.publish-simple-function-jit-no-reflection.output_base64sha256
 
   tracing_config {
     mode = "Active"
@@ -60,10 +60,10 @@ resource "aws_lambda_function" "simple-function-no-reflection" {
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.simple-function-no-reflection]
+  depends_on = [aws_cloudwatch_log_group.simple-function-jit-no-reflection]
 }
 
-resource "aws_cloudwatch_log_group" "simple-function-no-reflection" {
-  name              = "/aws/lambda/simple-function-no-reflection"
+resource "aws_cloudwatch_log_group" "simple-function-jit-no-reflection" {
+  name              = "/aws/lambda/simple-function-jit-no-reflection"
   retention_in_days = 1
 }

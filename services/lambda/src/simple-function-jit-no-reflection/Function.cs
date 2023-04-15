@@ -3,13 +3,13 @@
 using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
-using SimpleFunctionNoReflection;
+using SimpleFunctionJitNoReflection;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 // [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))] // Default com serialização utilizando reflection
 [assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>))] // Source generator para não usar reflection na serialização dos objetos e melhorar performance
 
-namespace SimpleFunctionNoReflection;
+namespace SimpleFunctionJitNoReflection;
 
 #pragma warning disable CA1822 // Warning para marcar método FunctionHandler como estático
 

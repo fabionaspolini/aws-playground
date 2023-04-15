@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionAot", "services\lambda\src\simple-function-aot\SimpleFunctionAot.csproj", "{15749A30-6B83-4A82-B47B-CF530A62117E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionNoReflection", "services\lambda\src\simple-function-no-reflection\SimpleFunctionNoReflection.csproj", "{94DD455F-9B83-4157-8968-37F3755C5F0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionJitNoReflection", "services\lambda\src\simple-function-jit-no-reflection\SimpleFunctionJitNoReflection.csproj", "{94DD455F-9B83-4157-8968-37F3755C5F0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkBasicJit", "services\lambda\src\benchmark-basic-jit\BenchmarkBasicJit.csproj", "{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}"
 EndProject
