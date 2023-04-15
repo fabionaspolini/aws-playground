@@ -7,6 +7,7 @@
   - [Criar função](#criar-função)
   - [Deploy pelo CLI](#deploy-pelo-cli)
   - [Limpar ambiente](#limpar-ambiente)
+- [Preço](#preço)
 - [Notas](#notas)
 
 ## Visão geral
@@ -123,6 +124,13 @@ Recursos para apagar em caso de testes manuais:
 - Lambda function
 - Cloud watch / Log group
 - IAM / Role
+
+## Preço
+
+https://docs.aws.amazon.com/pt_br/whitepapers/latest/how-aws-pricing-works/lambda.html
+
+- **Free tier:** 1 milhão de requisições por mês e 400 GB de tráfego
+- Após free tier, $ 0.20 por milhão de requisição mensal
 
 ## Notas
 

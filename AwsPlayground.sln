@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionNoReflection"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkBasicJit", "services\lambda\src\benchmark-basic-jit\BenchmarkBasicJit.csproj", "{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkBasicAot", "services\lambda\src\benchmark-basic-aot\BenchmarkBasicAot.csproj", "{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{15749A30-6B83-4A82-B47B-CF530A62117E} = {C1F90A39-C011-4858-B203-E2B518ABE367}
 		{94DD455F-9B83-4157-8968-37F3755C5F0C} = {C1F90A39-C011-4858-B203-E2B518ABE367}
 		{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15} = {C1F90A39-C011-4858-B203-E2B518ABE367}
+		{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB} = {C1F90A39-C011-4858-B203-E2B518ABE367}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277EE416-CD21-45A4-98BE-8C431904FB59}
