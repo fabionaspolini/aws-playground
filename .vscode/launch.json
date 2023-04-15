@@ -97,7 +97,8 @@
             "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit",
             "console": "internalConsole",
             "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "envFile": "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit/.env"
         }
     ]
 }
