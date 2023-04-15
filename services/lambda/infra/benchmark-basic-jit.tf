@@ -42,7 +42,7 @@ resource "aws_lambda_function" "benchmark-basic-jit" {
   filename      = "./.temp/benchmark-basic-jit.zip"
   function_name = "benchmark-basic-jit"
   role          = aws_iam_role.benchmark-basic-jit.arn
-  handler       = "SimpleFunction::SimpleFunction.Function::FunctionHandler"
+  handler       = "BenchmarkBasicJit::BenchmarkBasicJit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10
