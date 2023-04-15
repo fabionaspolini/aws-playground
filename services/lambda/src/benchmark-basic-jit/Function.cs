@@ -24,7 +24,8 @@ public class Function
             var mathResponse = request.Math != null
                 ? new MathResponse(Math.Sqrt(Math.Pow(request.Math.A, 2) + Math.Pow(request.Math.B, 2)))
                 : null;
-            result.Add(new(personResponse, mathResponse));
+            if (request.AddAllResponses || i == 1)
+                result.Add(new(personResponse, mathResponse));
         }
         context.Logger.LogInformation("Concluído");
         return result.ToArray();
@@ -39,7 +40,7 @@ public partial class LambdaFunctionJsonSerializerContext : JsonSerializerContext
 }
 
 #pragma warning disable SYSLIB1037 // Source generator deserialization
-public record class SampleRequest(PersonRequest? Person, MathRequest? Math, int Count = 1);
+public record class SampleRequest(PersonRequest? Person, MathRequest? Math, int Count = 1, bool AddAllResponses = true);
 public record class PersonRequest(string FirstName, string LastName);
 public record class MathRequest(double A, double B);
 

@@ -36,7 +36,7 @@ resource "null_resource" "publish-simple-function-aot" {
 }
 
 data "archive_file" "publish-simple-function-aot" {
-  count       = local.deploy_aot_functions ? 1 : 0
+  # count       = local.deploy_aot_functions ? 1 : 0
   type        = "zip"
   source_dir  = "../src/simple-function-aot/publish"
   output_path = "./.temp/simple-function-aot.zip"
@@ -54,7 +54,7 @@ resource "aws_lambda_function" "simple-function-aot" {
   timeout       = 10
   architectures = ["x86_64"]
 
-  source_code_hash = data.archive_file.publish-simple-function-aot[0].output_base64sha256
+  source_code_hash = data.archive_file.publish-simple-function-aot.output_base64sha256
 
   tracing_config {
     mode = "Active"

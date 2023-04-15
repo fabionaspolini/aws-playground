@@ -51,13 +51,13 @@
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
-            "name": "Lambda / simple-function",
+            "name": "Lambda / simple-function-jit",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-lambda-simple-function",
+            "preLaunchTask": "build-lambda-simple-function-jit",
             "program": "dotnet-lambda-test-tool-6.0",
             "args": [],
-            "cwd": "${workspaceFolder}/services/lambda/src/simple-function",
+            "cwd": "${workspaceFolder}/services/lambda/src/simple-function-jit",
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"

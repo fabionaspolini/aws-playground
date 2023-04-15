@@ -1,5 +1,5 @@
-resource "aws_iam_role" "simple-function" {
-  name = "simple-function-lambda"
+resource "aws_iam_role" "simple-function-jit" {
+  name = "simple-function-jit-lambda"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -20,9 +20,9 @@ resource "aws_iam_role" "simple-function" {
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish-simple-function" {
+resource "null_resource" "publish-simple-function-jit" {
   provisioner "local-exec" {
-    working_dir = "../src/simple-function"
+    working_dir = "../src/simple-function-jit"
     command     = "publish.sh"
     interpreter = ["bash"]
   }
@@ -31,24 +31,24 @@ resource "null_resource" "publish-simple-function" {
   }
 }
 
-data "archive_file" "publish-simple-function" {
+data "archive_file" "publish-simple-function-jit" {
   type        = "zip"
-  source_dir  = "../src/simple-function/publish"
-  output_path = "./.temp/simple-function.zip"
-  depends_on  = [null_resource.publish-simple-function]
+  source_dir  = "../src/simple-function-jit/publish"
+  output_path = "./.temp/simple-function-jit.zip"
+  depends_on  = [null_resource.publish-simple-function-jit]
 }
 
-resource "aws_lambda_function" "simple-function" {
-  filename      = "./.temp/simple-function.zip"
-  function_name = "simple-function"
-  role          = aws_iam_role.simple-function.arn
-  handler       = "SimpleFunction::SimpleFunction.Function::FunctionHandler"
+resource "aws_lambda_function" "simple-function-jit" {
+  filename      = "./.temp/simple-function-jit.zip"
+  function_name = "simple-function-jit"
+  role          = aws_iam_role.simple-function-jit.arn
+  handler       = "SimpleFunctionJit::SimpleFunctionJit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10
   architectures = ["x86_64"]
 
-  source_code_hash = data.archive_file.publish-simple-function.output_base64sha256
+  source_code_hash = data.archive_file.publish-simple-function-jit.output_base64sha256
 
   tracing_config {
     mode = "Active"
@@ -60,10 +60,10 @@ resource "aws_lambda_function" "simple-function" {
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.simple-function]
+  depends_on = [aws_cloudwatch_log_group.simple-function-jit]
 }
 
-resource "aws_cloudwatch_log_group" "simple-function" {
-  name              = "/aws/lambda/simple-function"
+resource "aws_cloudwatch_log_group" "simple-function-jit" {
+  name              = "/aws/lambda/simple-function-jit"
   retention_in_days = 1
 }

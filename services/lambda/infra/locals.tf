@@ -1,3 +1,3 @@
 locals {
-    deploy_aot_functions = false
+    deploy_aot_functions = true
 }

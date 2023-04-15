@@ -144,33 +144,33 @@
         },
         // Lambda / simple-function
         {
-            "label": "build-lambda-simple-function",
+            "label": "build-lambda-simple-function-jit",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda/src/simple-function/SimpleFunction.csproj",
+                "${workspaceFolder}/services/lambda/src/simple-function/SimpleFunctionJit.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "deploy-lambda-simple-function",
+            "label": "deploy-lambda-simple-function-jit",
             "command": "dotnet",
             "type": "shell",
             "args": [
                 "lambda",
                 "deploy-function",
                 "--function-name",
-                "simple-function",
+                "simple-function-jit",
                 "--function-role",
                 "simple-function-lambda",
                 "--tracing-mode",
                 "Active"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/services/lambda/src/simple-function"
+                "cwd": "${workspaceFolder}/services/lambda/src/simple-function-jit"
             },
             "problemMatcher": "$msCompile"
         },
