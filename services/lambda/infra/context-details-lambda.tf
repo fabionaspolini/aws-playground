@@ -18,7 +18,8 @@ resource "aws_iam_role" "context-details" {
   managed_policy_arns = [data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn, data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn]
 }
 
-# Exemplo para executar script local pelo terraform apenas para facilitar o deploy durante os estudos. Numa pipeline de CI/CD isso já estaria previamente gerado e seria desnecessário.
+# Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
+# Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
 resource "null_resource" "publish-context-details" {
   provisioner "local-exec" {
     working_dir = "../src/context-details"
