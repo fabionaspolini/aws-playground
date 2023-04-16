@@ -88,6 +88,18 @@
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
+            "name": "Lambda Benchmark / data-access-aot",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-benchmark-data-access-aot",
+            "program": "dotnet-lambda-test-tool-7.0",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-aot",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
             "name": "Lambda Benchmark / data-access-jit",
             "type": "coreclr",
             "request": "launch",

@@ -253,6 +253,53 @@
             },
             "problemMatcher": "$msCompile"
         },
+        // Lambda Benchmark / data-access-aot
+        {
+            "label": "build-lambda-benchmark-data-access-aot",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/lambda-benchmark/src/data-access-aot/DataAccess.Aot.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "deploy-lambda-benchmark-data-access-aot",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "lambda",
+                "deploy-function",
+                "--function-name",
+                "benchmark-data-access-aot",
+                "--function-role",
+                "benchmark-data-access-aot-lambda",
+                "--tracing-mode",
+                "Active"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-aot"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "delete-lambda-benchmark-data-access-aot",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "lambda",
+                "delete-function",
+                "--function-name",
+                "benchmark-data-access-aot"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-aot"
+            },
+            "problemMatcher": "$msCompile"
+        },
         // Lambda Benchmark / data-access-jit
         {
             "label": "build-lambda-benchmark-data-access-jit",
