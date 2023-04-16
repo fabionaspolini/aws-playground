@@ -1,6 +1,8 @@
 # Lambda Benchmark
 
-Funções lambdas para comparação de performace .NET JIT vs AOT
+Funções lambdas para comparação de performace .NET JIT vs AOT.
+
+Esse projeto utiliza a VPC default da account AWS para deploy da Lambda e RDA PostgreSQL.
 
 ## benchmark-data-access
 
