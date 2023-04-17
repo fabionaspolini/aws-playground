@@ -14,6 +14,9 @@ Métrica: duration time
 | 512 MB    | 2291.14 ms        | 1108.29 ms        | 106.29 ms     | 14.10 ms      |
 | 1024 MB   | 1125.59 ms        | 554.04 ms         | 35.63 ms      | 8.94 ms       |
 
+Billed duration
+6463 ms
+672 ms
 
 ## aot tests
 
