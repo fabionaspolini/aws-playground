@@ -62,8 +62,18 @@ public class Function
         for (var i = 1; i <= request.Count; i++)
         {
             using var scope = ServiceProvider.CreateScope();
-            var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithDapper>();
-            await useCase.ExecuteAsync();
+            if (request.DbEngine == "EF")
+            {
+                context.Logger.LogInformation("DbEngine: EF");
+                var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithEf>();
+                await useCase.ExecuteAsync();
+            }
+            else
+            {
+                context.Logger.LogInformation("DbEngine: Dapper");
+                var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithDapper>();
+                await useCase.ExecuteAsync();
+            }
         }
         context.Logger.LogInformation("Concluído");
         return result.ToArray();
@@ -78,7 +88,12 @@ public partial class LambdaFunctionJsonSerializerContext : JsonSerializerContext
 }
 
 #pragma warning disable SYSLIB1037 // Source generator deserialization
-public record class SampleRequest(PersonRequest? Person, MathRequest? Math, int Count = 1, bool AddAllResponses = true);
+public record class SampleRequest(
+    PersonRequest? Person,
+    MathRequest? Math,
+    int Count = 1,
+    bool AddAllResponses = true,
+    string DbEngine = "Dapper");
 public record class PersonRequest(string FirstName, string LastName);
 public record class MathRequest(double A, double B);
 

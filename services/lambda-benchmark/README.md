@@ -14,9 +14,12 @@ Métrica: duration time
 | 512 MB    | 2291.14 ms        | 1108.29 ms        | 106.29 ms     | 14.10 ms      |
 | 1024 MB   | 1125.59 ms        | 554.04 ms         | 35.63 ms      | 8.94 ms       |
 
-Billed duration
-6463 ms
-672 ms
+Framework tests - Billed duration com  256 MB RAM
+
+| Runtime           | EF        | Dapper    | Refit |
+|-------------------|-----------|-----------|-------|
+| JIT could start   | 6463 ms   | 3016 ms   |       |
+| JIT second        | 672 ms    | 50 ms     |       |
 
 ## aot tests
 
