@@ -71,7 +71,7 @@ resource "aws_lambda_function" "benchmark_data_access_aot" {
 
   environment {
     variables = {
-      foo = "bar"
+      ConnectionString = "${local.connection_string};Application Name=benchmark-data-access-aot-lambda"
     }
   }
 

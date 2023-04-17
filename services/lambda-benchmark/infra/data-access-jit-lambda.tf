@@ -65,7 +65,7 @@ resource "aws_lambda_function" "benchmark_data_access_jit" {
 
   environment {
     variables = {
-      ConnectionString = var.ConnectionString
+      ConnectionString = "${local.connection_string};Application Name=benchmark-data-access-jit-lambda;"
     }
   }
 
