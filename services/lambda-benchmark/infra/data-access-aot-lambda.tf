@@ -62,7 +62,7 @@ resource "aws_lambda_function" "benchmark_data_access_aot" {
 
   vpc_config {
     subnet_ids         = data.aws_subnets.main.ids
-    security_group_ids = [local.security_group_id]
+    security_group_ids = [data.aws_security_group.default.id]
   }
 
   tracing_config {
