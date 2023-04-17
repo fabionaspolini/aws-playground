@@ -20,8 +20,10 @@ Framework tests - Billed duration com  256 MB RAM
 |-------------------|-----------|-----------|-------|
 | JIT could start   | 6463 ms   | 3016 ms   |       |
 | JIT second        | 672 ms    | 50 ms     |       |
-| AOT could start   |           | 595 ms    |       |
-| AOT second        |           |           |       |
+| AOT could start   | error     | 595 ms    |       |
+| AOT second        | error     | error     |       |
+
+
 
 ## aot tests
 

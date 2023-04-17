@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
@@ -51,6 +52,7 @@ public class Function
         services.AddDbContext<SampleContext>(opts => opts.UseNpgsql(connectionString));
         services.AddScoped<SampleUseCaseWithEf>();
         services.AddScoped<SampleUseCaseWithDapper>();
+        services.AddScoped<SampleUseCaseWithDapperAot>();
         ServiceProvider = services.BuildServiceProvider();
     }
 
@@ -68,10 +70,16 @@ public class Function
                 var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithEf>();
                 await useCase.ExecuteAsync();
             }
-            else
+            else if (request.DbEngine == "Dapper")
             {
                 context.Logger.LogInformation("DbEngine: Dapper");
                 var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithDapper>();
+                await useCase.ExecuteAsync();
+            }
+            else
+            {
+                context.Logger.LogInformation("DbEngine: DapperAot");
+                var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithDapperAot>();
                 await useCase.ExecuteAsync();
             }
         }
@@ -120,6 +128,29 @@ public class SampleUseCaseWithDapper
         foreach (var pessoa in pessoas)
             _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
     }
+}
+
+public partial class SampleUseCaseWithDapperAot
+{
+    private readonly ILogger<SampleUseCaseWithDapperAot> _logger;
+    private readonly IOptions<SampleConfiguration> _configuration;
+
+    public SampleUseCaseWithDapperAot(ILogger<SampleUseCaseWithDapperAot> logger, IOptions<SampleConfiguration> configuration)
+    {
+        _logger = logger;
+        _configuration = configuration;
+    }
+
+    public async Task ExecuteAsync()
+    {
+        using var conn = new NpgsqlConnection(_configuration.Value.ConnectionString);
+        var pessoas = await GetPessoaAsync(conn);
+        foreach (var pessoa in pessoas)
+            _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
+    }
+
+    [Command("select * from pessoa")]
+    public static partial Task<List<PessoaDto>> GetPessoaAsync(DbConnection conn);
 }
 
 public class SampleUseCaseWithEf
