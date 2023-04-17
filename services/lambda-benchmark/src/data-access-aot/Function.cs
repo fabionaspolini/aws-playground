@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.RuntimeSupport;
@@ -125,7 +126,7 @@ public class SampleUseCaseWithEf
     }
 }
 
-public class SampleUseCaseWithDapper
+public partial class SampleUseCaseWithDapper
 {
     private readonly ILogger<SampleUseCaseWithDapper> _logger;
     private readonly IOptions<SampleConfiguration> _configuration;
@@ -140,10 +141,14 @@ public class SampleUseCaseWithDapper
     {
         _logger.LogInformation($"Connection string in dapper use case: {_configuration.Value.ConnectionString}");
         using var conn = new NpgsqlConnection(_configuration.Value.ConnectionString);
-        var pessoas = await conn.QueryAsync<PessoaDto>("select * from pessoa");
+        // var pessoas = await conn.QueryAsync<PessoaDto>("select * from pessoa");
+        var pessoas = GetPessoas(conn);
         foreach (var pessoa in pessoas)
             _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
     }
+
+    [Command("select * from pessoa")]
+    public static partial IEnumerable<PessoaDto> GetPessoas(DbConnection connection);
 }
 
 public class SampleContext : DbContext

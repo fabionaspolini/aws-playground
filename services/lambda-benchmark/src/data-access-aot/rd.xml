@@ -1,7 +1,7 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
     <Application>
         <Assembly Name="mscorlib" Dynamic="Required All" />
-        <Assembly Name="Dapper" Dynamic="Required All" />
+        <!-- <Assembly Name="Dapper.AOT" Dynamic="Required All" /> -->
         <Assembly Name="Microsoft.EntityFrameworkCore" Dynamic="Required All" />
         <Assembly Name="Microsoft.EntityFrameworkCore.Abstractions" Dynamic="Required All" />
         <Assembly Name="Microsoft.EntityFrameworkCore.Relational" Dynamic="Required All" />
