@@ -1,0 +1,15 @@
+<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+    <Application>
+        <Assembly Name="mscorlib" Dynamic="Required All" />
+        <Assembly Name="Microsoft.EntityFrameworkCore" Dynamic="Required All" />
+        <Assembly Name="Microsoft.EntityFrameworkCore.Relational" Dynamic="Required All" />
+        <Assembly Name="Microsoft.Extensions.Configuration" Dynamic="Required All" />
+        <Assembly Name="Microsoft.Extensions.Configuration.Binder" Dynamic="Required All" />
+        <Assembly Name="Microsoft.Extensions.Configuration.EnvironmentVariables" Dynamic="Required All" />
+        <Assembly Name="Microsoft.Extensions.Logging.Abstractions" Dynamic="Required All" />
+        <Assembly Name="Microsoft.Extensions.Logging.Configuration" Dynamic="Required All" />
+        <Assembly Name="Microsoft.Extensions.Logging.Console" Dynamic="Required All" />
+        <Assembly Name="Npgsql" Dynamic="Required All" />
+        <Assembly Name="Npgsql.EntityFrameworkCore.PostgreSQL" Dynamic="Required All" />
+    </Application>
+</Directives>

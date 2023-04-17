@@ -1,4 +1,4 @@
-# Para habiltiar/desabilitar o deploy da function, atualize a constante "deploy_aot_functions" no arquivo "locals.tf".
+# Para habiltiar/desabilitar o deploy da function, atualize a constante "deploy_benchmark_basic_aot" no arquivo "locals.tf".
 # Comando "terraform apply" no windows não suporta este build.
 
 resource "aws_iam_role" "benchmark_basic_aot" {
@@ -27,7 +27,7 @@ resource "aws_iam_role" "benchmark_basic_aot" {
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
 resource "null_resource" "publish_benchmark_basic_aot" {
-  count = local.deploy_aot_functions ? 1 : 0
+  count = local.deploy_benchmark_basic_aot ? 1 : 0
   provisioner "local-exec" {
     working_dir = "../src/basic-aot"
     command     = "publish-with-docker.sh"
@@ -39,7 +39,7 @@ resource "null_resource" "publish_benchmark_basic_aot" {
 }
 
 data "archive_file" "publish_benchmark_basic_aot" {
-  count       = local.deploy_aot_functions ? 1 : 0
+  count       = local.deploy_benchmark_basic_aot ? 1 : 0
   type        = "zip"
   source_dir  = "../src/basic-aot/publish"
   output_path = "./.temp/basic-aot.zip"
@@ -47,7 +47,7 @@ data "archive_file" "publish_benchmark_basic_aot" {
 }
 
 resource "aws_lambda_function" "benchmark_basic_aot" {
-  count         = local.deploy_aot_functions ? 1 : 0
+  count         = local.deploy_benchmark_basic_aot ? 1 : 0
   filename      = "./.temp/basic-aot.zip"
   function_name = "benchmark-basic-aot"
   role          = aws_iam_role.benchmark_basic_aot.arn
