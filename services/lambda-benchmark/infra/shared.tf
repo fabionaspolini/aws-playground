@@ -3,7 +3,7 @@ data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnets" "main" {
+data "aws_subnets" "deploy_zones" {
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.default.id]

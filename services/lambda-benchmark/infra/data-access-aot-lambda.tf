@@ -61,7 +61,7 @@ resource "aws_lambda_function" "benchmark_data_access_aot" {
   source_code_hash = data.archive_file.publish_benchmark_data_access_aot[0].output_base64sha256
 
   vpc_config {
-    subnet_ids         = data.aws_subnets.main.ids
+    subnet_ids         = data.aws_subnets.deploy_zones.ids
     security_group_ids = [data.aws_security_group.default.id]
   }
 
