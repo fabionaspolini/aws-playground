@@ -12,5 +12,6 @@
   "function-memory-size": 256,
   "function-timeout": 10,
   "function-handler": "bootstrap",
-  "msbuild-parameters": "--self-contained true"
+  "msbuild-parameters": "--self-contained true",
+  "environment-variables": "ConnectionString=\"Server=lambda-test.cblgcoxiefix.us-east-1.rds.amazonaws.com;Port=8455;Database=lambda_test;User Id=postgres;Password=teste.123456;Application Name=benchmark-data-access-aot-lambda;\""
 }

@@ -45,7 +45,7 @@ public class Function
         services.AddLogging(ConfigureLogging);
 
         var connectionString = config.GetValue<string>("ConnectionString");
-        logger.LogInformation($"ConnectionString: ${connectionString}");
+        logger.LogInformation($"ConnectionString: {connectionString}");
 
         services.Configure<SampleConfiguration>(config);
         services.AddDbContext<SampleContext>(opts => opts.UseNpgsql(connectionString));
