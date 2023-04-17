@@ -24,19 +24,18 @@ data "http" "ip" {
 }
 
 
-# resource "aws_security_group" "allow_rds_lambda_test_access" {
+# resource "aws_security_group" "allow_access_to_rds_lambda_test" {
 #   name        = "allow-access-to-rds-lambda-test"
 #   description = "Autorizar acesso ao RDS lambda-test"
 #   vpc_id      = data.aws_vpc.main.id
 
 #   ingress {
-#     description = "Acesso publico internet"
-#     from_port   = 8455
+#     # description = "Acesso publico internet"
+#     # from_port   = 8455
 #     to_port     = 8455
 #     protocol    = "tcp"
-#     # cidr_blocks = [data.aws_vpc.main.cidr_block]
+#     cidr_blocks = [data.aws_vpc.main.cidr_block]
 #     # cidr_blocks = ["0.0.0.0/0"]
-#     cidr_blocks = ["189.28.181.215/32"] # ip externo que pode conectar no db
 #   }
 
 #   tags = {

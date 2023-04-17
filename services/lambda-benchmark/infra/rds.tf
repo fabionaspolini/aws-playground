@@ -36,6 +36,15 @@ resource "aws_security_group" "rds_lambda_test" {
     cidr_blocks = ["${data.http.ip.response_body}/32"] # ip externo que pode conectar no db
   }
 
+  ingress {
+    description = "Acesso interno ${data.aws_vpc.main.id}"
+    from_port   = 8455
+    to_port     = 8455
+    protocol    = "tcp"
+    cidr_blocks = [data.aws_vpc.main.cidr_block]
+    # cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Name = "rds-lambda-test"
   }
