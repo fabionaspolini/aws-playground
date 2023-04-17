@@ -141,14 +141,13 @@ public partial class SampleUseCaseWithDapper
     {
         _logger.LogInformation($"Connection string in dapper use case: {_configuration.Value.ConnectionString}");
         using var conn = new NpgsqlConnection(_configuration.Value.ConnectionString);
-        // var pessoas = await conn.QueryAsync<PessoaDto>("select * from pessoa");
-        var pessoas = GetPessoas(conn);
+        var pessoas = await GetPessoasAsync(conn);
         foreach (var pessoa in pessoas)
             _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
     }
 
     [Command("select * from pessoa")]
-    public static partial IEnumerable<PessoaDto> GetPessoas(DbConnection connection);
+    public static partial Task<List<PessoaDto>> GetPessoasAsync(DbConnection connection);
 }
 
 public class SampleContext : DbContext

@@ -10,7 +10,7 @@
   "configuration": "Release",
   "function-runtime": "provided.al2",
   "function-memory-size": 256,
-  "function-timeout": 70,
+  "function-timeout": 10,
   "function-handler": "bootstrap",
   "msbuild-parameters": "--self-contained true",
   "environment-variables": "env=value;env2-value;",
