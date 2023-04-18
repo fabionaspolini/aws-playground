@@ -1,6 +1,6 @@
 #!/bin/sh
 dir="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-rm -rf "$dir/bin/Release/publish"
+# rm -rf "$dir/bin/Release/publish"
 docker run --rm \
     --volume "$dir":/tmp/source/ \
     --volume "/tmp/dotnet-aot-docker-volume":/tmp/dotnet/ \
