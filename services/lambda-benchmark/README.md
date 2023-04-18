@@ -90,6 +90,8 @@ Framework tests - Billed duration com **256 MB RAM**
 
 ## rd.xml
 
+[Runtime directives (rd.xml) configuration file reference](https://learn.microsoft.com/en-us/windows/uwp/dotnet-native/runtime-directives-rd-xml-configuration-file-reference)
+
 Quando a biblioteca não está preparada para build AOT é necessário informar neste arquivo as classes e métodos acessados dinamicamente com generics para não haver a otimização e ofuscação do mesmo no build nativo.
 
 No arquivo `.csproj` adicione:
