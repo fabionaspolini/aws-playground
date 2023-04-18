@@ -14,6 +14,12 @@
             <Type Name="Microsoft.EntityFrameworkCore.ChangeTracking.ValueComparer+DefaultValueComparer`1[[System.Guid,System.Runtime]]" Dynamic="Required All" />
             <Type Name="Microsoft.EntityFrameworkCore.ChangeTracking.ValueComparer+DefaultValueComparer`1[[System.String,System.Runtime]]" Dynamic="Required All" />
             <Type Name="Microsoft.EntityFrameworkCore.ChangeTracking.ValueComparer+DefaultValueComparer`1[[System.DateTime,System.Runtime]]" Dynamic="Required All" />
+            <Type Name="Microsoft.EntityFrameworkCore.Infrastructure.ExpressionExtensions" Dynamic="Required All">
+                <Method Name="ValueBufferTryReadValue" Dynamic="Required All">
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                </Method>
+            </Type>
+            <!-- <Type Name="Microsoft.EntityFrameworkCore.Infrastructure.ExpressionExtensions.ValueBufferTryReadValueMethod[[System.Guid,System.Runtime]]" Dynamic="Required All" /> -->
         </Assembly>
 
         <Assembly Name="Npgsql.EntityFrameworkCore.PostgreSQL">
