@@ -18,7 +18,7 @@ public class Function
 
     public static async Task<CepResponse> FunctionHandlerAsync(SampleRequest request, ILambdaContext context)
     {
-        context.Logger.LogInformation("Iniciando Refit Aot");
+        context.Logger.LogInformation("Iniciando Refit AOT");
         var useCase = new SampleUseCase();
         var response = await useCase.ExecuteAsync(request.Cep);
         context.Logger.LogInformation("Concluído");

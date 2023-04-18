@@ -19,7 +19,7 @@ public class Function
 
     public static async Task<SampleResponse[]> FunctionHandlerAsync(SampleRequest request, ILambdaContext context)
     {
-        context.Logger.LogInformation("Iniciando");
+        context.Logger.LogInformation("Iniciando EF AOT");
         var result = new List<SampleResponse>();
         for (var i = 1; i <= request.Count; i++)
         {

@@ -13,7 +13,7 @@ public class Function
 #pragma warning disable CA1822 // Método sem referência passível de virar static
     public async Task<SampleResponse[]> FunctionHandler(SampleRequest request, ILambdaContext context)
     {
-        context.Logger.LogInformation("Iniciando");
+        context.Logger.LogInformation("Iniciando EF JIT");
         var result = new List<SampleResponse>();
         for (var i = 1; i <= request.Count; i++)
         {

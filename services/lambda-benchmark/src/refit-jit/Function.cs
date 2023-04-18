@@ -13,7 +13,7 @@ public class Function
 #pragma warning disable CA1822 // Método sem referência passível de virar static
     public async Task<CepResponse> FunctionHandler(SampleRequest request, ILambdaContext context)
     {
-        context.Logger.LogInformation("Iniciando Refit Jit");
+        context.Logger.LogInformation("Iniciando Refit JIT");
         var useCase = new SampleUseCase();
         var response = await useCase.ExecuteAsync(request.Cep);
         context.Logger.LogInformation("Concluído");

@@ -1,5 +1,5 @@
 #!/bin/sh
-rm -rf bin/Release/publish
+#rm -rf bin/Release/publish
 dotnet publish \
     -c Release \
     -o bin/Release/publish \
