@@ -94,8 +94,11 @@ apply-all.sh -destroy
 
 ### Services
 
+Neste repositório o foco é apenas no recurso unitário da AWS. Haverá muita duplicidade de código terraform e .net.
+
 - [DynamoDB](services/dynamodb)
 - [Lambda](services/lambda)
+- [Lambda Benchmark](services/lambda-benchmark)
 
 ## Alternativa com Localstack
 
