@@ -7,7 +7,7 @@ terraform {
     }
 
     archive = {
-      source = "hashicorp/archive"
+      source  = "hashicorp/archive"
       version = "2.3.0"
     }
   }
@@ -24,7 +24,7 @@ provider "aws" {
   default_tags {
     tags = {
       managed-by = "terraform"
-      owner      = "aws-playground/services/lambda"
+      repo       = "aws-playground/services/lambda"
     }
   }
 }

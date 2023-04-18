@@ -18,7 +18,7 @@ provider "aws" {
   default_tags {
     tags = {
       managed-by = "terraform"
-      owner      = "aws-playground/services/dynamodb"
+      repo       = "aws-playground/services/dynamodb"
     }
   }
 }
