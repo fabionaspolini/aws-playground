@@ -3,12 +3,12 @@ using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Dapper;
-using DataAccess.Dapper.Jit;
+using Dapper.Jit;
 using Npgsql;
 
 [assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>))]
 
-namespace DataAccess.Dapper.Jit;
+namespace Dapper.Jit;
 
 public class Function
 {

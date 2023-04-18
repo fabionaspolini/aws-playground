@@ -1,5 +1,5 @@
-resource "aws_iam_role" "benchmark_data_access_jit" {
-  name = "benchmark-data-access-jit-lambda"
+resource "aws_iam_role" "benchmark_geral_jit" {
+  name = "benchmark-geral-jit-lambda"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -24,9 +24,9 @@ resource "aws_iam_role" "benchmark_data_access_jit" {
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish_benchmark_data_access_jit" {
+resource "null_resource" "publish_benchmark_geral_jit" {
   provisioner "local-exec" {
-    working_dir = "../src/data-access-jit"
+    working_dir = "../src/geral-jit"
     command     = "publish.sh"
     interpreter = ["bash"]
   }
@@ -35,24 +35,24 @@ resource "null_resource" "publish_benchmark_data_access_jit" {
   }
 }
 
-data "archive_file" "publish_benchmark_data_access_jit" {
+data "archive_file" "publish_benchmark_geral_jit" {
   type        = "zip"
-  source_dir  = "../src/data-access-jit/publish"
-  output_path = "./.temp/data-access-jit.zip"
-  depends_on  = [null_resource.publish_benchmark_data_access_jit]
+  source_dir  = "../src/geral-jit/publish"
+  output_path = "./.temp/geral-jit.zip"
+  depends_on  = [null_resource.publish_benchmark_geral_jit]
 }
 
-resource "aws_lambda_function" "benchmark_data_access_jit" {
-  filename      = "./.temp/data-access-jit.zip"
-  function_name = "benchmark-data-access-jit"
-  role          = aws_iam_role.benchmark_data_access_jit.arn
-  handler       = "DataAccess.Jit::DataAccess.Jit.Function::FunctionHandler"
+resource "aws_lambda_function" "benchmark_geral_jit" {
+  filename      = "./.temp/geral-jit.zip"
+  function_name = "benchmark-geral-jit"
+  role          = aws_iam_role.benchmark_geral_jit.arn
+  handler       = "Geral.Jit::Geral.Jit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 30
   architectures = ["x86_64"]
 
-  source_code_hash = data.archive_file.publish_benchmark_data_access_jit.output_base64sha256
+  source_code_hash = data.archive_file.publish_benchmark_geral_jit.output_base64sha256
 
   vpc_config {
     subnet_ids         = data.aws_subnets.deploy_zones.ids
@@ -65,14 +65,14 @@ resource "aws_lambda_function" "benchmark_data_access_jit" {
 
   environment {
     variables = {
-      ConnectionString = "${local.connection_string};Application Name=benchmark-data-access-jit-lambda;"
+      ConnectionString = "${local.connection_string};Application Name=benchmark-geral-jit-lambda;"
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.benchmark_data_access_jit]
+  depends_on = [aws_cloudwatch_log_group.benchmark_geral_jit]
 }
 
-resource "aws_cloudwatch_log_group" "benchmark_data_access_jit" {
-  name              = "/aws/lambda/benchmark-data-access-jit"
+resource "aws_cloudwatch_log_group" "benchmark_geral_jit" {
+  name              = "/aws-playground/lambda-benchmark/geral-jit"
   retention_in_days = 1
 }

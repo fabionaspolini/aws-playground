@@ -45,7 +45,7 @@ resource "aws_lambda_function" "benchmark_basic_jit" {
   filename      = "./.temp/basic-jit.zip"
   function_name = "benchmark-basic-jit"
   role          = aws_iam_role.benchmark_basic_jit.arn
-  handler       = "BasicJit::BasicJit.Function::FunctionHandler"
+  handler       = "Basic.Jit::Basic.Jit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 10
@@ -67,6 +67,6 @@ resource "aws_lambda_function" "benchmark_basic_jit" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_basic_jit" {
-  name              = "/aws/lambda/benchmark-basic-jit"
+  name              = "/aws-playground/lambda-benchmark/basic-jit"
   retention_in_days = 1
 }

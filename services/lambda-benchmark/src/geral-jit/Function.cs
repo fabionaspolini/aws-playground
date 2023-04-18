@@ -1,9 +1,9 @@
 using System.Data.Common;
 using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.RuntimeSupport;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Dapper;
+using Geral.Jit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +11,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Npgsql;
 
-namespace DataAccess.Aot;
+[assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>))]
+
+namespace Geral.Jit;
 
 public class SampleConfiguration
 {
@@ -28,14 +30,6 @@ public class Function
             x.SingleLine = true;
             x.TimestampFormat = null;
         });
-
-    private static async Task Main()
-    {
-        Func<SampleRequest, ILambdaContext, Task<SampleResponse[]>> handler = FunctionHandlerAsync;
-        await LambdaBootstrapBuilder.Create(handler, new SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>())
-            .Build()
-            .RunAsync();
-    }
 
     static Function()
     {
@@ -58,10 +52,12 @@ public class Function
         services.AddDbContext<SampleContext>(opts => opts.UseNpgsql(connectionString));
         services.AddScoped<SampleUseCaseWithEf>();
         services.AddScoped<SampleUseCaseWithDapper>();
+        services.AddScoped<SampleUseCaseWithDapperAot>();
         ServiceProvider = services.BuildServiceProvider();
     }
 
-    public static async Task<SampleResponse[]> FunctionHandlerAsync(SampleRequest request, ILambdaContext context)
+#pragma warning disable CA1822 // Método sem referência passível de virar static
+    public async Task<SampleResponse[]> FunctionHandler(SampleRequest request, ILambdaContext context)
     {
         context.Logger.LogInformation("Iniciando");
         var result = new List<SampleResponse>();
@@ -74,16 +70,23 @@ public class Function
                 var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithEf>();
                 await useCase.ExecuteAsync();
             }
-            else
+            else if (request.DbEngine == "Dapper")
             {
                 context.Logger.LogInformation("DbEngine: Dapper");
                 var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithDapper>();
+                await useCase.ExecuteAsync();
+            }
+            else
+            {
+                context.Logger.LogInformation("DbEngine: DapperAot");
+                var useCase = scope.ServiceProvider.GetRequiredService<SampleUseCaseWithDapperAot>();
                 await useCase.ExecuteAsync();
             }
         }
         context.Logger.LogInformation("Concluído");
         return result.ToArray();
     }
+#pragma warning restore CA1822
 }
 
 [JsonSerializable(typeof(SampleRequest))]
@@ -107,6 +110,49 @@ public record class PersonResponse(string FullName, string WelcomeMessage);
 public record class MathResponse(double C);
 #pragma warning restore SYSLIB1037
 
+public class SampleUseCaseWithDapper
+{
+    private readonly ILogger<SampleUseCaseWithDapper> _logger;
+    private readonly IOptions<SampleConfiguration> _configuration;
+
+    public SampleUseCaseWithDapper(ILogger<SampleUseCaseWithDapper> logger, IOptions<SampleConfiguration> configuration)
+    {
+        _logger = logger;
+        _configuration = configuration;
+    }
+
+    public async Task ExecuteAsync()
+    {
+        using var conn = new NpgsqlConnection(_configuration.Value.ConnectionString);
+        var pessoas = await conn.QueryAsync<PessoaDto>("select * from pessoa");
+        foreach (var pessoa in pessoas)
+            _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
+    }
+}
+
+public partial class SampleUseCaseWithDapperAot
+{
+    private readonly ILogger<SampleUseCaseWithDapperAot> _logger;
+    private readonly IOptions<SampleConfiguration> _configuration;
+
+    public SampleUseCaseWithDapperAot(ILogger<SampleUseCaseWithDapperAot> logger, IOptions<SampleConfiguration> configuration)
+    {
+        _logger = logger;
+        _configuration = configuration;
+    }
+
+    public async Task ExecuteAsync()
+    {
+        using var conn = new NpgsqlConnection(_configuration.Value.ConnectionString);
+        var pessoas = await GetPessoaAsync(conn);
+        foreach (var pessoa in pessoas)
+            _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
+    }
+
+    [Command("select * from pessoa")]
+    public static partial Task<List<PessoaDto>> GetPessoaAsync(DbConnection conn);
+}
+
 public class SampleUseCaseWithEf
 {
     private readonly ILogger<SampleUseCaseWithEf> _logger;
@@ -124,30 +170,6 @@ public class SampleUseCaseWithEf
         foreach (var pessoa in pessoas)
             _logger.LogInformation($"{pessoa.Id}, {pessoa.Nome}, {pessoa.DataNascimento:dd/MM/yyyy}");
     }
-}
-
-public partial class SampleUseCaseWithDapper
-{
-    private readonly ILogger<SampleUseCaseWithDapper> _logger;
-    private readonly IOptions<SampleConfiguration> _configuration;
-
-    public SampleUseCaseWithDapper(ILogger<SampleUseCaseWithDapper> logger, IOptions<SampleConfiguration> configuration)
-    {
-        _logger = logger;
-        _configuration = configuration;
-    }
-
-    public async Task ExecuteAsync()
-    {
-        _logger.LogInformation($"Connection string in dapper use case: {_configuration.Value.ConnectionString}");
-        using var conn = new NpgsqlConnection(_configuration.Value.ConnectionString);
-        var pessoas = await GetPessoasAsync(conn);
-        foreach (var pessoa in pessoas)
-            _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
-    }
-
-    [Command("select * from pessoa")]
-    public static partial Task<List<PessoaDto>> GetPessoasAsync(DbConnection connection);
 }
 
 public class SampleContext : DbContext

@@ -43,31 +43,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionAot", "servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFunctionJitNoReflection", "services\lambda\src\simple-function-jit-no-reflection\SimpleFunctionJitNoReflection.csproj", "{94DD455F-9B83-4157-8968-37F3755C5F0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicJit", "services\lambda-benchmark\src\basic-jit\BasicJit.csproj", "{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Jit", "services\lambda-benchmark\src\basic-jit\Basic.Jit.csproj", "{CF060FDD-5DB6-4FC7-BD9A-83E32E0E9C15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicAot", "services\lambda-benchmark\src\basic-aot\BasicAot.csproj", "{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic.Aot", "services\lambda-benchmark\src\basic-aot\Basic.Aot.csproj", "{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lambda-benchmark", "lambda-benchmark", "{38E5D63F-E327-4A25-8D82-7113061C925F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Jit", "services\lambda-benchmark\src\data-access-jit\DataAccess.Jit.csproj", "{AA3FD9C4-BB5A-4DC4-8574-E1D904BDFCEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geral.Jit", "services\lambda-benchmark\src\geral-jit\Geral.Jit.csproj", "{AA3FD9C4-BB5A-4DC4-8574-E1D904BDFCEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Aot", "services\lambda-benchmark\src\data-access-aot\DataAccess.Aot.csproj", "{0BE7D1A3-DDB9-4BFA-A806-C4453409061E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geral.Aot", "services\lambda-benchmark\src\geral-aot\Geral.Aot.csproj", "{0BE7D1A3-DDB9-4BFA-A806-C4453409061E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Dapper.Jit", "services\lambda-benchmark\src\data-access-dapper-jit\DataAccess.Dapper.Jit.csproj", "{335E36FD-9EC1-4ABD-8D9F-2587A4C65807}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.Jit", "services\lambda-benchmark\src\dapper-jit\Dapper.Jit.csproj", "{335E36FD-9EC1-4ABD-8D9F-2587A4C65807}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.DapperAot.Aot", "services\lambda-benchmark\src\data-access-dapper_aot-aot\DataAccess.DapperAot.Aot.csproj", "{295FB173-EB73-4BAE-A2A6-FD5150E01457}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperAot.Aot", "services\lambda-benchmark\src\dapper_aot-aot\DapperAot.Aot.csproj", "{295FB173-EB73-4BAE-A2A6-FD5150E01457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.DapperAot.Jit", "services\lambda-benchmark\src\data-access-dapper_aot-jit\DataAccess.DapperAot.Jit.csproj", "{448C0A04-483C-4FA9-8F0E-D5901F1D1AD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperAot.Jit", "services\lambda-benchmark\src\dapper_aot-jit\DapperAot.Jit.csproj", "{448C0A04-483C-4FA9-8F0E-D5901F1D1AD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Ef.Jit", "services\lambda-benchmark\src\data-access-ef-jit\DataAccess.Ef.Jit.csproj", "{4E8B7A0A-9E23-4993-A40B-35EBC4457BE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ef.Jit", "services\lambda-benchmark\src\ef-jit\Ef.Jit.csproj", "{4E8B7A0A-9E23-4993-A40B-35EBC4457BE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Ef.Aot", "services\lambda-benchmark\src\data-access-ef-aot\DataAccess.Ef.Aot.csproj", "{20D9CD00-D9E6-4005-B702-866E0381D3A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ef.Aot", "services\lambda-benchmark\src\ef-aot\Ef.Aot.csproj", "{20D9CD00-D9E6-4005-B702-866E0381D3A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Refit.Jit", "services\lambda-benchmark\src\data-access-refit-jit\DataAccess.Refit.Jit.csproj", "{35D17634-99DF-4CB1-A1CA-458AD338F1B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refit.Jit", "services\lambda-benchmark\src\refit-jit\Refit.Jit.csproj", "{35D17634-99DF-4CB1-A1CA-458AD338F1B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Refit.Aot", "services\lambda-benchmark\src\data-access-refit-aot\DataAccess.Refit.Aot.csproj", "{6A291733-DFF6-48AF-A73C-F5E3F3682634}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refit.Aot", "services\lambda-benchmark\src\refit-aot\Refit.Aot.csproj", "{6A291733-DFF6-48AF-A73C-F5E3F3682634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

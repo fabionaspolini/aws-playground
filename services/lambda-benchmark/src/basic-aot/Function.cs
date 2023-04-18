@@ -3,7 +3,7 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.RuntimeSupport;
 using Amazon.Lambda.Serialization.SystemTextJson;
 
-namespace BasicJit;
+namespace Basic.Jit;
 
 public class Function
 {

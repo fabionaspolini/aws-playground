@@ -1,11 +1,11 @@
 using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
-using BasicJit;
+using Basic.Jit;
 
 [assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>))]
 
-namespace BasicJit;
+namespace Basic.Jit;
 
 public class Function
 {

@@ -1,29 +1,25 @@
 using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.RuntimeSupport;
 using Amazon.Lambda.Serialization.SystemTextJson;
+using Refit.Jit;
 using Refit;
 
-namespace DataAccess.Refit.Aot;
+[assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>))]
+
+namespace Refit.Jit;
 
 public class Function
 {
-    private static async Task Main()
+#pragma warning disable CA1822 // Método sem referência passível de virar static
+    public async Task<CepResponse> FunctionHandler(SampleRequest request, ILambdaContext context)
     {
-        Func<SampleRequest, ILambdaContext, Task<CepResponse>> handler = FunctionHandlerAsync;
-        await LambdaBootstrapBuilder.Create(handler, new SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>())
-            .Build()
-            .RunAsync();
-    }
-
-    public static async Task<CepResponse> FunctionHandlerAsync(SampleRequest request, ILambdaContext context)
-    {
-        context.Logger.LogInformation("Iniciando Refit Aot");
+        context.Logger.LogInformation("Iniciando Refit Jit");
         var useCase = new SampleUseCase();
         var response = await useCase.ExecuteAsync(request.Cep);
         context.Logger.LogInformation("Concluído");
         return response;
     }
+#pragma warning restore CA1822
 }
 
 [JsonSerializable(typeof(SampleRequest))]

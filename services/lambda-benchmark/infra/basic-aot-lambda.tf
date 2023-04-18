@@ -73,6 +73,6 @@ resource "aws_lambda_function" "benchmark_basic_aot" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_basic_aot" {
-  name              = "/aws/lambda/benchmark-basic-aot"
+  name              = "/aws-playground/lambda-benchmark/basic-aot"
   retention_in_days = 1
 }

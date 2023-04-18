@@ -1,12 +1,14 @@
+using System.Data.Common;
 using System.Text.Json.Serialization;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
-using DataAccess.Ef.Jit;
-using Microsoft.EntityFrameworkCore;
+using Dapper;
+using DapperAot.Jit;
+using Npgsql;
 
 [assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>))]
 
-namespace DataAccess.Ef.Jit;
+namespace DapperAot.Jit;
 
 public class Function
 {
@@ -39,46 +41,25 @@ public record class SampleRequest(int Count = 1, bool AddAllResponses = false);
 public record class SampleResponse(PessoaEntity? pessoas);
 #pragma warning restore SYSLIB1037
 
-public class SampleUseCase
+public partial class SampleUseCase
 {
     public async Task<PessoaEntity?> ExecuteAsync()
     {
         var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
-        var opts = new DbContextOptionsBuilder<SampleContext>().UseNpgsql(connectionString).Options;
-        using var context = new SampleContext(opts);
-        var pessoas = await context.Pessoas.AsNoTracking().ToArrayAsync();
+        using var conn = new NpgsqlConnection(connectionString);
+        var pessoas = await GetPessoasAsync(conn);
         foreach (var pessoa in pessoas)
-            Console.WriteLine($"{pessoa.Id}, {pessoa.Nome}, {pessoa.DataNascimento:dd/MM/yyyy}");
+            Console.WriteLine($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
         return pessoas.FirstOrDefault();
     }
-}
 
-public class SampleContext : DbContext
-{
-    public SampleContext(DbContextOptions options) : base(options)
-    {
-    }
-
-    protected SampleContext()
-    {
-    }
-
-    public DbSet<PessoaEntity> Pessoas { get; set; } = default!;
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        var pessoaBuilder = modelBuilder.Entity<PessoaEntity>();
-        pessoaBuilder.ToTable("pessoa");
-        pessoaBuilder.HasKey(x => x.Id);
-        pessoaBuilder.Property(x => x.Id).HasColumnName("id");
-        pessoaBuilder.Property(x => x.Nome).HasColumnName("nome").HasMaxLength(100);
-        pessoaBuilder.Property(x => x.DataNascimento).HasColumnName("data_nascimento");
-    }
+    [Command("select * from pessoa")]
+    public static partial Task<List<PessoaEntity>> GetPessoasAsync(DbConnection connection);
 }
 
 public class PessoaEntity
 {
-    public Guid Id { get; set; }
-    public string Nome { get; set; } = null!;
-    public DateTime DataNascimento { get; set; }
+    public Guid id { get; set; }
+    public string nome { get; set; } = null!;
+    public DateTime data_nascimento { get; set; }
 }

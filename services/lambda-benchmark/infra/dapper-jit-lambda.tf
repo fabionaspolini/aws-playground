@@ -1,5 +1,5 @@
-resource "aws_iam_role" "benchmark_data_access_ef_jit" {
-  name = "benchmark-data-access-ef-jit-lambda"
+resource "aws_iam_role" "benchmark_dapper_jit" {
+  name = "benchmark-dapper-jit-lambda"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -24,9 +24,9 @@ resource "aws_iam_role" "benchmark_data_access_ef_jit" {
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish_benchmark_data_access_ef_jit" {
+resource "null_resource" "publish_benchmark_dapper_jit" {
   provisioner "local-exec" {
-    working_dir = "../src/data-access-ef-jit"
+    working_dir = "../src/dapper-jit"
     command     = "publish.sh"
     interpreter = ["bash"]
   }
@@ -35,24 +35,24 @@ resource "null_resource" "publish_benchmark_data_access_ef_jit" {
   }
 }
 
-data "archive_file" "publish_benchmark_data_access_ef_jit" {
+data "archive_file" "publish_benchmark_dapper_jit" {
   type        = "zip"
-  source_dir  = "../src/data-access-ef-jit/publish"
-  output_path = "./.temp/data-access-ef-jit.zip"
-  depends_on  = [null_resource.publish_benchmark_data_access_ef_jit]
+  source_dir  = "../src/dapper-jit/publish"
+  output_path = "./.temp/dapper-jit.zip"
+  depends_on  = [null_resource.publish_benchmark_dapper_jit]
 }
 
-resource "aws_lambda_function" "benchmark_data_access_ef_jit" {
-  filename      = "./.temp/data-access-ef-jit.zip"
-  function_name = "benchmark-data-access-ef-jit"
-  role          = aws_iam_role.benchmark_data_access_ef_jit.arn
-  handler       = "DataAccess.Ef.Jit::DataAccess.Ef.Jit.Function::FunctionHandler"
+resource "aws_lambda_function" "benchmark_dapper_jit" {
+  filename      = "./.temp/dapper-jit.zip"
+  function_name = "benchmark-dapper-jit"
+  role          = aws_iam_role.benchmark_dapper_jit.arn
+  handler       = "Dapper.Jit::Dapper.Jit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
   timeout       = 30
   architectures = ["x86_64"]
 
-  source_code_hash = data.archive_file.publish_benchmark_data_access_ef_jit.output_base64sha256
+  source_code_hash = data.archive_file.publish_benchmark_dapper_jit.output_base64sha256
 
   vpc_config {
     subnet_ids         = data.aws_subnets.deploy_zones.ids
@@ -65,14 +65,14 @@ resource "aws_lambda_function" "benchmark_data_access_ef_jit" {
 
   environment {
     variables = {
-      ConnectionString = "${local.connection_string};Application Name=benchmark-data-access-ef-jit-lambda;"
+      ConnectionString = "${local.connection_string};Application Name=benchmark-dapper-jit-lambda;"
     }
   }
 
-  depends_on = [aws_cloudwatch_log_group.benchmark_data_access_ef_jit]
+  depends_on = [aws_cloudwatch_log_group.benchmark_dapper_jit]
 }
 
-resource "aws_cloudwatch_log_group" "benchmark_data_access_ef_jit" {
-  name              = "/aws/lambda/benchmark-data-access-ef-jit"
+resource "aws_cloudwatch_log_group" "benchmark_dapper_jit" {
+  name              = "/aws-playground/lambda-benchmark/dapper-jit"
   retention_in_days = 1
 }
