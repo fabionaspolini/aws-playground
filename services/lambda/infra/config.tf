@@ -24,7 +24,7 @@ provider "aws" {
   default_tags {
     tags = {
       managed-by = "terraform"
-      owner      = "services/lambda"
+      owner      = "aws-playground/services/lambda"
     }
   }
 }
