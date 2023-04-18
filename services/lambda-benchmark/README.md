@@ -102,6 +102,16 @@ No arquivo `.csproj` adicione:
 
 Exemplo de arquivo [rd.xml](src/ef-aot/rd.xml).
 
+Exemplos de erros por falta de configuração do rd.xml em runtime:
+
+```log
+- ...'Microsoft.EntityFrameworkCore.ChangeTracking.EntryCurrentValueComparer`1[System.Guid]' is missing native code or metadata...
+- ...'Microsoft.EntityFrameworkCore.ChangeTracking.EntryCurrentValueComparer`1[System.Guid]'...
+- ...'Microsoft.EntityFrameworkCore.ChangeTracking.ValueComparer+DefaultValueComparer`1[System.Guid]'...
+- ...'Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.Mapping.NpgsqlArrayArrayTypeMapping+SingleDimensionalArrayComparer`1[Microsoft.EntityFrameworkCore.LTree]'...
+- ...'Microsoft.EntityFrameworkCore.Infrastructure.ExpressionExtensions.ValueBufferTryReadValue[System.Guid](Microsoft.EntityFrameworkCore.Storage.ValueBuffer&,System.Int32,Microsoft.EntityFrameworkCore.Metadata.IPropertyBase)'...
+```
+
 
 ## Notas
 
@@ -116,14 +126,3 @@ https://codevision.medium.com/library-of-rd-xml-files-for-nativeaot-174dcd2438e
 https://github.com/kant2002/CoreRtRdXmlExamples/blob/master/SystemTextJsonSerialization/rd.xml
 
 https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/warnings/il3050
-
-
-
-'Microsoft.EntityFrameworkCore.ChangeTracking.EntryCurrentValueComparer`1[System.Guid]' is missing native code or metadata
-
-
-Microsoft.EntityFrameworkCore.ChangeTracking.EntryCurrentValueComparer`1[System.Guid]
-Microsoft.EntityFrameworkCore.ChangeTracking.ValueComparer+DefaultValueComparer`1[System.Guid]
-Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.Mapping.NpgsqlArrayArrayTypeMapping+SingleDimensionalArrayComparer`1[Microsoft.EntityFrameworkCore.LTree]
-
-'Microsoft.EntityFrameworkCore.Infrastructure.ExpressionExtensions.ValueBufferTryReadValue[System.Guid](Microsoft.EntityFrameworkCore.Storage.ValueBuffer&,System.Int32,Microsoft.EntityFrameworkCore.Metadata.IPropertyBase)
