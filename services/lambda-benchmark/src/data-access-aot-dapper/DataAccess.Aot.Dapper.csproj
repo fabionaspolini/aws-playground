@@ -19,10 +19,6 @@
     <NoWarn>CA2254</NoWarn>
   </PropertyGroup>
 
-  <!-- <ItemGroup>
-    <RdXmlFile Include="rd.xml" />
-  </ItemGroup> -->
-
   <!--
   When publishing Lambda functions for ARM64 to the provided.al2 runtime a newer version of libicu needs to be included
   in the deployment bundle because .NET requires a newer version of libicu then is preinstalled with Amazon Linux 2.

@@ -46,10 +46,11 @@ Métrica: duration time
 
 Framework tests - Billed duration com  256 MB RAM
 
-| Memória       | JIT cold start    | AOT cold start    | JIT 2º exe | AOT 2º exec |JIT 3º exe | AOT 3º exec |
-|---------------|-------------------|-------------------|------------|-------------|-----------|-------------|
-| Dapper.AOT    |                   | 1221 ms           |            | 20.59 ms    |           | 2.84 ms     |
-| EF Core       |                   | error             |            | error       |           | error       |
+| Memória       | JIT 1º exe | AOT 1º exec | JIT 2º exe | AOT 2º exec |JIT 3º exec | AOT 3º exec |
+|---------------|------------|-------------|------------|-------------|------------|-------------|
+| Dapper        |            |             |            |             |            |             |
+| Dapper.AOT    |            | 1221 ms     |            | 20.59 ms    |            | 2.84 ms     |
+| EF Core       |            | error       |            | error       |            | error       |
 
 ## Notas
 
