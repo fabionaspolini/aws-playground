@@ -46,11 +46,13 @@ Métrica: duration time
 
 Framework tests - Billed duration com  256 MB RAM
 
-| Memória       | JIT 1º exe | AOT 1º exec | JIT 2º exe | AOT 2º exec |JIT 3º exec | AOT 3º exec |
-|---------------|------------|-------------|------------|-------------|------------|-------------|
-| Dapper        |            |             |            |             |            |             |
-| Dapper.AOT    |            | 1221 ms     |            | 20.59 ms    |            | 2.84 ms     |
-| EF Core       |            | error       |            | error       |            | error       |
+| Memória       | JIT 1º exe | AOT 1º exec | JIT max exe | AOT max exec | JIT min exec | AOT min exec | JIT Max memory used | AOT Max memory used |
+|---------------|------------|-------------|-------------|--------------|--------------|--------------|---------------------|---------------------|
+| Dapper        | 3019 ms    | n/a         | 151 ms      | n/a          | 15ms         | n/a          | 107 mb              | n/a                 |
+| Dapper.AOT    | 2633 ms    | 1286 ms     | 65 ms       | 4 ms         | 9 ms         | 3 ms         | 101 mb              | 115 mb              |
+| EF Core       |            | error       |             | error        |              | error        |                     |                     |
+
+*n/a: Teste não se aplica no ambiente. Existe outro pacote para a plataforma.*
 
 ## Notas
 
