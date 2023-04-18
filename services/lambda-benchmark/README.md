@@ -4,11 +4,41 @@ Funções lambdas para comparação de performace .NET JIT vs AOT.
 
 Esse projeto utiliza a VPC default da account AWS para deploy da Lambda e RDA PostgreSQL.
 
-## benchmark-data-access
+- [Imagem AWS para publish AOT](#imagem-aws-para-publish-aot)
+- [Benchmark](#benchmark)
+- [Notas](#notas)
+
+## Imagem AWS para publish AOT
+
+Image: `public.ecr.aws/sam/build-dotnet7:latest-x86_64`
+
+```bash
+dir="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+
+docker run --rm \
+    --volume "$dir":/tmp/source/ \
+    -i \
+    -u 1000:1000 \
+    -e DOTNET_CLI_HOME=/tmp/dotnet \
+    -e XDG_DATA_HOME=/tmp/xdg \
+    public.ecr.aws/sam/build-dotnet7:latest-x86_64 \
+        dotnet publish "/tmp/source" \
+            --output "/tmp/source/publish" \
+            --configuration "Release" \
+            --framework "net7.0" \
+            --self-contained true \
+            /p:GenerateRuntimeConfigurationFiles=true \
+            --runtime linux-x64 \
+            /p:StripSymbols=true
+```
+
+/tmp/dotnet/.nuget/packages/
+
+## Benchmark
 
 Métrica: duration time
 
-| Memória   | JIT cold start    | AOT cold start    | JIT next call | AOT next call |
+| Memória   | JIT cold start    | AOT cold start    | JIT next exec | AOT next exec |
 |-----------|-------------------|-------------------|---------------|---------------|
 | 256 MB    | 5010.11 ms        | 2259.80 ms        | 243.17 ms     | 22.70 ms      |
 | 512 MB    | 2291.14 ms        | 1108.29 ms        | 106.29 ms     | 14.10 ms      |
@@ -16,16 +46,12 @@ Métrica: duration time
 
 Framework tests - Billed duration com  256 MB RAM
 
-| Runtime           | EF        | Dapper    | Refit |
-|-------------------|-----------|-----------|-------|
-| JIT could start   | 6463 ms   | 3016 ms   |       |
-| JIT second        | 672 ms    | 50 ms     |       |
-| AOT could start   | error     | 595 ms    |       |
-| AOT second        | error     | error     |       |
+| Memória       | JIT cold start    | AOT cold start    | JIT 2º exe | AOT 2º exec |JIT 3º exe | AOT 3º exec |
+|---------------|-------------------|-------------------|------------|-------------|-----------|-------------|
+| Dapper.AOT    |                   | 1221 ms           |            | 20.59 ms    |           | 2.84 ms     |
+| EF Core       |                   | error             |            | error       |           | error       |
 
-
-
-## aot tests
+## Notas
 
 112 mb
 268 mb

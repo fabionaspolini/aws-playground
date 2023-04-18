@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Jit", "services\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Aot", "services\lambda-benchmark\src\data-access-aot\DataAccess.Aot.csproj", "{0BE7D1A3-DDB9-4BFA-A806-C4453409061E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Aot.Dapper", "services\lambda-benchmark\src\data-access-aot-dapper\DataAccess.Aot.Dapper.csproj", "{AB997542-80B6-4E25-8351-78C41FD1B7EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{0BE7D1A3-DDB9-4BFA-A806-C4453409061E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BE7D1A3-DDB9-4BFA-A806-C4453409061E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BE7D1A3-DDB9-4BFA-A806-C4453409061E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB997542-80B6-4E25-8351-78C41FD1B7EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB997542-80B6-4E25-8351-78C41FD1B7EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB997542-80B6-4E25-8351-78C41FD1B7EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB997542-80B6-4E25-8351-78C41FD1B7EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4} = {38E5D63F-E327-4A25-8D82-7113061C925F}
 		{AA3FD9C4-BB5A-4DC4-8574-E1D904BDFCEB} = {6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}
 		{0BE7D1A3-DDB9-4BFA-A806-C4453409061E} = {6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}
+		{AB997542-80B6-4E25-8351-78C41FD1B7EF} = {6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277EE416-CD21-45A4-98BE-8C431904FB59}
