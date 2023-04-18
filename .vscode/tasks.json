@@ -331,6 +331,19 @@
                 "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit"
             },
             "problemMatcher": "$msCompile"
-        }
+        },
+        // Lambda Benchmark / rf-jit
+        {
+            "label": "build-lambda-benchmark-ef-jit",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/lambda-benchmark/src/ef-jit/Ef.Jit.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
     ]
 }

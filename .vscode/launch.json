@@ -111,6 +111,19 @@
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit/.env"
+        },
+        {
+            "name": "Lambda Benchmark / Ef.Jit",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-benchmark-ef-jit",
+            "program": "dotnet-lambda-test-tool-6.0",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/ef-jit",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "envFile": "${workspaceFolder}/services/lambda-benchmark/src/ef-jit/.env"
         }
     ]
 }
