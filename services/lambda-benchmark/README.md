@@ -115,10 +115,6 @@ Exemplos de erros por falta de configuração do rd.xml em runtime:
 
 ## Notas
 
-112 mb
-268 mb
-
-rd.xml
 https://github.com/hez2010/EFCore.NativeAOT/blob/master/rd.xml
 
 https://codevision.medium.com/rd-xml-in-corert-43bc69cddf05
