@@ -3,6 +3,7 @@ locals {
   deploy_benchmark_data_access_aot            = false
   deploy_benchmark_data_access_dapper-aot_aot = false
   deploy_benchmark_data_access_ef_aot         = false
+  deploy_benchmark_data_access_refit_aot      = true
 
   rds_address       = aws_db_instance.default.address
   rds_port          = aws_db_instance.default.port
