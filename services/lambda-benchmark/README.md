@@ -46,11 +46,12 @@ Métrica: duration time
 
 Framework tests - Billed duration com **256 MB RAM**
 
-| Memória       | JIT 1º exe | AOT 1º exec | JIT max exe | AOT max exec | JIT min exec | AOT min exec | JIT Max memory used | AOT Max memory used |
-|---------------|------------|-------------|-------------|--------------|--------------|--------------|---------------------|---------------------|
-| Dapper        | 3019 ms    | n/a         | 151 ms      | n/a          | 15ms         | n/a          | 107 mb              | n/a                 |
-| Dapper.AOT    | 2633 ms    | 1286 ms     | 65 ms       | 4 ms         | 9 ms         | 3 ms         | 101 mb              | 115 mb              |
-| EF Core       | 6701 ms    | error       | 733 m       | error        | 19ms         | error        | 127 mb              | error               |
+| Memória       | JIT 1º exe    | AOT 1º exec   | JIT max exe   | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
+|---------------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
+| Dapper        | 3019 ms       | n/a           | 151 ms        | n/a           | 15ms          | n/a           | 107 mb                | n/a                   |
+| Dapper.AOT    | 2633 ms       | 1286 ms       | 65 ms         | 4 ms          | 9 ms          | 3 ms          | 101 mb                | 115 mb                |
+| EF Core       | 6701 ms       | error         | 733 m         | error         | 19ms          | error         | 127 mb                | error                 |
+| Refit         | 1751 ms       |               | 198 ms        |               | 43ms          |               | 79 mb                 |                       |
 
 *n/a: Teste não se aplica no ambiente. Existe outro pacote para a plataforma.*
 

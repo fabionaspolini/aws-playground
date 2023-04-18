@@ -1,7 +1,7 @@
 locals {
   deploy_benchmark_basic_aot                  = false
   deploy_benchmark_data_access_aot            = false
-  deploy_benchmark_data_access_dapper-aot_aot = true
+  deploy_benchmark_data_access_dapper-aot_aot = false
   deploy_benchmark_data_access_ef_aot         = false
 
   rds_address       = aws_db_instance.default.address
