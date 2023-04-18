@@ -37,7 +37,7 @@ resource "null_resource" "publish_benchmark_refit_jit" {
 
 data "archive_file" "publish_benchmark_refit_jit" {
   type        = "zip"
-  source_dir  = "../src/refit-jit/publish"
+  source_dir  = "../src/refit-jit/bin/Release/publish"
   output_path = "./.temp/refit-jit.zip"
   depends_on  = [null_resource.publish_benchmark_refit_jit]
 }

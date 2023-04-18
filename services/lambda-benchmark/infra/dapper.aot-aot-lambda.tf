@@ -42,7 +42,7 @@ resource "null_resource" "publish_benchmark_dapper-aot_aot" {
 data "archive_file" "publish_benchmark_dapper-aot_aot" {
   count       = local.deploy_benchmark_dapper-aot_aot ? 1 : 0
   type        = "zip"
-  source_dir  = "../src/dapper_aot-aot/publish"
+  source_dir  = "../src/dapper_aot-aot/bin/Release/publish"
   output_path = "./.temp/dapper_aot-aot.zip"
   depends_on  = [null_resource.publish_benchmark_dapper-aot_aot]
 }

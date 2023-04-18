@@ -37,7 +37,7 @@ resource "null_resource" "publish_benchmark_ef_jit" {
 
 data "archive_file" "publish_benchmark_ef_jit" {
   type        = "zip"
-  source_dir  = "../src/ef-jit/publish"
+  source_dir  = "../src/ef-jit/bin/Release/publish"
   output_path = "./.temp/ef-jit.zip"
   depends_on  = [null_resource.publish_benchmark_ef_jit]
 }

@@ -42,7 +42,7 @@ resource "null_resource" "publish_benchmark_ef_aot" {
 data "archive_file" "publish_benchmark_ef_aot" {
   count       = local.deploy_benchmark_ef_aot ? 1 : 0
   type        = "zip"
-  source_dir  = "../src/ef-aot/publish"
+  source_dir  = "../src/ef-aot/bin/Release/publish"
   output_path = "./.temp/ef-aot.zip"
   depends_on  = [null_resource.publish_benchmark_ef_aot]
 }

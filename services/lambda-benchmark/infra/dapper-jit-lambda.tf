@@ -37,7 +37,7 @@ resource "null_resource" "publish_benchmark_dapper_jit" {
 
 data "archive_file" "publish_benchmark_dapper_jit" {
   type        = "zip"
-  source_dir  = "../src/dapper-jit/publish"
+  source_dir  = "../src/dapper-jit/bin/Release/publish"
   output_path = "./.temp/dapper-jit.zip"
   depends_on  = [null_resource.publish_benchmark_dapper_jit]
 }

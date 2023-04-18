@@ -41,7 +41,7 @@ resource "null_resource" "publish_benchmark_basic_aot" {
 data "archive_file" "publish_benchmark_basic_aot" {
   count       = local.deploy_benchmark_basic_aot ? 1 : 0
   type        = "zip"
-  source_dir  = "../src/basic-aot/publish"
+  source_dir  = "../src/basic-aot/bin/Release/publish"
   output_path = "./.temp/basic-aot.zip"
   depends_on  = [null_resource.publish_benchmark_basic_aot]
 }
