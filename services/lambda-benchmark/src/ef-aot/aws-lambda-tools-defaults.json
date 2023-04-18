@@ -13,7 +13,7 @@
   "function-timeout": 10,
   "function-handler": "bootstrap",
   "msbuild-parameters": "--self-contained true",
-  "environment-variables": "env=value;env2-value;",
+  "environment-variables": "ConnectionString=\"Server=lambda-test.cblgcoxiefix.us-east-1.rds.amazonaws.com;Port=8455;Database=lambda_test;User Id=postgres;Password=teste.123456;\"",
   "function-subnets": "subnet-0d89728d3de40e8a6,subnet-0aa8e12bd647226d3",
   "function-security-groups": "sg-0fe89567949c742c3"
 }

@@ -23,3 +23,14 @@ data "aws_security_group" "default" {
 data "http" "ip" {
   url = "https://ifconfig.me/ip"
 }
+
+data "aws_caller_identity" "current" {}
+
+# resource "aws_s3_bucket" "temporary_deployment" {
+#   bucket = "lambda-temporary-deployment-${data.aws_caller_identity.current.account_id}"
+# }
+
+# resource "aws_s3_bucket_acl" "temporary_deployment" {
+#   bucket = aws_s3_bucket.temporary_deployment.id
+#   acl    = "private"
+# }

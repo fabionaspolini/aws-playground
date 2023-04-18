@@ -27,25 +27,37 @@ resource "aws_iam_role" "benchmark_ef_aot" {
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish_benchmark_ef_aot" {
-  count = local.deploy_benchmark_ef_aot ? 1 : 0
-  provisioner "local-exec" {
-    working_dir = "../src/ef-aot"
-    command     = "publish-with-docker.sh"
-    interpreter = ["bash"]
-  }
-  triggers = {
-    always_run = "${timestamp()}" # Forçar deploy. Trigger é apenas uma lista de chave/valor e conforme gerenciamento de state do terraform, qualquer alteração de propriedade implica em deploy.
-  }
-}
+# resource "null_resource" "publish_benchmark_ef_aot" {
+#   count = local.deploy_benchmark_ef_aot ? 1 : 0
+#   provisioner "local-exec" {
+#     working_dir = "../src/ef-aot"
+#     command     = "publish-with-docker.sh"
+#     interpreter = ["bash"]
+#   }
+#   triggers = {
+#     always_run = "${timestamp()}" # Forçar deploy. Trigger é apenas uma lista de chave/valor e conforme gerenciamento de state do terraform, qualquer alteração de propriedade implica em deploy.
+#   }
+# }
 
 data "archive_file" "publish_benchmark_ef_aot" {
-  count       = local.deploy_benchmark_ef_aot ? 1 : 0
-  type        = "zip"
-  source_dir  = "../src/ef-aot/bin/Release/publish"
+  count = local.deploy_benchmark_ef_aot ? 1 : 0
+  type  = "zip"
+  # source_dir  = "../src/ef-aot/bin/Release/publish"
+  source_file = "../src/ef-aot/bin/Release/publish/bootstrap"
   output_path = "./.temp/ef-aot.zip"
-  depends_on  = [null_resource.publish_benchmark_ef_aot]
+  # depends_on  = [null_resource.publish_benchmark_ef_aot]
 }
+
+# se deploy for maior que 50 MB, é obrigatório passar pela lambda. 250 Mb descompactado é o limite.
+# resource "aws_s3_object" "publish_benchmark_ef_aot" {
+#   count      = local.deploy_benchmark_ef_aot ? 1 : 0
+#   bucket     = aws_s3_bucket.temporary_deployment.id
+#   key        = "lambdas/benchmark-ef-aot.zip"
+#   source     = data.archive_file.publish_benchmark_ef_aot[0].output_path
+#   etag       = data.archive_file.publish_benchmark_ef_aot[0].output_base64sha256
+#   # etag       = filemd5("myfiles/yourfile.txt")
+#   # depends_on = [data.archive_file.publish_benchmark_ef_aot]
+# }
 
 resource "aws_lambda_function" "benchmark_ef_aot" {
   count         = local.deploy_benchmark_ef_aot ? 1 : 0
@@ -58,6 +70,8 @@ resource "aws_lambda_function" "benchmark_ef_aot" {
   timeout       = 10
   architectures = ["x86_64"]
 
+  # s3_bucket        = aws_s3_bucket.temporary_deployment.id
+  # s3_key           = aws_s3_object.publish_benchmark_ef_aot[0].key
   source_code_hash = data.archive_file.publish_benchmark_ef_aot[0].output_base64sha256
 
   vpc_config {
