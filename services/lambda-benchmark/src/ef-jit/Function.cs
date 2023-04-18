@@ -23,6 +23,7 @@ public class Function
                 result.Add(new(pessoa));
         }
         context.Logger.LogInformation("Concluído");
+
         return result.ToArray();
     }
 #pragma warning restore CA1822

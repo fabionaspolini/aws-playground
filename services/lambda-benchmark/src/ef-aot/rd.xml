@@ -1,6 +1,5 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
     <Application>
-        <!--<Assembly Name="Microsoft.EntityFrameworkCore" Dynamic="Required All" />-->
         <Assembly Name="Microsoft.EntityFrameworkCore.Abstractions" Dynamic="Required All" />
         <Assembly Name="Microsoft.EntityFrameworkCore.Relational" Dynamic="Required All" />
 
@@ -18,8 +17,16 @@
                 <Method Name="ValueBufferTryReadValue" Dynamic="Required All">
                     <GenericArgument Name="System.Guid, System.Runtime" />
                 </Method>
+                <Method Name="ValueBufferTryReadValue" Dynamic="Required All">
+                    <GenericArgument Name="System.String, System.Runtime" />
+                </Method>
+                <Method Name="ValueBufferTryReadValue" Dynamic="Required All">
+                    <GenericArgument Name="System.DateTime, System.Runtime" />
+                </Method>
             </Type>
-            <!-- <Type Name="Microsoft.EntityFrameworkCore.Infrastructure.ExpressionExtensions.ValueBufferTryReadValueMethod[[System.Guid,System.Runtime]]" Dynamic="Required All" /> -->
+
+            <!-- Comparar com este ao surgir novos  -->
+            <!-- https://github.com/hez2010/EFCore.NativeAOT/blob/master/rd.xml -->
         </Assembly>
 
         <Assembly Name="Npgsql.EntityFrameworkCore.PostgreSQL">
