@@ -49,7 +49,7 @@ resource "aws_lambda_function" "benchmark_dapper-aot_jit" {
   handler       = "DapperAot.Jit::DapperAot.Jit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
-  timeout       = 30
+  timeout       = 15
   architectures = ["x86_64"]
 
   source_code_hash = data.archive_file.publish_benchmark_dapper-aot_jit.output_base64sha256

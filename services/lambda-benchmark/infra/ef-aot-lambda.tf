@@ -67,7 +67,7 @@ resource "aws_lambda_function" "benchmark_ef_aot" {
   handler       = "bootstrap"
   runtime       = "provided.al2"
   memory_size   = 256
-  timeout       = 10
+  timeout       = 15
   architectures = ["x86_64"]
 
   # s3_bucket        = aws_s3_bucket.temporary_deployment.id

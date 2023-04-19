@@ -1,0 +1,12 @@
+{
+  "person": {
+    "firstName": "Fábio",
+    "lastName": "Naspolini"
+  },
+  "math": {
+    "a": 10,
+    "b": 5
+  },
+  "count": 100,
+  "addAllResponses": false
+}

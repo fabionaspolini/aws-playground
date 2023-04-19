@@ -48,7 +48,7 @@ resource "aws_lambda_function" "benchmark_basic_jit" {
   handler       = "Basic.Jit::Basic.Jit.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
-  timeout       = 10
+  timeout       = 15
   architectures = ["x86_64"]
 
   source_code_hash = data.archive_file.publish_benchmark_basic_jit.output_base64sha256

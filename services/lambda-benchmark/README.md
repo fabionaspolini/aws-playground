@@ -76,12 +76,13 @@ Métrica: duration time
 
 Framework tests - Billed duration com **256 MB RAM**
 
-| Memória       | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
+| Framework     | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
 |---------------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
 | Dapper        | 3019 ms       | n/a           | 151 ms        | n/a           | 15ms          | n/a           | 107 mb                | n/a                   |
 | Dapper.AOT    | 2633 ms       | 1286 ms       | 65 ms         | 4 ms          | 9 ms          | 3 ms          | 101 mb                | 115 mb                |
-| EF Core       | 6701 ms       | 2604 ms       | 733 m         | 10 ms         | 19ms          | 4 ms          | 127 mb                | 182 mb                |
-| Refit         | 1751 ms       | 744 ms        | 198 ms        | 51 ms         | 50ms          | 44 ms         | 79 mb                 | 60 mb                 |
+| EF Core       | 6701 ms       | 2604 ms       | 733 m         | 10 ms         | 19 ms         | 4 ms          | 127 mb                | 182 mb                |
+| Refit         | 1751 ms       | 744 ms        | 198 ms        | 51 ms         | 50 ms         | 44 ms         | 79 mb                 | 60 mb                 |
+| Npgsql        | 2540 ms       | 1156 ms       | 39 ms         | 4 ms          | 11            | 3 ms          | 95 mb                 | 116 mb                |
 
 > *n/a: Teste não se aplica no ambiente. Existe outro pacote com outro nome para runtime.*  
 > ***EF Core:** Muita configuração manual no arquivo [rd.xml](src/ef-aot/rd.xml). A solução é muito sensível e varia conforme design da classe sendo persistida. **Não recomendado ir para produção**.*

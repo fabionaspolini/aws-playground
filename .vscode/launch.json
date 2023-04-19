@@ -62,9 +62,9 @@
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
         },
-        // Lambda Benchmark
+        // lambda-benchmark
         {
-            "name": "Lambda Benchmark / basic-aot",
+            "name": "lambda-benchmark / basic-aot",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-basic-aot",
@@ -76,7 +76,7 @@
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
-            "name": "Lambda Benchmark / basic-jit",
+            "name": "lambda-benchmark / basic-jit",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-basic-jit",
@@ -88,7 +88,7 @@
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
-            "name": "Lambda Benchmark / data-access-aot",
+            "name": "lambda-benchmark / data-access-aot",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-data-access-aot",
@@ -100,7 +100,7 @@
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
-            "name": "Lambda Benchmark / data-access-jit",
+            "name": "lambda-benchmark / data-access-jit",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-data-access-jit",
@@ -112,8 +112,11 @@
             "internalConsoleOptions": "openOnSessionStart",
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit/.env"
         },
+
+
+
         {
-            "name": "Lambda Benchmark / Ef.Jit",
+            "name": "lambda-benchmark / Ef.Jit",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-ef-jit",
@@ -124,6 +127,19 @@
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/ef-jit/.env"
+        },
+        {
+            "name": "lambda-benchmark / Npgsql.Jit",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-benchmark-npgsql-jit",
+            "program": "dotnet-lambda-test-tool-6.0",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/npgsql-jit",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "envFile": "${workspaceFolder}/services/lambda-benchmark/src/npgsql-jit/.env"
         }
     ]
 }
