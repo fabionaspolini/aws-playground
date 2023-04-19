@@ -24,6 +24,31 @@
                     <GenericArgument Name="System.DateTime, System.Runtime" />
                 </Method>
             </Type>
+            <Type Name="Microsoft.EntityFrameworkCore.Metadata.Internal.ClrAccessorFactory`1[Microsoft.EntityFrameworkCore.Metadata.IClrPropertyGetter]" Dynamic="Required All">
+                <Method Name="CreateGeneric" Dynamic="Required All">
+                    <GenericArgument Name="Ef.Aot.PessoaEntity, bootstrap" />
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                </Method>
+            </Type>
+            <Type Name="Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMapFactoryFactory" Dynamic="Required All">
+                <Method Name="CreateFactory" Dynamic="Required All">
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                </Method>
+            </Type>
+            <Type Name="Microsoft.EntityFrameworkCore.Metadata.Internal.PropertyAccessorsFactory" Dynamic="Required All">
+                <Method Name="CreateGeneric" Dynamic="Required All">
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                </Method>
+            </Type>
+            <Type Name="Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry" Dynamic="Required All">
+                <Method Name="ReadStoreGeneratedValue" Dynamic="Required All">
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                </Method>
+                <Method Name="ReadTemporaryValue">
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                </Method>
+            </Type>
 
             <!-- Comparar com este ao surgir novos  -->
             <!-- https://github.com/hez2010/EFCore.NativeAOT/blob/master/rd.xml -->

@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.RuntimeSupport;
 using Amazon.Lambda.Serialization.SystemTextJson;
@@ -21,6 +22,13 @@ public class Function
     {
         context.Logger.LogInformation("Iniciando EF AOT");
         var result = new List<SampleResponse>();
+
+        if (request.InsertData != null)
+        {
+            var useCase = new SampleUseCase();
+            await useCase.InsertDataAsync(request.InsertData);
+        }
+
         for (var i = 1; i <= request.Count; i++)
         {
             var useCase = new SampleUseCase();
@@ -40,7 +48,7 @@ public partial class LambdaFunctionJsonSerializerContext : JsonSerializerContext
 }
 
 #pragma warning disable SYSLIB1037 // Source generator deserialization
-public record class SampleRequest(int Count = 1, bool AddAllResponses = false);
+public record class SampleRequest(int Count = 1, bool AddAllResponses = false, PessoaEntity? InsertData = null);
 public record class SampleResponse(PessoaEntity? pessoas);
 #pragma warning restore SYSLIB1037
 
@@ -48,13 +56,27 @@ public partial class SampleUseCase
 {
     public async Task<PessoaEntity?> ExecuteAsync()
     {
-        var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
-        var opts = new DbContextOptionsBuilder<SampleContext>().UseNpgsql(connectionString).Options;
-        using var context = new SampleContext(opts);
+        using var context = CreateContext();
         var pessoas = await context.Pessoas.AsNoTracking().ToArrayAsync();
         foreach (var pessoa in pessoas)
             Console.WriteLine($"{pessoa.Id}, {pessoa.Nome}, {pessoa.DataNascimento:dd/MM/yyyy}");
         return pessoas.FirstOrDefault();
+    }
+
+    public async Task InsertDataAsync(PessoaEntity pessoa)
+    {
+        Console.WriteLine("Inserindo pessoa");
+        using var context = CreateContext();
+        context.Pessoas.Add(pessoa);
+        await context.SaveChangesAsync();
+        Console.WriteLine("Pessoa inserida");
+    }
+
+    private static SampleContext CreateContext()
+    {
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+        var opts = new DbContextOptionsBuilder<SampleContext>().UseNpgsql(connectionString).Options;
+        return new SampleContext(opts);
     }
 }
 

@@ -27,25 +27,25 @@ resource "aws_iam_role" "benchmark_ef_aot" {
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish_benchmark_ef_aot" {
-  count = local.deploy_benchmark_ef_aot ? 1 : 0
-  provisioner "local-exec" {
-    working_dir = "../src/ef-aot"
-    command     = "publish-with-docker.sh"
-    interpreter = ["bash"]
-  }
-  triggers = {
-    always_run = "${timestamp()}" # Forçar deploy. Trigger é apenas uma lista de chave/valor e conforme gerenciamento de state do terraform, qualquer alteração de propriedade implica em deploy.
-  }
-}
+# resource "null_resource" "publish_benchmark_ef_aot" {
+#   count = local.deploy_benchmark_ef_aot ? 1 : 0
+#   provisioner "local-exec" {
+#     working_dir = "../src/ef-aot"
+#     command     = "publish-with-docker.sh"
+#     interpreter = ["bash"]
+#   }
+#   triggers = {
+#     always_run = "${timestamp()}" # Forçar deploy. Trigger é apenas uma lista de chave/valor e conforme gerenciamento de state do terraform, qualquer alteração de propriedade implica em deploy.
+#   }
+# }
 
+# Comentado parte que compila com o docker porque o build com o EF é muito grande e demorado. Quando executando em concorrêcia com outros pelo terraform, frequentemente da crash no wsl
 data "archive_file" "publish_benchmark_ef_aot" {
-  count = local.deploy_benchmark_ef_aot ? 1 : 0
-  type  = "zip"
-  # source_dir  = "../src/ef-aot/bin/Release/publish"
+  count       = local.deploy_benchmark_ef_aot ? 1 : 0
+  type        = "zip"
   source_file = "../src/ef-aot/bin/Release/publish/bootstrap" # ignorar arquivo bootstrap.dbg para o zip não exceder o tamanho máximo de upload direto para lambda (50 mb)
   output_path = "./.temp/ef-aot.zip"
-  depends_on  = [null_resource.publish_benchmark_ef_aot]
+  # depends_on  = [null_resource.publish_benchmark_ef_aot]
 }
 
 # se deploy for maior que 50 MB, é obrigatório passar pela lambda. 250 Mb descompactado é o limite.
