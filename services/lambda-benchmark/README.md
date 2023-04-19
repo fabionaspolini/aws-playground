@@ -84,7 +84,7 @@ Framework tests - Billed duration com **256 MB RAM**
 | Refit         | 1751 ms       | 744 ms        | 198 ms        | 51 ms         | 50ms          | 44 ms         | 79 mb                 | 60 mb                 |
 
 > *n/a: Teste não se aplica no ambiente. Existe outro pacote com outro nome para runtime.*  
-> *EF Core: Muita configuração manual no arquivo [rd.xml](src/ef-aot/rd.xml)*
+> ***EF Core:** Muita configuração manual no arquivo [rd.xml](src/ef-aot/rd.xml). A solução é muito sensível e varia conforme design da classe sendo persistida. **Não recomendado ir para produção**.*
 
 ## rd.xml
 
