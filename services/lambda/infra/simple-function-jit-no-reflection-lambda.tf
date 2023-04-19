@@ -48,7 +48,7 @@ resource "aws_lambda_function" "simple_function_jit_no_reflection" {
   handler       = "SimpleFunctionJitNoReflection::SimpleFunctionJitNoReflection.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
-  timeout       = 10
+  timeout       = 15
   architectures = ["x86_64"]
 
   source_code_hash = data.archive_file.publish_simple_function_jit_no_reflection.output_base64sha256

@@ -48,7 +48,7 @@ resource "aws_lambda_function" "context_details" {
   handler       = "ContextDetails::ContextDetails.Function::FunctionHandler"
   runtime       = "dotnet6"
   memory_size   = 256
-  timeout       = 10
+  timeout       = 15
   architectures = ["x86_64"]
 
   source_code_hash = data.archive_file.publish_context_details.output_base64sha256

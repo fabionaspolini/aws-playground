@@ -66,26 +66,38 @@ docker run \
 
 ## Benchmark
 
-Métrica: duration time
+Métrica: Tempo total (init + duration)
+
+Função simples com um log + string upper case - **256 MB RAM**
+
+| Runtime       | 1º exec   | max exec  | min exec  | Max memory used   |
+|---------------|-----------|-----------|-----------|-------------------|
+| .NET 6 JIT    | 429 ms    | 12 ms     | 2 ms      | 65 mb             |
+| .NET 7 AOT    | 314 ms    | 2 ms      | 1 ms      | 46 mb             |
+| Python 3.9    | 122 ms    | 3 ms      | 2 ms      | 37 mb             |
+| NodeJS 18     | 233 ms    | 2 ms      | 2 ms      | 69 mb             |
+
+Framework tests - **256 MB RAM**
+
+| Framework     | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
+|---------------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
+| Dapper        | 3019 ms       | n/a           | 151 ms        | n/a           | 15 ms         | n/a           | 107 mb                | n/a                   |
+| Dapper.AOT    | 2633 ms       | 1286 ms       | 65 ms         | 4 ms          | 9 ms          | 3 ms          | 101 mb                | 115 mb                |
+| EF Core       | 6701 ms       | 2604 ms       | 733 m         | 10 ms         | 19 ms         | 4 ms          | 127 mb                | 182 mb                |
+| Refit         | 1751 ms       | 744 ms        | 198 ms        | 51 ms         | 50 ms         | 44 ms         | 79 mb                 | 60 mb                 |
+| Npgsql        | 2540 ms       | 1156 ms       | 39 ms         | 4 ms          | 11 ms         | 3 ms          | 95 mb                 | 116 mb                |
+
+> *n/a: Teste não se aplica no ambiente. Existe outro pacote com outro nome para runtime.*  
+> ***EF Core:** Muita configuração manual no arquivo [rd.xml](src/ef-aot/rd.xml). A solução é muito sensível e varia conforme design da classe sendo persistida. **Não recomendado ir para produção**.*
+
+
+Refazer - Usar várias libs .NET
 
 | Memória   | JIT cold start    | AOT cold start    | JIT next exec | AOT next exec |
 |-----------|-------------------|-------------------|---------------|---------------|
 | 256 MB    | 5010.11 ms        | 2259.80 ms        | 243.17 ms     | 22.70 ms      |
 | 512 MB    | 2291.14 ms        | 1108.29 ms        | 106.29 ms     | 14.10 ms      |
 | 1024 MB   | 1125.59 ms        | 554.04 ms         | 35.63 ms      | 8.94 ms       |
-
-Framework tests - Billed duration com **256 MB RAM**
-
-| Framework     | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
-|---------------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
-| Dapper        | 3019 ms       | n/a           | 151 ms        | n/a           | 15ms          | n/a           | 107 mb                | n/a                   |
-| Dapper.AOT    | 2633 ms       | 1286 ms       | 65 ms         | 4 ms          | 9 ms          | 3 ms          | 101 mb                | 115 mb                |
-| EF Core       | 6701 ms       | 2604 ms       | 733 m         | 10 ms         | 19 ms         | 4 ms          | 127 mb                | 182 mb                |
-| Refit         | 1751 ms       | 744 ms        | 198 ms        | 51 ms         | 50 ms         | 44 ms         | 79 mb                 | 60 mb                 |
-| Npgsql        | 2540 ms       | 1156 ms       | 39 ms         | 4 ms          | 11            | 3 ms          | 95 mb                 | 116 mb                |
-
-> *n/a: Teste não se aplica no ambiente. Existe outro pacote com outro nome para runtime.*  
-> ***EF Core:** Muita configuração manual no arquivo [rd.xml](src/ef-aot/rd.xml). A solução é muito sensível e varia conforme design da classe sendo persistida. **Não recomendado ir para produção**.*
 
 ## rd.xml
 

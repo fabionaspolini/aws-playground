@@ -54,7 +54,7 @@ resource "aws_lambda_function" "simple_function_aot" {
   handler       = "bootstrap"
   runtime       = "provided.al2"
   memory_size   = 256
-  timeout       = 10
+  timeout       = 15
   architectures = ["x86_64"]
 
   source_code_hash = data.archive_file.publish_simple_function_aot[0].output_base64sha256
