@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     # bucket = "terraform-state-$AWS_ACCOUNT_ID" # Não é permitido utilizar environment neste bloco. Estamos injetando no comando: terraform init -backend-config="bucket=terraform-state-${AWS_ACCOUNT_ID}"
-    key    = "dynamodb"
+    key    = "aws-playground/services/dynamodb.tfstate"
     region = "us-east-1"
   }
 }
