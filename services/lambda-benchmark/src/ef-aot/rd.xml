@@ -55,9 +55,11 @@
                     <GenericArgument Name="System.Guid, System.Runtime" />
                 </Method>
             </Type>
+            <Type Name="Microsoft.EntityFrameworkCore.ChangeTracking.Internal.Snapshot`3" Dynamic="Required All"></Type>
 
             <!-- Comparar com este ao surgir novos  -->
-            <!-- https://github.com/hez2010/EFCore.NativeAOT/blob/master/rd.xml -->
+            <!-- https://github.com/hez2010/EFCore.NativeAOT/blob/master/rd.xml
+                 https://github.com/hez2010/EFCore.NativeAOT/blob/master/Microsoft.EntityFrameworkCore.rd.xml -->
         </Assembly>
 
         <Assembly Name="Npgsql.EntityFrameworkCore.PostgreSQL">
