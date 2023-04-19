@@ -48,6 +48,12 @@
                 <Method Name="ReadTemporaryValue">
                     <GenericArgument Name="System.Guid, System.Runtime" />
                 </Method>
+                <Method Name="ReadOriginalValue">
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                </Method>
+                <Method Name="ReadRelationshipSnapshotValue">
+                    <GenericArgument Name="System.Guid, System.Runtime" />
+                </Method>
             </Type>
 
             <!-- Comparar com este ao surgir novos  -->
