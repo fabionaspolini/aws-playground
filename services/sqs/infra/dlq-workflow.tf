@@ -18,10 +18,12 @@ resource "aws_sqs_queue" "my_action" {
 # Após 3 falhas, envia para "my-action-dlq"
 # Intervalo entre tentativas: 10 segundos
 # Caso de uso:
-#   - Se for uma falha por motivo de um sistema terceiro inoperante, quando o mesmo for reestabelecido a integração será realizada
-#   - Se for falha por erro de código, temos a segurança de não consumir polling excessivamente na AWS e
-#     temos um tempo de vida delimitado para corrigir o sistema e implantar para que o processo se reintregre automaticamente.
-# Em ambos os casos o tempo máximo para resiliência automática é de: "visibility_timeout_seconds" * "maxReceiveCount"
+#   - Se for uma falha por motivo de um sistema terceiro inoperante, quando o mesmo for reestabelecido a integração será realizada.
+#   - Se for falha por erro de código, temos a segurança de não consumir polling excessivamente na AWS.
+#     Temos um tempo de vida delimitado para corrigir o sistema e implanta-lo para que o processo se reintregre automaticamente.
+# Em ambos os casos:
+#   - O tempo máximo para resiliência automática é de: "visibility_timeout_seconds" * "maxReceiveCount".
+#   - Se haver muitas mensagens pendentes, elas com concorrerão com o fluxo online da aplicação, pois aqui não tem auto scaling.
 resource "aws_sqs_queue" "my_action_retry" {
   name                       = "my-action-dlq-retry"
   visibility_timeout_seconds = 10
