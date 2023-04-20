@@ -230,7 +230,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/lambda-sqs/src/SqsPlayground.csproj",
+                "${workspaceFolder}/services/sqs/src/SqsPlayground.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

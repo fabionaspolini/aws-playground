@@ -117,17 +117,15 @@
         },
         // sqs
         {
-            "name": "sqs / SqsPlayground",
+            "name": "SQS",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-sqs",
-            "program": "dotnet-lambda-test-tool-6.0",
+            "program": "${workspaceFolder}/services/sqs/src/bin/Debug/net7.0/SqsPlayground.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/services/sqs/src",
+            "cwd": "${workspaceFolder}/services/dynamodb/src",
             "console": "internalConsole",
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart",
-            // "envFile": "${workspaceFolder}/services/sqs/src/.env"
+            "stopAtEntry": false
         }
     ]
 }
