@@ -223,14 +223,14 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // sqs
+        // sqs / dlq-workflow
         {
-            "label": "build-sqs",
+            "label": "build-sqs-dlq-workflow",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/sqs/src/SqsPlayground.csproj",
+                "${workspaceFolder}/services/sqs/src/dlq-workflow/DlqWorkflowPlayground.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

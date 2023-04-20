@@ -64,7 +64,7 @@
         },
         // lambda-benchmark
         {
-            "name": "lambda-benchmark / Ef.Jit",
+            "name": "lambda-benchmark / ef-jit",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-ef-jit",
@@ -77,7 +77,7 @@
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/ef-jit/.env"
         },
         {
-            "name": "lambda-benchmark / Geral.Jit",
+            "name": "lambda-benchmark / geral-jit",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-geral-jit",
@@ -90,7 +90,7 @@
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/geral-jit/.env"
         },
         {
-            "name": "lambda-benchmark / Npgsql.Jit",
+            "name": "lambda-benchmark / npgsql-jit",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-npgsql-jit",
@@ -103,7 +103,7 @@
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/npgsql-jit/.env"
         },
         {
-            "name": "lambda-benchmark / Refit.Jit",
+            "name": "lambda-benchmark / refit-jit",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-lambda-benchmark-refit-jit",
@@ -115,15 +115,15 @@
             "internalConsoleOptions": "openOnSessionStart",
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/refit-jit/.env"
         },
-        // sqs
+        // sqs / dlq-workflow
         {
-            "name": "SQS",
+            "name": "sqs / dlq-workflow",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build-sqs",
-            "program": "${workspaceFolder}/services/sqs/src/bin/Debug/net7.0/SqsPlayground.dll",
+            "preLaunchTask": "build-sqs-dlq-workflow",
+            "program": "${workspaceFolder}/services/sqs/src/dlq-workflow/bin/Debug/net7.0/DlqWorkflowPlayground.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/services/dynamodb/src",
+            "cwd": "${workspaceFolder}/services/sqs/src/dlq-workflow",
             "console": "externalTerminal",
             "stopAtEntry": false
         }
