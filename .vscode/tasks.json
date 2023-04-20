@@ -223,5 +223,18 @@
             ],
             "problemMatcher": "$msCompile"
         },
+        // sqs
+        {
+            "label": "build-sqs",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/lambda-sqs/src/SqsPlayground.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
     ]
 }
