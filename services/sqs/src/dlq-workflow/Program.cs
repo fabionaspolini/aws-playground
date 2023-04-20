@@ -53,7 +53,7 @@ static void LogMessage(Message message, string queueName, int maxReceiveCount)
     {
         WriteLine();
         WriteLine("message.MessageAttributes");
-        WriteLine(string.Join("\n", message.MessageAttributes.Select(x => $"    {x.Key}: {x.Value}")));
+        WriteLine(string.Join("\n", message.MessageAttributes.Select(x => $"    {x.Key}: {x.Value.StringValue}")));
     }
 
     var receiveCountStr = message.Attributes["ApproximateReceiveCount"];
@@ -80,7 +80,7 @@ static async Task<ReceiveMessageResponse> GetMessage(IAmazonSQS sqsClient, strin
         MaxNumberOfMessages = MaxMessages,
         WaitTimeSeconds = waitTime,
         AttributeNames = new List<string>() { "All" },
-        // MessageAttributeNames = new List<string>() { "All" },
+        MessageAttributeNames = new List<string>() { "All" },
     });
 }
 
