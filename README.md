@@ -99,6 +99,7 @@ Neste repositório o foco é apenas no recurso unitário da AWS. Haverá muita d
 - [DynamoDB](services/dynamodb)
 - [Lambda](services/lambda)
 - [Lambda Benchmark](services/lambda-benchmark)
+- [SQS](services/sqs)
 
 ## Alternativa com Localstack
 
