@@ -124,7 +124,7 @@
             "program": "${workspaceFolder}/services/sqs/src/bin/Debug/net7.0/SqsPlayground.dll",
             "args": [],
             "cwd": "${workspaceFolder}/services/dynamodb/src",
-            "console": "internalConsole",
+            "console": "externalTerminal",
             "stopAtEntry": false
         }
     ]

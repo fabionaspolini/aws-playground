@@ -1,10 +1,11 @@
-# após 3 erros, envia para "my-action-dlq-auto-retry"
-# fila de ação principal, deve ter auto scale nos consumidores para alta performance
+# Fila principal: Deve ter auto scaling e serve para o fluxo demandado pela aplicação.
+# Após 3 falhas, envia mensagem para "my-action-dlq-retry".
+# Intervalo entre tentativas: 5 segundos
 resource "aws_sqs_queue" "my_action" {
   name                       = "my-action"
-  visibility_timeout_seconds = 5     # Tempo máximo que o consumidor tem para processar a mensagem. Após isso ela pode ser entregue novamente a outro consumer (max 12 horas)
+  visibility_timeout_seconds = 5      # Tempo máximo que o consumidor tem para processar a mensagem. Após isso ela pode ser entregue novamente a outro consumer (max 12 horas)
   delay_seconds              = 0      # tempo para entregar primeira vez ao consumidor (max 15 min)
-  receive_wait_time_seconds  = 0      # Tempo que o pooling deve aguardar para retornar ao consumidor (ajuda a melhorar os custos) (max 20 segundos)
+  receive_wait_time_seconds  = 0      # Tempo que o polling deve aguardar para retornar ao consumidor (ajuda a melhorar os custos) (max 20 segundos)
   message_retention_seconds  = 86400  # 24 horas de retenção na fila (entre 1 min e 14 dias)
   max_message_size           = 262144 # 256 Kb (máximo)
   redrive_policy = jsonencode({
@@ -13,29 +14,38 @@ resource "aws_sqs_queue" "my_action" {
   })
 }
 
-# mensagem entra e após 10 segundos (delay_seconds) é entregue ao consumidor
-# se continuar com erro, não faz delete e após 30 segundos (visibility_timeout_seconds) será entregue a outro consumir
-# ao falhar 10 vezes, envia para "my-action-dlq-dead"
-# fila de tratamento de erros. Não deve ter autoscaling para não consumir recursos desnecessário.
+# Fila para retry de falhas. Não deve ter auto scaling para não consumir recursos desnecessários.
+# Após 3 falhas, envia para "my-action-dlq"
+# Intervalo entre tentativas: 10 segundos
+# Caso de uso:
+#   - Se for uma falha por motivo de um sistema terceiro inoperante, quando o mesmo for reestabelecido a integração será realizada
+#   - Se for falha por erro de código, temos a segurança de não consumir polling excessivamente na AWS e
+#     temos um tempo de vida delimitado para corrigir o sistema e implantar para que o processo se reintregre automaticamente.
+# Em ambos os casos o tempo máximo para resiliência automática é de: "visibility_timeout_seconds" * "maxReceiveCount"
 resource "aws_sqs_queue" "my_action_retry" {
-  name                       = "my-action-retry"
-  visibility_timeout_seconds = 30     # Tempo máximo que o consumidor tem para processar a mensagem. Após isso ela pode ser entregue novamente a outro consumer (max 12 horas)
-  delay_seconds              = 10     # tempo para entregar primeira vez ao consumidor (max 15 min)
-  receive_wait_time_seconds  = 0      # Tempo que o pooling deve aguardar para retornar ao consumidor (ajuda a melhorar os custos) (max 20 segundos)
-  message_retention_seconds  = 86400  # 24 horas de retenção na fila (entre 1 min e 14 dias)
-  max_message_size           = 262144 # 256 Kb (máximo)
+  name                       = "my-action-dlq-retry"
+  visibility_timeout_seconds = 10
+  delay_seconds              = 0 # Essa propriedade não importa mais aqui, pois é preservada a quantidade de reentregas da fila original
+  receive_wait_time_seconds  = 0
+  message_retention_seconds  = 86400
+  max_message_size           = 262144
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.my_action_dlq.arn
-    maxReceiveCount     = 10
+    maxReceiveCount     = 3
   })
 }
 
-# Para limitar tempo em auto retry
+# Quando a mensagem cair aqui não deve mais haver um retry automatico pelo sistema, pois sem monitoramente adequado, não será corrigido e implicará em custo de consumo da fila.
+# Se a janela de tempo de retry não foi suficiente para correção do problema e você implantar a correção após a mensagem estar aqui, você pode:
+#   - 1: Conectar o consumer nesta fila momentâneamente até zera-la e depois desconecta-lo. Lembre-se: O esperado é que nunca chegue nada aqui e não queremos ter o risco de gastar $$$$ sem necessidade
+#   - 2: Fazer uma rotina que move a mensagem para fila de retry ou para principal
+#        Esse cenário é mais interessante, você pode jogar uma parcela de mensagens para a fila de retry. Se processar com sucesso, jogue tudo para principal, 
+#        pois nela pode ter auto scaling para reprocessar rapidamente.
 resource "aws_sqs_queue" "my_action_dlq" {
   name                       = "my-action-dlq"
-  visibility_timeout_seconds = 30     # Tempo máximo que o consumidor tem para processar a mensagem. Após isso ela pode ser entregue novamente a outro consumer (max 12 horas)
-  delay_seconds              = 0      # tempo para entregar primeira vez ao consumidor (max 15 min)
-  receive_wait_time_seconds  = 0      # Tempo que o pooling deve aguardar para retornar ao consumidor (ajuda a melhorar os custos) (max 20 segundos)
-  message_retention_seconds  = 86400  # 24 horas de retenção na fila (entre 1 min e 14 dias)
-  max_message_size           = 262144 # 256 Kb (máximo)
+  visibility_timeout_seconds = 30
+  delay_seconds              = 0
+  receive_wait_time_seconds  = 0
+  message_retention_seconds  = 86400
+  max_message_size           = 262144
 }
