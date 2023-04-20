@@ -113,11 +113,11 @@ Terraform: [/services/lambda-benchmark/infra](/services/lambda-benchmark/infra) 
 
 ***refazer teste e aplicação da pasta geral sem o entity framework.***
 
-| Memória   | JIT cold start    | AOT cold start    | JIT next exec | AOT next exec |
-|-----------|-------------------|-------------------|---------------|---------------|
-| 256 MB    | 5010.11 ms        | 2259.80 ms        | 243.17 ms     | 22.70 ms      |
-| 512 MB    | 2291.14 ms        | 1108.29 ms        | 106.29 ms     | 14.10 ms      |
-| 1024 MB   | 1125.59 ms        | 554.04 ms         | 35.63 ms      | 8.94 ms       |
+| Framework | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
+|-----------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
+| 256 MB    | |
+| 512 MB    | |
+| 1024 MB   | |
 
 ## rd.xml
 

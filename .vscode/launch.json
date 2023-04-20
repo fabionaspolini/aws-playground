@@ -64,58 +64,6 @@
         },
         // lambda-benchmark
         {
-            "name": "lambda-benchmark / basic-aot",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-lambda-benchmark-basic-aot",
-            "program": "dotnet-lambda-test-tool-7.0",
-            "args": [],
-            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/basic-aot",
-            "console": "internalConsole",
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "name": "lambda-benchmark / basic-jit",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-lambda-benchmark-basic-jit",
-            "program": "dotnet-lambda-test-tool-6.0",
-            "args": [],
-            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/basic-jit",
-            "console": "internalConsole",
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "name": "lambda-benchmark / data-access-aot",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-lambda-benchmark-data-access-aot",
-            "program": "dotnet-lambda-test-tool-7.0",
-            "args": [],
-            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-aot",
-            "console": "internalConsole",
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "name": "lambda-benchmark / data-access-jit",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-lambda-benchmark-data-access-jit",
-            "program": "dotnet-lambda-test-tool-6.0",
-            "args": [],
-            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit",
-            "console": "internalConsole",
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart",
-            "envFile": "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit/.env"
-        },
-
-
-
-        {
             "name": "lambda-benchmark / Ef.Jit",
             "type": "coreclr",
             "request": "launch",
@@ -129,6 +77,19 @@
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/ef-jit/.env"
         },
         {
+            "name": "lambda-benchmark / Geral.Jit",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-benchmark-geral-jit",
+            "program": "dotnet-lambda-test-tool-6.0",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/geral-jit",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "envFile": "${workspaceFolder}/services/lambda-benchmark/src/geral-jit/.env"
+        },
+        {
             "name": "lambda-benchmark / Npgsql.Jit",
             "type": "coreclr",
             "request": "launch",
@@ -140,6 +101,19 @@
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/npgsql-jit/.env"
+        },
+        {
+            "name": "lambda-benchmark / Refit.Jit",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-lambda-benchmark-refit-jit",
+            "program": "dotnet-lambda-test-tool-6.0",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/lambda-benchmark/src/refit-jit",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "envFile": "${workspaceFolder}/services/lambda-benchmark/src/refit-jit/.env"
         }
     ]
 }

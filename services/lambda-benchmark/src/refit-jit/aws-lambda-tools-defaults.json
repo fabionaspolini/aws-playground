@@ -12,5 +12,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 256,
   "function-timeout": 10,
-  "function-handler": "DataAccess.Refit.Jit::DataAccess.Refit.Jit.Function::FunctionHandler"
+  "function-handler": "Refit.Jit::Refit.Jit.Function::FunctionHandler"
 }

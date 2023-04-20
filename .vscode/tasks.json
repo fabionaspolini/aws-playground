@@ -174,165 +174,7 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // Lambda Benchmark / basic-aot
-        {
-            "label": "build-lambda-benchmark-basic-aot",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/services/lambda-benchmark/src/basic-aot/BasicAot.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "deploy-lambda-benchmark-basic-aot",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "lambda",
-                "deploy-function",
-                "--function-name",
-                "benchmark-basic-aot",
-                "--function-role",
-                "benchmark-basic-aot-lambda",
-                "--tracing-mode",
-                "Active"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/services/lambda-benchmark/src/basic-aot"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "delete-lambda-benchmark-basic-aot",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "lambda",
-                "delete-function",
-                "--function-name",
-                "benchmark-basic-aot"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/services/lambda-benchmark/src/basic-aot"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        // Lambda Benchmark / basic-jit
-        {
-            "label": "build-lambda-benchmark-basic-jit",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/services/lambda-benchmark/src/basic-jit/BasicJit.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "deploy-lambda-benchmark-basic-jit",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "lambda",
-                "deploy-function",
-                "--function-name",
-                "benchmark-basic-jit",
-                "--function-role",
-                "benchmark-basic-jit-lambda",
-                "--tracing-mode",
-                "Active"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/services/lambda-benchmark/src/basic-jit"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        // Lambda Benchmark / data-access-aot
-        {
-            "label": "build-lambda-benchmark-data-access-aot",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/services/lambda-benchmark/src/data-access-aot/DataAccess.Aot.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "deploy-lambda-benchmark-data-access-aot",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "lambda",
-                "deploy-function",
-                "--function-name",
-                "benchmark-data-access-aot",
-                "--function-role",
-                "benchmark-data-access-aot-lambda",
-                "--tracing-mode",
-                "Active"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-aot"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "delete-lambda-benchmark-data-access-aot",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "lambda",
-                "delete-function",
-                "--function-name",
-                "benchmark-data-access-aot"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-aot"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        // Lambda Benchmark / data-access-jit
-        {
-            "label": "build-lambda-benchmark-data-access-jit",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit/DataAccess.Jit.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "deploy-lambda-benchmark-data-access-jit",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "lambda",
-                "deploy-function",
-                "--function-name",
-                "benchmark-data-access-jit",
-                "--function-role",
-                "benchmark-data-access-jit-lambda",
-                "--tracing-mode",
-                "Active"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/services/lambda-benchmark/src/data-access-jit"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        // lambda-benchmark / ef-jit
+        // lambda-benchmark
         {
             "label": "build-lambda-benchmark-ef-jit",
             "command": "dotnet",
@@ -345,7 +187,18 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // lambda-benchmark / npgsql-jit
+        {
+            "label": "build-lambda-benchmark-geral-jit",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/lambda-benchmark/src/geral-jit/Geral.Jit.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
         {
             "label": "build-lambda-benchmark-npgsql-jit",
             "command": "dotnet",
@@ -353,6 +206,18 @@
             "args": [
                 "build",
                 "${workspaceFolder}/services/lambda-benchmark/src/npgsql-jit/Npgsql.Jit.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-lambda-benchmark-refit-jit",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/lambda-benchmark/src/refit-jit/Refit.Jit.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
