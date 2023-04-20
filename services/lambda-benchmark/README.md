@@ -8,9 +8,9 @@ Esse projeto utiliza a VPC default da account AWS para deploy da Lambda e RDA Po
 - [Imagem AWS para publish AOT](#imagem-aws-para-publish-aot)
 - [Benchmark](#benchmark)
   - [1. Função simples com um log + string upper case - **256 MB RAM**](#1-função-simples-com-um-log--string-upper-case---256-mb-ram)
-  - [2. Ler variável de ambiente + consultar tabela no PostgreSQL + formatação data + imprimir linhas no stdout - **256 MB RAM**](#2-ler-variável-de-ambiente--consultar-tabela-no-postgresql--formatação-data--imprimir-linhas-no-stdout---256-mb-ram)
-  - [3. Framework tests - **256 MB RAM**](#3-framework-tests---256-mb-ram)
-  - [4. Refazer - Usar várias libs .NET](#4-refazer---usar-várias-libs-net)
+  - [2. Ler variável de ambiente + consultar tabela no PostgreSQL + formatar data + imprimir linhas no stdout - **256 MB RAM**](#2-ler-variável-de-ambiente--consultar-tabela-no-postgresql--formatar-data--imprimir-linhas-no-stdout---256-mb-ram)
+  - [3. .NET libraries tests JIT vs AOT - **256 MB RAM**](#3-net-libraries-tests-jit-vs-aot---256-mb-ram)
+  - [4. Várias libs .NET](#4-várias-libs-net)
 - [rd.xml](#rdxml)
 - [Notas](#notas)
 
@@ -74,23 +74,27 @@ Métrica: Tempo total (init + duration)
 
 ### 1. Função simples com um log + string upper case - **256 MB RAM**
 
-| Runtime       | 1º exec   | max exec  | min exec  | Max memory used   |
-|---------------|-----------|-----------|-----------|-------------------|
-| .NET 6 JIT    | 429 ms    | 12 ms     | 2 ms      | 65 mb             |
-| .NET 7 AOT    | 314 ms    | 2 ms      | 1 ms      | 46 mb             |
-| Python 3.9    | 122 ms    | 3 ms      | 2 ms      | 37 mb             |
-| NodeJS 18     | 233 ms    | 2 ms      | 2 ms      | 69 mb             |
+| Runtime       | 1º exec   | max exec  | min exec  | Max memory used   | Código |
+|---------------|-----------|-----------|-----------|-------------------|--------|
+| .NET 6 JIT    | 429 ms    | 12 ms     | 2 ms      | 65 mb             | [/services/lambda/src/simple-function-jit](/services/lambda/src/simple-function-jit) |
+| .NET 7 AOT    | 314 ms    | 2 ms      | 1 ms      | 46 mb             | [/services/lambda/src/simple-function-aot](/services/lambda/src/simple-function-aot) |
+| Python 3.9    | 122 ms    | 3 ms      | 2 ms      | 37 mb             | [/services/lambda/src/simple-function-python](/services/lambda/src/simple-function-python) |
+| NodeJS 18     | 233 ms    | 2 ms      | 2 ms      | 69 mb             | [/services/lambda/src/simple-function-nodejs](/services/lambda/src/simple-function-nodejs) |
 
-### 2. Ler variável de ambiente + consultar tabela no PostgreSQL + formatação data + imprimir linhas no stdout - **256 MB RAM**
+Terraform: [/services/lambda/infra](/services/lambda/infra) (*Habilitar deploy aot no arquivo locals.tf*)
 
-| Runtime       | 1º exec   | max exec  | min exec  | Max memory used   |
-|---------------|-----------|-----------|-----------|-------------------|
-| .NET 6 JIT    | 2661 ms   | 41 ms     | 5 ms      | 100 mb            |
-| .NET 7 AOT    | 1262 ms   | 4 ms      | 3 ms      |                   |
-| Python 3.9    | 436 ms    | 52 ms     | 36 ms     | 51 mb             |
-| NodeJS 18     |           |           |           |                   |
+### 2. Ler variável de ambiente + consultar tabela no PostgreSQL + formatar data + imprimir linhas no stdout - **256 MB RAM**
 
-### 3. Framework tests - **256 MB RAM**
+| Runtime       | 1º exec   | max exec  | min exec  | Max memory used   | Código |
+|---------------|-----------|-----------|-----------|-------------------|--------|
+| .NET 6 JIT    | 2661 ms   | 41 ms     | 5 ms      | 95 mb mb          | [/services/lambda-benchmark/src/ef-jit](/services/lambda-benchmark/src/ef-jit) |
+| .NET 7 AOT    | 1262 ms   | 4 ms      | 3 ms      | 117 mb            | [/services/lambda-benchmark/src/npgsql-aot](/services/lambda-benchmark/src/npgsql-aot) |
+| Python 3.9    | 436 ms    | 52 ms     | 36 ms     | 51 mb             | [services/lambda-benchmark/src/postgresql-python](/services/lambda-benchmark/src/postgresql-python) |
+| NodeJS 18     | 572 ms    | 78 ms     | 57 ms     | 81 mb             | [/services/lambda-benchmark/src/postgresql-nodejs](/services/lambda-benchmark/src/postgresql-nodejs) |
+
+Terraform: [/services/lambda-benchmark/infra](/services/lambda-benchmark/infra) (*Habilitar deploy aot no arquivo locals.tf*)
+
+### 3. .NET libraries tests JIT vs AOT - **256 MB RAM**
 
 | Framework     | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
 |---------------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
@@ -103,8 +107,11 @@ Métrica: Tempo total (init + duration)
 > *n/a: Teste não se aplica no ambiente. Existe outro pacote com outro nome para runtime.*  
 > ***EF Core:** Muita configuração manual no arquivo [rd.xml](src/ef-aot/rd.xml). A solução é muito sensível e varia conforme design da classe sendo persistida. **Não recomendado ir para produção**.*
 
+Terraform: [/services/lambda-benchmark/infra](/services/lambda-benchmark/infra) (*Habilitar deploy aot no arquivo locals.tf*)
 
-### 4. Refazer - Usar várias libs .NET
+### 4. Várias libs .NET
+
+***refazer teste e aplicação da pasta geral sem o entity framework.***
 
 | Memória   | JIT cold start    | AOT cold start    | JIT next exec | AOT next exec |
 |-----------|-------------------|-------------------|---------------|---------------|
