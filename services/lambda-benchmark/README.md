@@ -87,9 +87,9 @@ Terraform: [/services/lambda/infra](/services/lambda/infra) (*Habilitar deploy a
 
 | Runtime       | 1º exec   | max exec  | min exec  | Max memory used   | Código |
 |---------------|-----------|-----------|-----------|-------------------|--------|
-| .NET 6 JIT    | 2661 ms   | 41 ms     | 5 ms      | 95 mb mb          | [/services/lambda-benchmark/src/ef-jit](/services/lambda-benchmark/src/ef-jit) |
+| .NET 6 JIT    | 2661 ms   | 41 ms     | 5 ms      | 95 mb             | [/services/lambda-benchmark/src/ef-jit](/services/lambda-benchmark/src/ef-jit) |
 | .NET 7 AOT    | 1262 ms   | 4 ms      | 3 ms      | 117 mb            | [/services/lambda-benchmark/src/npgsql-aot](/services/lambda-benchmark/src/npgsql-aot) |
-| Python 3.9    | 436 ms    | 52 ms     | 36 ms     | 51 mb             | [services/lambda-benchmark/src/postgresql-python](/services/lambda-benchmark/src/postgresql-python) |
+| Python 3.9    | 436 ms    | 52 ms     | 36 ms     | 51 mb             | [/services/lambda-benchmark/src/postgresql-python](/services/lambda-benchmark/src/postgresql-python) |
 | NodeJS 18     | 572 ms    | 78 ms     | 57 ms     | 81 mb             | [/services/lambda-benchmark/src/postgresql-nodejs](/services/lambda-benchmark/src/postgresql-nodejs) |
 
 Terraform: [/services/lambda-benchmark/infra](/services/lambda-benchmark/infra) (*Habilitar deploy aot no arquivo locals.tf*)
