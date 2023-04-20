@@ -7,6 +7,10 @@ Esse projeto utiliza a VPC default da account AWS para deploy da Lambda e RDA Po
 - [Setup](#setup)
 - [Imagem AWS para publish AOT](#imagem-aws-para-publish-aot)
 - [Benchmark](#benchmark)
+  - [1. Função simples com um log + string upper case - **256 MB RAM**](#1-função-simples-com-um-log--string-upper-case---256-mb-ram)
+  - [2. Ler variável de ambiente + consultar tabela no PostgreSQL + formatação data + imprimir linhas no stdout - **256 MB RAM**](#2-ler-variável-de-ambiente--consultar-tabela-no-postgresql--formatação-data--imprimir-linhas-no-stdout---256-mb-ram)
+  - [3. Framework tests - **256 MB RAM**](#3-framework-tests---256-mb-ram)
+  - [4. Refazer - Usar várias libs .NET](#4-refazer---usar-várias-libs-net)
 - [rd.xml](#rdxml)
 - [Notas](#notas)
 
@@ -68,7 +72,7 @@ docker run \
 
 Métrica: Tempo total (init + duration)
 
-Função simples com um log + string upper case - **256 MB RAM**
+### 1. Função simples com um log + string upper case - **256 MB RAM**
 
 | Runtime       | 1º exec   | max exec  | min exec  | Max memory used   |
 |---------------|-----------|-----------|-----------|-------------------|
@@ -77,7 +81,16 @@ Função simples com um log + string upper case - **256 MB RAM**
 | Python 3.9    | 122 ms    | 3 ms      | 2 ms      | 37 mb             |
 | NodeJS 18     | 233 ms    | 2 ms      | 2 ms      | 69 mb             |
 
-Framework tests - **256 MB RAM**
+### 2. Ler variável de ambiente + consultar tabela no PostgreSQL + formatação data + imprimir linhas no stdout - **256 MB RAM**
+
+| Runtime       | 1º exec   | max exec  | min exec  | Max memory used   |
+|---------------|-----------|-----------|-----------|-------------------|
+| .NET 6 JIT    | 2661 ms   | 41 ms     | 5 ms      | 100 mb            |
+| .NET 7 AOT    | 1262 ms   | 4 ms      | 3 ms      |                   |
+| Python 3.9    | 436 ms    | 52 ms     | 36 ms     | 51 mb             |
+| NodeJS 18     |           |           |           |                   |
+
+### 3. Framework tests - **256 MB RAM**
 
 | Framework     | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
 |---------------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
@@ -91,7 +104,7 @@ Framework tests - **256 MB RAM**
 > ***EF Core:** Muita configuração manual no arquivo [rd.xml](src/ef-aot/rd.xml). A solução é muito sensível e varia conforme design da classe sendo persistida. **Não recomendado ir para produção**.*
 
 
-Refazer - Usar várias libs .NET
+### 4. Refazer - Usar várias libs .NET
 
 | Memória   | JIT cold start    | AOT cold start    | JIT next exec | AOT next exec |
 |-----------|-------------------|-------------------|---------------|---------------|

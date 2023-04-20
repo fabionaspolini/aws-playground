@@ -1,0 +1,1 @@
+python3 -c "from lambda_function import lambda_handler; lambda_handler('aaa', 'a')"

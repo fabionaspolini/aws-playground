@@ -1,0 +1,1 @@
+pip install --target ./packages aws-psycopg2
