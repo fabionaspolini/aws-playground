@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Npgsql;
 using Refit;
+using static System.Console;
 
 [assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>))]
 
@@ -128,7 +129,7 @@ public partial class SampleDapperAotUseCase
         using var conn = new NpgsqlConnection(_configuration.Value.ConnectionString);
         var pessoas = await GetPessoaAsync(conn);
         foreach (var pessoa in pessoas)
-            _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
+            WriteLine($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
     }
 
     [Command("select * from pessoa")]
@@ -162,12 +163,13 @@ public class SampleRefitUseCase
         {
             var result = await _viaCepApi.GetCepAsync(cep);
             if (result != null)
-                _logger?.LogInformation($"{result.cep}, {result.localidade}, {result.bairro}");
+                WriteLine($"{result.cep}, {result.localidade}, {result.bairro}");
             return result;
         }
         catch (Exception e)
         {
-            _logger?.LogCritical(e, "Erro ao consultar CEP");
+            // _logger.LogCritical(e, "Erro ao consultar CEP");
+            WriteLine("Erro ao consultar CEP: " + e);
             throw;
         }
     }
