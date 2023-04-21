@@ -156,3 +156,6 @@ https://codevision.medium.com/library-of-rd-xml-files-for-nativeaot-174dcd2438e
 https://github.com/kant2002/CoreRtRdXmlExamples/blob/master/SystemTextJsonSerialization/rd.xml
 
 https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/warnings/il3050
+
+
+curl -X GET https://viacep.com.br/ws/02739000/json
