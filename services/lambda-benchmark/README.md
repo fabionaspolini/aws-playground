@@ -111,11 +111,18 @@ Terraform: [/services/lambda-benchmark/infra](/services/lambda-benchmark/infra) 
 
 ### 4. Várias libs .NET
 
-***refazer teste e aplicação da pasta geral sem o entity framework.***
+Código nas pastas [geral-jit](/services/lambda-benchmark/src/geral-jit) e [geral-aot](/services/lambda-benchmark/src/geral-aot).
+
+Libs:
+- Dapper.AOT
+- Microsoft.Extensions.Configuration
+- Microsoft.Extensions.Logging
+- Npgsql
+- Refit + Refit.HttpClientFactory
 
 | Framework | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
 |-----------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
-| 256 MB    | |
+| 256 MB    | 3484 ms       |               | 89 ms         |               | 12 ms         |               | 102                   |                       |
 | 512 MB    | |
 | 1024 MB   | |
 

@@ -26,13 +26,12 @@ public class Function
 {
     private static readonly IServiceProvider ServiceProvider;
 
-    /*static void ConfigureLogging(ILoggingBuilder builder) => builder
+    static void ConfigureLogging(ILoggingBuilder builder) => builder
         .AddSimpleConsole(x =>
         {
             x.SingleLine = true;
             x.TimestampFormat = null;
-        });*/
-    static void ConfigureLogging(ILoggingBuilder builder) {}
+        });
 
     static Function()
     {
@@ -63,7 +62,6 @@ public class Function
         services.AddRefitClient<IViaCepApi>(refitSettings)
             .ConfigureHttpClient(config =>
             {
-                Console.WriteLine("CONFIGURANDO REFIT HTTP CLIENT");
                 config.BaseAddress = new Uri(@"https://viacep.com.br");
             });
         // services.AddSingleton<JsonSerializerOptions>(LambdaFunctionJsonSerializerContext.Default.Options);
@@ -129,7 +127,7 @@ public partial class SampleDapperAotUseCase
         using var conn = new NpgsqlConnection(_configuration.Value.ConnectionString);
         var pessoas = await GetPessoaAsync(conn);
         foreach (var pessoa in pessoas)
-            WriteLine($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
+            _logger.LogInformation($"{pessoa.id}, {pessoa.nome}, {pessoa.data_nascimento:dd/MM/yyyy}");
     }
 
     [Command("select * from pessoa")]
@@ -163,13 +161,12 @@ public class SampleRefitUseCase
         {
             var result = await _viaCepApi.GetCepAsync(cep);
             if (result != null)
-                WriteLine($"{result.cep}, {result.localidade}, {result.bairro}");
+                _logger.LogInformation($"{result.cep}, {result.localidade}, {result.bairro}");
             return result;
         }
         catch (Exception e)
         {
-            // _logger.LogCritical(e, "Erro ao consultar CEP");
-            WriteLine("Erro ao consultar CEP: " + e);
+            _logger.LogCritical(e, "Erro ao consultar CEP");
             throw;
         }
     }

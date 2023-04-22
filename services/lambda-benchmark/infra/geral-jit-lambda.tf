@@ -55,7 +55,7 @@ resource "aws_lambda_function" "benchmark_geral_jit" {
   source_code_hash = data.archive_file.publish_benchmark_geral_jit.output_base64sha256
 
   vpc_config {
-    subnet_ids         = data.aws_subnets.deploy_zones.ids
+    subnet_ids         = [data.aws_subnet.zone_a.id]
     security_group_ids = [data.aws_security_group.default.id]
   }
 

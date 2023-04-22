@@ -14,6 +14,16 @@ data "aws_subnets" "deploy_zones" {
   }
 }
 
+data "aws_subnet" "zone_a" {
+  vpc_id            = data.aws_vpc.default.id
+  availability_zone = "us-east-1a"
+}
+
+data "aws_subnet" "zone_b" {
+  vpc_id            = data.aws_vpc.default.id
+  availability_zone = "us-east-1b"
+}
+
 data "aws_security_group" "default" {
   vpc_id = data.aws_vpc.default.id
   name   = "default" # security group padrão da VPC possui o nome "default", mas exibe em branco no console aws.
