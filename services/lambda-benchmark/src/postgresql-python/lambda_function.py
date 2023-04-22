@@ -8,7 +8,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 def lambda_handler(input, context):
-    logger.info('Iniciando postgresql-python')
+    logger.info('Iniciando postgresql-python (Teste comparação .NET vs NodeJS vs Python)')
     print_pessoas()
     logger.info('Concluído')
 

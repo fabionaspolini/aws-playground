@@ -11,7 +11,7 @@ namespace Npgsql.Jit;
 public class Function
 {
 #pragma warning disable CA1822 // Método sem referência passível de virar static
-    /*public async Task<SampleResponse[]> FunctionHandler(SampleRequest request, ILambdaContext context)
+    public async Task<SampleResponse[]> FunctionHandler(SampleRequest request, ILambdaContext context)
     {
         context.Logger.LogInformation("Iniciando Npgsql JIT");
         var result = new List<SampleResponse>();
@@ -24,15 +24,6 @@ public class Function
         }
         context.Logger.LogInformation("Concluído");
         return result.ToArray();
-    }*/
-
-    // Para teste comparando com Python / NodeJS
-    public async Task FunctionHandler(SampleRequest request, ILambdaContext context)
-    {
-        context.Logger.LogInformation("Iniciando Npgsql JIT (Teste comparação NodeJS / Python)");
-        var useCase = new SampleUseCase();
-        await useCase.ExecuteAsync();
-        context.Logger.LogInformation("Concluído");
     }
 #pragma warning restore CA1822
 }

@@ -2,7 +2,7 @@ const { Client } = require('pg');
 const moment = require('moment');
 
 exports.handler = async (event, context) => {
-    console.info("Iniciando postgresql-nodejs")
+    console.info("Iniciando postgresql-nodejs (Teste comparação .NET vs NodeJS vs Python)")
 
     const config = {
         connectionString: process.env.ConnectionString,

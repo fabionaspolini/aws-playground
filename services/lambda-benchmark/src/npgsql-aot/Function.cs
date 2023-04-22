@@ -6,7 +6,7 @@ using Amazon.Lambda.Serialization.SystemTextJson;
 
 namespace Npgsql.Aot;
 
-/*public class Function
+public class Function
 {
     private static async Task Main()
     {
@@ -29,26 +29,6 @@ namespace Npgsql.Aot;
         }
         context.Logger.LogInformation("Concluído");
         return result.ToArray();
-    }
-}*/
-
-// Para teste comparando com Python / NodeJS
-public class Function
-{
-    private static async Task Main()
-    {
-        Func<SampleRequest, ILambdaContext, Task> handler = FunctionHandlerAsync;
-        await LambdaBootstrapBuilder.Create(handler, new SourceGeneratorLambdaJsonSerializer<LambdaFunctionJsonSerializerContext>())
-            .Build()
-            .RunAsync();
-    }
-
-    public static async Task FunctionHandlerAsync(SampleRequest request, ILambdaContext context)
-    {
-        context.Logger.LogInformation("Iniciando Npgsql AOT (Teste comparação NodeJS / Python)");
-        var useCase = new SampleUseCase();
-        await useCase.ExecuteAsync();
-        context.Logger.LogInformation("Concluído");
     }
 }
 

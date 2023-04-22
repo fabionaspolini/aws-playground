@@ -79,6 +79,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E817B41E-181
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DlqWorkflowPlayground", "services\sqs\src\dlq-workflow\DlqWorkflowPlayground.csproj", "{0AD9217C-B684-488C-9516-63F7E6887531}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgreSqlLambdaBenchmark.Jit", "services\lambda-benchmark\src\postgresql-dotnet-jit\PostgreSqlLambdaBenchmark.Jit.csproj", "{0D948B15-2931-4AE9-BB0A-22A62E022A77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgreSqlLambdaBenchmark.Aot", "services\lambda-benchmark\src\postgresql-dotnet-aot\PostgreSqlLambdaBenchmark.Aot.csproj", "{660CB344-C165-47E8-9DF1-180965F497ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +165,14 @@ Global
 		{0AD9217C-B684-488C-9516-63F7E6887531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AD9217C-B684-488C-9516-63F7E6887531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AD9217C-B684-488C-9516-63F7E6887531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D948B15-2931-4AE9-BB0A-22A62E022A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D948B15-2931-4AE9-BB0A-22A62E022A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D948B15-2931-4AE9-BB0A-22A62E022A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D948B15-2931-4AE9-BB0A-22A62E022A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{660CB344-C165-47E8-9DF1-180965F497ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660CB344-C165-47E8-9DF1-180965F497ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660CB344-C165-47E8-9DF1-180965F497ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660CB344-C165-47E8-9DF1-180965F497ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,6 +206,8 @@ Global
 		{039C0EED-71A3-4D62-B546-30F725A823B6} = {8ADB1E8A-70C9-4182-9CA6-5D34038C403E}
 		{E817B41E-1819-490B-A07A-98C2907EC97D} = {039C0EED-71A3-4D62-B546-30F725A823B6}
 		{0AD9217C-B684-488C-9516-63F7E6887531} = {E817B41E-1819-490B-A07A-98C2907EC97D}
+		{0D948B15-2931-4AE9-BB0A-22A62E022A77} = {6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}
+		{660CB344-C165-47E8-9DF1-180965F497ED} = {6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277EE416-CD21-45A4-98BE-8C431904FB59}
