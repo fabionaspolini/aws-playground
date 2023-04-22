@@ -128,20 +128,20 @@ Utilize:
 Libs:
 
 - Amazon.Lambda.RuntimeSupport
-- Amazon.Lambda.Core
-- Amazon.Lambda.Serialization.SystemTextJson
+  - Amazon.Lambda.Core
+  - Amazon.Lambda.Serialization.SystemTextJson
 - Dapper.AOT
 - Microsoft.Extensions.Configuration
-- Microsoft.Extensions.Configuration.Binder
-- Microsoft.Extensions.Configuration.EnvironmentVariables
+  - Microsoft.Extensions.Configuration.Binder
+  - Microsoft.Extensions.Configuration.EnvironmentVariables
 - Microsoft.Extensions.Logging
-- Microsoft.Extensions.Logging.Abstractions
-- Microsoft.Extensions.Logging.Configuration
-- Microsoft.Extensions.Logging.Console
-  - Problemas no build aot com `AddSimpleConsole` e `AddConsole`. Travou a aplicação no momento de receber o retorno do Refit.
+  - Microsoft.Extensions.Logging.Abstractions
+  - Microsoft.Extensions.Logging.Configuration
+  - Microsoft.Extensions.Logging.Console
+    - Problemas no build aot com `AddSimpleConsole` e `AddConsole`. Travou a aplicação no momento de receber o retorno do Refit.
 - Npgsql
 - Refit
-- Refit.HttpClientFactory
+  - Refit.HttpClientFactory
 
 ## rd.xml
 
