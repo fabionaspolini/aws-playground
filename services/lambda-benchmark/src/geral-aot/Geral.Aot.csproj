@@ -19,10 +19,6 @@
     <NoWarn>CA2254</NoWarn>
   </PropertyGroup>
 
-  <!-- <ItemGroup>
-    <RdXmlFile Include="rd.xml" />
-  </ItemGroup> -->
-
   <!--
   When publishing Lambda functions for ARM64 to the provided.al2 runtime a newer version of libicu needs to be included
   in the deployment bundle because .NET requires a newer version of libicu then is preinstalled with Amazon Linux 2.
@@ -36,8 +32,6 @@
     <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.1" />
     <PackageReference Include="Dapper.AOT" Version="0.1.30" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
@@ -45,7 +39,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
     <PackageReference Include="Npgsql" Version="7.0.2" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
     <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,6 @@
 {
     "version": "2.0.0",
     "tasks": [
-        // Geral
         {
             "label": "build-solution",
             "command": "dotnet",
@@ -18,7 +17,6 @@
                 "isDefault": true
             }
         },
-        // DynamoDb
         {
             "label": "build-dynamoDb",
             "command": "dotnet",
@@ -31,7 +29,6 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // Lambda / context-details
         {
             "label": "build-lambda-context-details",
             "command": "dotnet",
@@ -63,7 +60,6 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // Lambda / simple-function
         {
             "label": "build-lambda-simple-function-jit",
             "command": "dotnet",
@@ -95,7 +91,6 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // Lambda / simple-function-aot
         {
             "label": "build-lambda-simple-function-aot",
             "command": "dotnet",
@@ -142,7 +137,6 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // Lambda / simple-function-jit-no-reflection
         {
             "label": "build-lambda-simple-function-jit-no-reflection",
             "command": "dotnet",
@@ -174,7 +168,6 @@
             },
             "problemMatcher": "$msCompile"
         },
-        // lambda-benchmark
         {
             "label": "build-lambda-benchmark-ef-jit",
             "command": "dotnet",
@@ -223,7 +216,6 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // sqs / dlq-workflow
         {
             "label": "build-sqs-dlq-workflow",
             "command": "dotnet",
@@ -235,6 +227,6 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
-        },
+        }
     ]
 }

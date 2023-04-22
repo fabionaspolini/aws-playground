@@ -113,18 +113,35 @@ Terraform: [/services/lambda-benchmark/infra](/services/lambda-benchmark/infra) 
 
 Código nas pastas [geral-jit](/services/lambda-benchmark/src/geral-jit) e [geral-aot](/services/lambda-benchmark/src/geral-aot).
 
+| Memory    | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
+|-----------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
+| 256 MB    | 3484 ms       | 1237 ms       | 45 ms         | 21 ms         | 12 ms         | 12 ms         | 102 mb                | 128 mb                |
+| 512 MB    | 1803 ms       | 830 ms        | 35 ms         | 20 ms         | 12 ms         | 12 ms         |                       |                       |
+| 1024 MB   | 1036 ms       | 643 ms        | 22 ms         | 17 ms         | 12 ms         | 12 ms         |                       |                       |
+
+Para a lambda funcionar com a rede privada e acesso a internet é necessário configurar NAT Gateway conforme [tutorial](https://nodogmablog.bryanhogan.net/2022/06/accessing-the-internet-from-vpc-connected-lambda-functions-using-a-nat-gateway/).
+
+Utilize:
+- us-east-1a: como subnet privada (Vincular route table para nat gateway na subnet pública)
+- us-east-1b: como subnet pública (Criar gateway)
+
 Libs:
+
+- Amazon.Lambda.RuntimeSupport
+- Amazon.Lambda.Core
+- Amazon.Lambda.Serialization.SystemTextJson
 - Dapper.AOT
 - Microsoft.Extensions.Configuration
+- Microsoft.Extensions.Configuration.Binder
+- Microsoft.Extensions.Configuration.EnvironmentVariables
 - Microsoft.Extensions.Logging
+- Microsoft.Extensions.Logging.Abstractions
+- Microsoft.Extensions.Logging.Configuration
+- Microsoft.Extensions.Logging.Console
+  - Problemas no build aot com `AddSimpleConsole` e `AddConsole`. Travou a aplicação no momento de receber o retorno do Refit.
 - Npgsql
-- Refit + Refit.HttpClientFactory
-
-| Framework | JIT 1º exec   | AOT 1º exec   | JIT max exec  | AOT max exec  | JIT min exec  | AOT min exec  | JIT Max memory used   | AOT Max memory used   |
-|-----------|---------------|---------------|---------------|---------------|---------------|---------------|-----------------------|-----------------------|
-| 256 MB    | 3484 ms       |               | 89 ms         |               | 12 ms         |               | 102                   |                       |
-| 512 MB    | |
-| 1024 MB   | |
+- Refit
+- Refit.HttpClientFactory
 
 ## rd.xml
 
