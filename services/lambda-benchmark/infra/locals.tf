@@ -3,8 +3,8 @@ locals {
   deploy_benchmark_dapper-aot_aot        = false
   deploy_benchmark_ef_aot                = false
   deploy_benchmark_geral_aot             = false
-  deploy_benchmark_npgsql_aot            = true
-  deploy_benchmark_postgresql_dotnet_aot = true
+  deploy_benchmark_npgsql_aot            = false
+  deploy_benchmark_postgresql_dotnet_aot = false
   deploy_benchmark_refit_aot             = false
 
   rds_address       = aws_db_instance.default.address
