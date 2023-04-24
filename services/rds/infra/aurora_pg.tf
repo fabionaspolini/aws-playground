@@ -26,6 +26,9 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   engine_version      = aws_rds_cluster.postgresql.engine_version
   publicly_accessible = true # autorizar acesso pela internet
   apply_immediately   = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
+
+  performance_insights_enabled          = true # monitoramento
+  performance_insights_retention_period = 7    # dias para armazenar histórico de monitoramento (7 dias free tier)
 }
 
 # Security Group + Rules
