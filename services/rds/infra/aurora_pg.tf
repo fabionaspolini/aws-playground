@@ -28,7 +28,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   apply_immediately   = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
 }
 
-# Security group + rules: aurora-postgresql-sample
+# Security Group + Rules
 
 resource "aws_security_group" "aurora_postgresql_sample" {
   name        = "aurora-postgresql-sample"
@@ -65,4 +65,50 @@ resource "aws_vpc_security_group_ingress_rule" "aurora_postgresql_sample_allow_i
   tags = {
     Name = "internet"
   }
+}
+
+# Secret Manager
+
+resource "aws_secretsmanager_secret" "aurora_postgresql_sample_username" {
+  name = "aurora-postgresql-sample-username"
+}
+
+resource "aws_secretsmanager_secret" "aurora_postgresql_sample_password" {
+  name = "aurora-postgresql-sample-password"
+}
+
+resource "aws_secretsmanager_secret_version" "aurora_postgresql_sample_username" {
+  secret_id     = aws_secretsmanager_secret.aurora_postgresql_sample_username.id
+  secret_string = aws_rds_cluster.postgresql.master_username
+}
+
+resource "aws_secretsmanager_secret_version" "aurora_postgresql_sample_password" {
+  secret_id     = aws_secretsmanager_secret.aurora_postgresql_sample_password.id
+  secret_string = aws_rds_cluster.postgresql.master_password
+}
+
+# Parameter Store
+
+resource "aws_ssm_parameter" "aurora_postgresql_sample_endpoint" {
+  name  = "aurora-postgresql-sample-endpoint"
+  type  = "String"
+  value = aws_rds_cluster.postgresql.endpoint
+}
+
+resource "aws_ssm_parameter" "aurora_postgresql_sample_reader_endpoint" {
+  name  = "aurora-postgresql-sample-reader-endpoint"
+  type  = "String"
+  value = aws_rds_cluster.postgresql.reader_endpoint
+}
+
+resource "aws_ssm_parameter" "aurora_postgresql_sample_port" {
+  name  = "aurora-postgresql-sample-port"
+  type  = "String"
+  value = aws_rds_cluster.postgresql.port
+}
+
+resource "aws_ssm_parameter" "aurora_postgresql_sample_database_name" {
+  name  = "aurora-postgresql-sample-database-name"
+  type  = "String"
+  value = aws_rds_cluster.postgresql.database_name
 }

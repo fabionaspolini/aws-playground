@@ -126,6 +126,18 @@
             "cwd": "${workspaceFolder}/services/sqs/src/dlq-workflow",
             "console": "externalTerminal",
             "stopAtEntry": false
+        },
+        // rds / rds-benchmark
+        {
+            "name": "rds / rds-benchmark",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-rds-benchmark",
+            "program": "${workspaceFolder}/services/rds/src/rds-benchmark/bin/Debug/net7.0/RdsBenchmark.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/rds/src/rds-benchmark",
+            "console": "internalConsole",
+            "stopAtEntry": false
         }
     ]
 }
