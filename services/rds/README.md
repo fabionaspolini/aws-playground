@@ -1,6 +1,7 @@
 # RDS
 
 - [Visão geral](#visão-geral)
+- [Stack](#stack)
 - [Drivers .NET](#drivers-net)
 
 ## Visão geral
@@ -15,6 +16,10 @@
 - RDS disponibiliza a ferramenta **Performance Insights** para monitoramento do ambiente
   - Retenção de 7 dias em Free Tier
 - [Estimativa de custos](https://calculator.aws/#/estimate?id=bf96eaad2ed00c6f65720cbc3f9b8b9afcb56dcd)
+
+## Stack
+
+Habilitar stack no arquivo [locals.tf](infra/locals.tf).
 
 ## Drivers .NET
 
