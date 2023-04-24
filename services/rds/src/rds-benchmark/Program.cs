@@ -5,24 +5,27 @@ using static System.Console;
 
 WriteLine(".:: RDS Benchmark ::.");
 
-const int Threads = 1;
+const int ReaderThreads = 0;
+const int WriterThreads = 2;
 
 // var parameters = await DatabaseParametersFactory.GetPostgreSqlParametersAsync();
 var parameters = await DatabaseParametersFactory.GetMySqlParametersAsync();
 
-var tasks = new Task[Threads];
-for (var i = 0; i < Threads; i++)
-    // tasks[i] = StarReaderTaskAsync(parameters, i);
-    tasks[i] = StartWriterTaskAsync(parameters, i);
+var tasks = new List<Task>();
+for (var i = 0; i < ReaderThreads; i++)
+    tasks.Add(StarReaderTaskAsync(parameters, i));
 
-Task.WaitAll(tasks);
+for (var i = 0; i < WriterThreads; i++)
+    tasks.Add(StartWriterTaskAsync(parameters, i));
+
+Task.WaitAll(tasks.ToArray());
 
 
 async static Task StarReaderTaskAsync(DatabaseParameters parameters, int index)
 {
-    var conn = parameters.CreateConnection(ConnectionEndpoint.Reader);
+    var conn = parameters.CreateConnection(ConnectionEndpoint.All);
     await conn.OpenAsync();
-    for (var i = 0; i < 10_000; i++)
+    for (var i = 0; i < 1_000; i++)
     {
         try
         {

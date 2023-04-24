@@ -7,7 +7,8 @@
 
 - Não possui endpoint para balancear automaticamente escrita/leitura ao cluster adequado.
   - Você precisa direcionar sua aplicação para o endpoint adequador (writer/reader)
-  - Endpoint reader possui balanceamento entre N servidores
+  - Endpoint reader possui balanceamento entre N servidores de leitura
+  - Endpoint writer não possui inteligência para direcionar consultar automaticamente ao reader
 - Componente **RDS Proxy** não serve para balancer writer/reader de forma inteligente, apenas para criar um pool de conexões
   - Em geral, não é interessante usar com aplicações modernas .NET/Java que já possuem recursos nos conectores de banco para manter um pool de conxões abertas facilmente
   - Se torna interessante usar quando há muitas conexões de diversas instâncias de aplicações distintas sendo abertas frequentemente
@@ -19,5 +20,6 @@
 
 - [MySqlConnector](https://mysqlconnector.net/)
   - Suporta mulitplos server separados por virgula, porém não identifica qual é read-only
-  - Faz robin hood entre servidores
-    - Nos comandos de escrita, envia para o read only, trata o erro e reenvia para o próximo server
+  - Quando falha uma operação de escrita por tentar enviar para uma instância rea only, ele tenta reenviar para
+    outra conexão aperta no pool do driver. Porém esta também pode ser uma conexão read only e o comando de escrita é perdido
+    (Isso é simulável com multi-thread / operações concorrentes).
