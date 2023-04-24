@@ -15,7 +15,7 @@
   - Se torna interessante usar quando há muitas conexões de diversas instâncias de aplicações distintas sendo abertas frequentemente
 - RDS disponibiliza a ferramenta **Performance Insights** para monitoramento do ambiente
   - Retenção de 7 dias em Free Tier
-- [Estimativa de custos](https://calculator.aws/#/estimate?id=bf96eaad2ed00c6f65720cbc3f9b8b9afcb56dcd)
+- [Estimativa de custos](https://calculator.aws/#/estimate?id=29c26911dcd32b7f1822cf094e72844309685454)
 
 ## Stack
 
