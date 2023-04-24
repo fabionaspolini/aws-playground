@@ -44,7 +44,4 @@ public class DatabaseParametersFactory
             Password: passwordSecret.SecretString,
             DatabaseName: databaseNameParamter.Parameter.Value);
     }
-
-    public static Task<DatabaseParameters> GetPostgreSqlParametersAsync() => GetParametersAsync("aurora-postgresql-playground", DatabaseParamenterEngine.PostgreSql);
-    public static Task<DatabaseParameters> GetMySqlParametersAsync() => GetParametersAsync("aurora-mysql-playground", DatabaseParamenterEngine.MySql);
 }

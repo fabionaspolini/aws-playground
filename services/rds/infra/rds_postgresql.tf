@@ -2,6 +2,7 @@
 
 resource "aws_db_instance" "postgresql" {
   count                  = local.rds_postgresql ? 1 : 0
+  apply_immediately      = true                    # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
   identifier             = "postgresql-playground" # nome do instância no painel aws
   db_name                = "sample"                # criar banco de dados (opcional)
   deletion_protection    = false                   # impedir que instância seja deletada manualmente pelo console
@@ -23,6 +24,31 @@ resource "aws_db_instance" "postgresql" {
 
   performance_insights_enabled          = true # monitoramento
   performance_insights_retention_period = 7    # dias para armazenar histórico de monitoramento (7 dias free tier)
+
+  maintenance_window      = "Mon:00:00-Mon:03:00"
+  backup_window           = "03:00-06:00"
+  backup_retention_period = 1
+}
+
+resource "aws_db_instance" "postgresql_replicas" {
+  count                  = local.rds_postgresql && local.rds_postgresql_replicas ? 1 : 0
+  apply_immediately      = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
+  identifier             = "postgresql-playground-replica"
+  replicate_source_db    = aws_db_instance.postgresql[0].identifier
+  engine                 = "postgres"
+  engine_version         = "15.2"
+  port                   = 8455
+  parameter_group_name   = "default.postgres15"
+  instance_class         = "db.t4g.micro"
+  storage_type           = "gp3" # general purpose SSD
+  skip_final_snapshot    = true
+  vpc_security_group_ids = [aws_security_group.rds_postgresql_playground[0].id]
+  publicly_accessible    = true # autorizar acesso pela internet
+
+  performance_insights_enabled          = true # monitoramento
+  performance_insights_retention_period = 7    # dias para armazenar histórico de monitoramento (7 dias free tier)
+
+  backup_retention_period = 0 # disable backups to create DB faster
 }
 
 # Security Group + Rules
@@ -98,6 +124,13 @@ resource "aws_ssm_parameter" "rds_postgresql_playground_endpoint" {
   name  = "rds-postgresql-playground-endpoint"
   type  = "String"
   value = aws_db_instance.postgresql[0].endpoint
+}
+
+resource "aws_ssm_parameter" "rds_postgresql_playground_reader_endpoint" {
+  count = local.rds_postgresql ? 1 : 0
+  name  = "rds-postgresql-playground-reader-endpoint"
+  type  = "String"
+  value = local.rds_postgresql_replicas ? aws_db_instance.postgresql_replicas[0].endpoint : aws_db_instance.postgresql[0].endpoint
 }
 
 resource "aws_ssm_parameter" "rds_postgresql_playground_port" {

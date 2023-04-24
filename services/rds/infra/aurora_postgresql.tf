@@ -1,32 +1,34 @@
 # detalhes sobre armazenamento gp3 https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/CHAP_Storage.html#gp3-storage
 
 resource "aws_rds_cluster" "aurora_postgresql" {
-  count                   = local.aurora_postgresql ? 1 : 0
-  cluster_identifier      = "aurora-postgresql-playground"
-  engine                  = "aurora-postgresql"
-  engine_version          = "15.2"
-  engine_mode             = "provisioned"
-  port                    = 8455
-  master_username         = "postgres"
-  master_password         = "teste.123456"
-  database_name           = "sample"
-  backup_retention_period = 1
-  preferred_backup_window = "01:00-02:00"
-  skip_final_snapshot     = true
-  deletion_protection     = false # proteção de exclusão da instância pelo console (desabilitar apenas para testes)
-  vpc_security_group_ids  = [aws_security_group.aurora_postgresql_playground[0].id]
-  db_subnet_group_name    = aws_db_subnet_group.default.name
+  count                  = local.aurora_postgresql ? 1 : 0
+  cluster_identifier     = "aurora-postgresql-playground"
+  engine                 = "aurora-postgresql"
+  engine_version         = "15.2"
+  engine_mode            = "provisioned"
+  port                   = 8455
+  master_username        = "postgres"
+  master_password        = "teste.123456"
+  database_name          = "sample"
+  skip_final_snapshot    = true
+  deletion_protection    = false # proteção de exclusão da instância pelo console (desabilitar apenas para testes)
+  vpc_security_group_ids = [aws_security_group.aurora_postgresql_playground[0].id]
+  db_subnet_group_name   = aws_db_subnet_group.default.name
+
+  preferred_maintenance_window = "Mon:00:00-Mon:03:00"
+  preferred_backup_window      = "03:00-06:00"
+  backup_retention_period      = 1
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
   count               = local.aurora_postgresql ? 2 : 0
+  apply_immediately   = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
   identifier          = "aurora-postgresql-playground-${count.index}"
   cluster_identifier  = aws_rds_cluster.aurora_postgresql[0].id
   instance_class      = "db.t4g.medium"
   engine              = aws_rds_cluster.aurora_postgresql[0].engine
   engine_version      = aws_rds_cluster.aurora_postgresql[0].engine_version
   publicly_accessible = true # autorizar acesso pela internet
-  apply_immediately   = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
 
   performance_insights_enabled          = true # monitoramento
   performance_insights_retention_period = 7    # dias para armazenar histórico de monitoramento (7 dias free tier)

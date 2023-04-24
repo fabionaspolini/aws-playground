@@ -15,6 +15,8 @@
   - Se torna interessante usar quando há muitas conexões de diversas instâncias de aplicações distintas sendo abertas frequentemente
 - RDS disponibiliza a ferramenta **Performance Insights** para monitoramento do ambiente
   - Retenção de 7 dias em Free Tier
+- Para adicionar replica do RDS é necessário ter backup configurado
+- Espaço em disco mínimo: 20 Gb
 - [Estimativa de custos](https://calculator.aws/#/estimate?id=f193fee57c277fd27360d702eff8229964a7d8cf)
 
 ## Stack

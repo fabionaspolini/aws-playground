@@ -5,11 +5,12 @@ using static System.Console;
 
 WriteLine(".:: RDS Benchmark ::.");
 
-const int ReaderThreads = 0;
-const int WriterThreads = 2;
+const int ReaderThreads = 15;
+const int WriterThreads = 0;
 
-// var parameters = await DatabaseParametersFactory.GetPostgreSqlParametersAsync();
-var parameters = await DatabaseParametersFactory.GetMySqlParametersAsync();
+var parameters = await DatabaseParametersFactory.GetParametersAsync("rds-postgresql-playground", DatabaseParamenterEngine.PostgreSql);
+// var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-postgresql-playground", DatabaseParamenterEngine.PostgreSql);
+// var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-mysql-playground", DatabaseParamenterEngine.MySql);
 
 var tasks = new List<Task>();
 for (var i = 0; i < ReaderThreads; i++)
