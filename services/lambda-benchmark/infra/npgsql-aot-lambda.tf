@@ -92,6 +92,6 @@ resource "aws_lambda_function" "benchmark_npgsql_aot" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_npgsql_aot" {
-  name              = "/aws-playground/lambda-benchmark/npgsql-aot"
+  name              = "/aws/lambda/benchmark-npgsql-aot"
   retention_in_days = 1
 }

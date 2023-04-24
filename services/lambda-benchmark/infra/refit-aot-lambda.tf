@@ -68,6 +68,6 @@ resource "aws_lambda_function" "benchmark_refit_aot" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_refit_aot" {
-  name              = "/aws-playground/lambda-benchmark/refit-aot"
+  name              = "/aws/lambda/benchmark-refit-aot"
   retention_in_days = 1
 }

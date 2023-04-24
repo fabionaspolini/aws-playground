@@ -79,6 +79,6 @@ resource "aws_lambda_function" "benchmark_geral_aot" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_geral_aot" {
-  name              = "/aws-playground/lambda-benchmark/geral-aot"
+  name              = "/aws/lambda/benchmark-geral-aot"
   retention_in_days = 1
 }

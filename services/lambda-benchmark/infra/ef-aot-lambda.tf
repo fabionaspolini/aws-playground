@@ -93,6 +93,6 @@ resource "aws_lambda_function" "benchmark_ef_aot" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_ef_aot" {
-  name              = "/aws-playground/lambda-benchmark/ef-aot"
+  name              = "/aws/lambda/benchmark-ef-aot"
   retention_in_days = 1
 }

@@ -79,6 +79,6 @@ resource "aws_lambda_function" "benchmark_dapper-aot_aot" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_dapper-aot_aot" {
-  name              = "/aws-playground/lambda-benchmark/dapper_aot-aot"
+  name              = "/aws/lambda/benchmark-dapper_aot-aot"
   retention_in_days = 1
 }

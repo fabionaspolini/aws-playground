@@ -92,6 +92,6 @@ resource "aws_lambda_function" "benchmark_postgresql_dotnet_aot" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_postgresql_dotnet_aot" {
-  name              = "/aws-playground/lambda-benchmark/postgresql-dotnet-aot"
+  name              = "/aws/lambda/benchmark-postgresql-dotnet-aot"
   retention_in_days = 1
 }

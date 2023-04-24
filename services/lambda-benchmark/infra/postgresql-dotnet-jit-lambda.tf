@@ -73,6 +73,6 @@ resource "aws_lambda_function" "benchmark_postgresql_dotnet_jit" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_postgresql_dotnet_jit" {
-  name              = "/aws-playground/lambda-benchmark/postgresql-dotnet-jit"
+  name              = "/aws/lambda/benchmark-postgresql-dotnet-jit"
   retention_in_days = 1
 }

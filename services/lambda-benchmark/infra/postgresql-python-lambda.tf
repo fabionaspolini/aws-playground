@@ -73,6 +73,6 @@ resource "aws_lambda_function" "benchmark_postgresql_python" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_postgresql_python" {
-  name              = "/aws-playground/lambda-benchmark/postgresql-python"
+  name              = "/aws/lambda/benchmark-postgresql-python"
   retention_in_days = 1
 }

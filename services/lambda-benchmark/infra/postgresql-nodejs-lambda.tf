@@ -73,6 +73,6 @@ resource "aws_lambda_function" "benchmark_postgresql_nodejs" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_postgresql_nodejs" {
-  name              = "/aws-playground/lambda-benchmark/postgresql-nodejs"
+  name              = "/aws/lambda/benchmark-postgresql-nodejs"
   retention_in_days = 1
 }

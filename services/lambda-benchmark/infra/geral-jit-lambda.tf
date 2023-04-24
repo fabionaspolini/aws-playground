@@ -73,6 +73,6 @@ resource "aws_lambda_function" "benchmark_geral_jit" {
 }
 
 resource "aws_cloudwatch_log_group" "benchmark_geral_jit" {
-  name              = "/aws-playground/lambda-benchmark/geral-jit"
+  name              = "/aws/lambda/benchmark-geral-jit"
   retention_in_days = 1
 }
