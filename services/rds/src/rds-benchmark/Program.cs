@@ -11,8 +11,8 @@ const int WriterThreads = 0;
 // var parameters = await DatabaseParametersFactory.GetParametersAsync("rds-postgresql-playground", DatabaseParamenterEngine.PostgreSql);
 // var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-postgresql-playground", DatabaseParamenterEngine.PostgreSql);
 var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-postgresql-serverless-playground", DatabaseParamenterEngine.PostgreSql);
-
 // var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-mysql-playground", DatabaseParamenterEngine.MySql);
+// var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-mysql-serverless-playground", DatabaseParamenterEngine.MySql);
 
 var tasks = new List<Task>();
 for (var i = 0; i < ReaderThreads; i++)
@@ -26,7 +26,7 @@ Task.WaitAll(tasks.ToArray());
 
 async static Task StarReaderTaskAsync(DatabaseParameters parameters, int index)
 {
-    var conn = parameters.CreateConnection(ConnectionEndpoint.All);
+    var conn = parameters.CreateConnection(ConnectionEndpoint.Reader);
     await conn.OpenAsync();
     for (var i = 0; i < 1_000; i++)
     {
@@ -48,7 +48,7 @@ async static Task StartWriterTaskAsync(DatabaseParameters parameters, int index)
 {
     try
     {
-        var conn = parameters.CreateConnection(ConnectionEndpoint.All);
+        var conn = parameters.CreateConnection(ConnectionEndpoint.Writer);
         await conn.OpenAsync();
         for (var i = 0; i < 1_000; i++)
         {

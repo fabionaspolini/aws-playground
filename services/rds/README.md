@@ -18,7 +18,7 @@
   - Retenção de 7 dias em Free Tier
 - Para adicionar replica do RDS é necessário ter backup configurado
 - Espaço em disco mínimo: 20 Gb
-- [Estimativa de custos](https://calculator.aws/#/estimate?id=1b59d727bb866ee92df36e12beaea5528d5c134c)
+- [Estimativa de custos](https://calculator.aws/#/estimate?id=84eb2d109731bb7d6b81bfe6280624cbc276c4d1)
 
 ## Stack
 
