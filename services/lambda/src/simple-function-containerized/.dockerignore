@@ -23,5 +23,7 @@
 **/secrets.dev.yaml
 **/values.dev.yaml
 **/publish
+**/deploy.sh
+**/publish.sh
 LICENSE
 README.md

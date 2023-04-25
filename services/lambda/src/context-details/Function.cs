@@ -33,7 +33,7 @@ public class Function
         AWSXRayRecorder.Instance.AddAnnotation("minha annotation", "my value"); // Não aparece no console
         AWSXRayRecorder.Instance.AddMetadata("meu metadata", "my value"); // Não aparece no console
 
-        context.Logger.LogInformation("Exemplo simples de uma função lambda que converter os caracteres para maiúsculo.");
+        context.Logger.LogInformation("Exemplo simples de uma função lambda para converter os caracteres para maiúsculo.");
         context.Logger.LogInformation($"Input: {JsonSerializer.Serialize(request, LambdaFunctionJsonSerializerContext.Default.SampleRequest)}");
         context.Logger.LogInformation($">>>>> CONTEXT DATA <<<<<");
 
