@@ -3,6 +3,7 @@
 - [Visão geral](#visão-geral)
 - [Stack](#stack)
 - [Drivers .NET](#drivers-net)
+- [Anexos](#anexos)
 
 ## Visão geral
 
@@ -30,3 +31,8 @@ Habilitar stack no arquivo [locals.tf](infra/locals.tf).
   - Quando falha uma operação de escrita por tentar enviar para uma instância rea only, ele tenta reenviar para
     outra conexão aperta no pool do driver. Porém esta também pode ser uma conexão read only e o comando de escrita é perdido
     (Isso é simulável com multi-thread / operações concorrentes).
+
+## Anexos
+
+- [Multi-master MySQL](https://aws.amazon.com/pt/blogs/database/building-highly-available-mysql-applications-using-amazon-aurora-mmsr/)
+  - Atualmente (24/04/2023) está indisponível esta opção
