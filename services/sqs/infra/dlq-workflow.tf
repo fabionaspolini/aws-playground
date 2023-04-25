@@ -23,7 +23,8 @@ resource "aws_sqs_queue" "my_action" {
 #     Temos um tempo de vida delimitado para corrigir o sistema e implanta-lo para que o processo se reintregre automaticamente.
 # Em ambos os casos:
 #   - O tempo máximo para resiliência automática é de: "visibility_timeout_seconds" * "maxReceiveCount".
-#   - Se haver muitas mensagens pendentes, elas com concorrerão com o fluxo online da aplicação, pois aqui não tem auto scaling.
+#   - Se haver muitas mensagens pendentes, elas não concorrerão com o fluxo online da aplicação, pois aqui não tem auto scaling.
+#     A ideia é essa fila ser processada lentamente enquanto os recursos são utilizado pra dar conta da operação online na fila principal.
 resource "aws_sqs_queue" "my_action_retry" {
   name                       = "my-action-dlq-retry"
   visibility_timeout_seconds = 10
