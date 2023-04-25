@@ -28,7 +28,7 @@ resource "aws_sqs_queue" "my_action" {
 resource "aws_sqs_queue" "my_action_retry" {
   name                       = "my-action-dlq-retry"
   visibility_timeout_seconds = 10
-  delay_seconds              = 0 # Essa propriedade não importa mais aqui, pois é preservada a quantidade de reentregas da fila original
+  delay_seconds              = 0 # Essa propriedade não importa mais aqui pois é preservada mesma mensagem em todo o workflow. Ela vale apenas para a primeira entrega na fila principal.
   receive_wait_time_seconds  = 0
   message_retention_seconds  = 86400
   max_message_size           = 262144
