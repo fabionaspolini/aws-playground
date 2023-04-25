@@ -41,9 +41,9 @@ resource "aws_sqs_queue" "my_action_retry" {
 # Quando a mensagem cair aqui não deve mais haver um retry automatico pelo sistema, pois sem monitoramente adequado, não será corrigido e implicará em custo de consumo da fila.
 # Se a janela de tempo de retry não foi suficiente para correção do problema e você implantar a correção após a mensagem estar aqui, você pode:
 #   - 1: Conectar o consumer nesta fila momentâneamente até zera-la e depois desconecta-lo. Lembre-se: O esperado é que nunca chegue nada aqui e não queremos ter o risco de gastar $$$$ sem necessidade
-#   - 2: Fazer uma rotina que move a mensagem para fila de retry ou para principal
-#        Esse cenário é mais interessante, você pode jogar uma parcela de mensagens para a fila de retry. Se processar com sucesso, jogue tudo para principal, 
-#        pois nela pode ter auto scaling para reprocessar rapidamente.
+#   - 2: Fazer uma rotina que mova as mensagens para fila de retry ou para principal
+#        Esse cenário é mais interessante, você pode jogar uma parcela de mensagens para a fila de retry. Se processar com sucesso, você pode jogar tudo para principal,
+#        pois nela existe auto scaling para reprocessar rapidamente.
 resource "aws_sqs_queue" "my_action_dlq" {
   name                       = "my-action-dlq"
   visibility_timeout_seconds = 30
