@@ -1,3 +1,5 @@
 #!/bin/sh
 
-dotnet publish -c Release -o publish --framework net6.0 -r linux-x64 -p PublishReadyToRun=true --no-self-contained
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 452970698287.dkr.ecr.us-east-1.amazonaws.com
+docker build -t 452970698287.dkr.ecr.us-east-1.amazonaws.com/simple-function-containerized:latest .
+docker push 452970698287.dkr.ecr.us-east-1.amazonaws.com/simple-function-containerized:latest
