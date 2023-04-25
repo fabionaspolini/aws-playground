@@ -1,0 +1,1 @@
+dotnet lambda deploy-function --function-name "simple-function-containerized" --function-role "simple-function-containerized-lambda" --tracing-mode Active

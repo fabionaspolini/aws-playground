@@ -26,6 +26,7 @@
 - [Compilação .NET AOT](https://docs.aws.amazon.com/pt_br/lambda/latest/dg/dotnet-native-aot.html)
     - Necessário estar no Linux para realizar este deploy
     - Instalar [libraries no linux para linker de publish AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/).
+- [.NET containerized](https://www.c-sharpcorner.com/article/deploy-net-lambda-functions-as-containers/)
 
 
 ### Terraform
