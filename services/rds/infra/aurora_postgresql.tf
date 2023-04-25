@@ -2,6 +2,7 @@
 
 resource "aws_rds_cluster" "aurora_postgresql" {
   count                  = local.aurora_postgresql ? 1 : 0
+  apply_immediately      = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
   cluster_identifier     = "aurora-postgresql-playground"
   engine                 = "aurora-postgresql"
   engine_version         = "15.2"
@@ -20,7 +21,7 @@ resource "aws_rds_cluster" "aurora_postgresql" {
   backup_retention_period      = 1
 }
 
-resource "aws_rds_cluster_instance" "cluster_instances" {
+resource "aws_rds_cluster_instance" "aurora_postgresql" {
   count               = local.aurora_postgresql ? 2 : 0
   apply_immediately   = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
   identifier          = "aurora-postgresql-playground-${count.index}"

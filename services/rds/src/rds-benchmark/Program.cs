@@ -8,8 +8,10 @@ WriteLine(".:: RDS Benchmark ::.");
 const int ReaderThreads = 15;
 const int WriterThreads = 0;
 
-var parameters = await DatabaseParametersFactory.GetParametersAsync("rds-postgresql-playground", DatabaseParamenterEngine.PostgreSql);
+// var parameters = await DatabaseParametersFactory.GetParametersAsync("rds-postgresql-playground", DatabaseParamenterEngine.PostgreSql);
 // var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-postgresql-playground", DatabaseParamenterEngine.PostgreSql);
+var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-postgresql-serverless-playground", DatabaseParamenterEngine.PostgreSql);
+
 // var parameters = await DatabaseParametersFactory.GetParametersAsync("aurora-mysql-playground", DatabaseParamenterEngine.MySql);
 
 var tasks = new List<Task>();

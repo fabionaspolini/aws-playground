@@ -2,6 +2,7 @@
 
 resource "aws_rds_cluster" "aurora_mysql" {
   count                  = local.aurora_mysql ? 1 : 0
+  apply_immediately      = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
   cluster_identifier     = "aurora-mysql-playground"
   engine                 = "aurora-mysql"
   engine_version         = "8.0.mysql_aurora.3.03.0"
