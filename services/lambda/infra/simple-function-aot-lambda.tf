@@ -41,7 +41,7 @@ resource "null_resource" "publish_simple_function_aot" {
 data "archive_file" "publish_simple_function_aot" {
   count       = local.deploy_aot_functions ? 1 : 0
   type        = "zip"
-  source_dir  = "../src/simple-function-aot/publish"
+  source_dir  = "../src/simple-function-aot/bin/Release/publish"
   output_path = "./.temp/simple-function-aot.zip"
   depends_on  = [null_resource.publish_simple_function_aot]
 }

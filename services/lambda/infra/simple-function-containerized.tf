@@ -34,6 +34,7 @@ resource "aws_ecr_repository" "simple_function_containerized" {
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
 resource "null_resource" "publish_simple_function_containerized" {
+  count = local.deploy_containerized_functions ? 1 : 0
   provisioner "local-exec" {
     working_dir = "../src/simple-function-containerized"
     command     = "bash ./publish.sh ${data.aws_caller_identity.current.account_id}"
@@ -47,7 +48,7 @@ resource "null_resource" "publish_simple_function_containerized" {
 }
 
 resource "aws_lambda_function" "simple_function_containerized" {
-  # filename      = "./.temp/simple-function-containerized.zip"
+  count         = local.deploy_containerized_functions ? 1 : 0
   function_name = "simple-function-containerized"
   role          = aws_iam_role.simple_function_containerized.arn
   package_type  = "Image"
