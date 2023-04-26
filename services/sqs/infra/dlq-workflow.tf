@@ -1,3 +1,5 @@
+# Maiores detalhes no arquivo /services/sqs/README.md
+
 # Fila principal: Deve ter auto scaling e serve para o fluxo demandado pela aplicação.
 # Após 3 falhas, envia mensagem para "my-action-dlq-retry".
 # Intervalo entre tentativas: 5 segundos
@@ -9,7 +11,7 @@ resource "aws_sqs_queue" "my_action" {
   message_retention_seconds  = 86400  # 24 horas de retenção na fila (entre 1 min e 14 dias)
   max_message_size           = 262144 # 256 Kb (máximo)
   redrive_policy = jsonencode({
-    deadLetterTargetArn = aws_sqs_queue.my_action_retry.arn
+    deadLetterTargetArn = aws_sqs_queue.my_action_dlq_retry.arn
     maxReceiveCount     = 3
   })
 }
@@ -25,7 +27,7 @@ resource "aws_sqs_queue" "my_action" {
 #   - O tempo máximo para resiliência automática é de: "visibility_timeout_seconds" * "maxReceiveCount".
 #   - Se haver muitas mensagens pendentes, elas não concorrerão com o fluxo online da aplicação, pois aqui não tem auto scaling.
 #     A ideia é essa fila ser processada lentamente enquanto os recursos são utilizado pra dar conta da operação online na fila principal.
-resource "aws_sqs_queue" "my_action_retry" {
+resource "aws_sqs_queue" "my_action_dlq_retry" {
   name                       = "my-action-dlq-retry"
   visibility_timeout_seconds = 10
   delay_seconds              = 0 # Essa propriedade não importa mais aqui pois é preservada mesma mensagem em todo o workflow. Ela vale apenas para a primeira entrega na fila principal.
