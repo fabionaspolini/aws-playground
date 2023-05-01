@@ -8,6 +8,18 @@
 
 - DLQ precisa ser do mesmo tipo da fila (Standard ou FIFO)
 - Feature "Start DLQ redrive" para mover mensagens da DLQ para fila original só é disponibilizada pelo console, ou seja, não há API para utilizar programavelmente.
+- Propriedade delay timeout pode ser informada por mensagem (caso desejar sobreescrever o padrão da fila)
+- Propriedades da fila
+  - Visibility timeout [0-12 horas]: Tempo que o consumidor tem para processar a mensagem. Após isso ela volta para o status de disponível na fila e será entregue novamente ao consumidor.
+  - Delivery delay [0-15 minutos]: Tempo de atraso para a primeira entrega da mensagem
+  - Receive message wait time [0-20 segundos]: Tempo para aguardar formar um pacote de mensagens antes de retornar ao consumidor. Utilizado para reduzir consumo de fila e custo.
+  - Message retention period [1 minuto-14 dias]: Tempo que a mensagem é armazenada na fila.  
+    Se o periodo expirar antes da regra de DLQ ser atingia, a mensagem é descartada e perdida (sem encaminhamento para DLQ).
+  - Maximum message size [1 kb-256 kb]: Tamanho máximo da mensagem
+  - DLQ
+    - Queue ARN: ARN da fila destino quando a mensagem expirar
+    - Maximum receives [1-1000]: Máximo de tentativas de processamento da mensagem antes de direciona-la para a DLQ.
+- Purge: Ato de limpar a fila
 
 ## DLQ Workflow
 
