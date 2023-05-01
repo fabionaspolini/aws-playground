@@ -32,7 +32,7 @@ resource "aws_sqs_queue" "my_action_dlq_retry" {
   visibility_timeout_seconds = 10
   delay_seconds              = 0 # Essa propriedade não importa mais aqui pois é preservada mesma mensagem em todo o workflow. Ela vale apenas para a primeira entrega na fila principal.
   receive_wait_time_seconds  = 0
-  message_retention_seconds  = 86400
+  message_retention_seconds  = 1209600 # 14 dias
   max_message_size           = 262144
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.my_action_dlq.arn
@@ -51,6 +51,6 @@ resource "aws_sqs_queue" "my_action_dlq" {
   visibility_timeout_seconds = 30
   delay_seconds              = 0
   receive_wait_time_seconds  = 0
-  message_retention_seconds  = 86400
+  message_retention_seconds  = 1209600 # 14 dias
   max_message_size           = 262144
 }

@@ -1,7 +1,13 @@
 # SQS
 
+- [Visão Geral](#visão-geral)
 - [DLQ Workflow](#dlq-workflow)
   - [Exemplo de configuração para um cenário real](#exemplo-de-configuração-para-um-cenário-real)
+
+## Visão Geral
+
+- DLQ precisa ser do mesmo tipo da fila (Standard ou FIFO)
+- Feature "Start DLQ redrive" para mover mensagens da DLQ para fila original só é disponibilizada pelo console, ou seja, não há API para utilizar programavelmente.
 
 ## DLQ Workflow
 
@@ -39,8 +45,9 @@ O workflow é composto de 3 filas:
   - Você também deve monitorar as mensagens que chegaram a este ponto e adequar seu software para trata-las, mesmo que o tratamento seja o descarte consciente dela.
   - Mas se a janela de tempo da fila 2 não foi o suficiente para corrigir o software e as mensagens estão parando aqui, você pode:
     1. Conectar o consumidor nesta fila momentâneamente até zera-la e depois desconecta-lo.
-    2. Fazer uma rotina que mova as mensagens para fila de retry ou para principal.
+    2. Fazer uma rotina que mova as mensagens para fila de retry ou para principal (redrive).
        Neste cenário você pode até mesmo validar a correção movendo uma pequena quantidade de mensagens para fila retry/principal. Não ocorrendo falha, pode mandar todas.
+    3. Utilizar a feature "Start DLQ redrive" para mover as mensagens para fila original. Isso só é disponível pelo console e não há API para utilizar programavelmente.
 
 Com este fluxo é preservado o mesmo id de mensagem, evitando falsas estatíticas com re-publicações "progamadas" via código.
 
