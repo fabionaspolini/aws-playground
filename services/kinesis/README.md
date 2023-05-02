@@ -49,7 +49,7 @@ Semelhante ao Kafka.
       - Minimizar custos
       - Retorno de até 10 Mb (Throttle em 5 segundos) ou 10 mil registros
     - **Enchaced fran-out consumer:**
-      - Limite 2 MB/sec por consumidor do shard
+      - Limite 2 MB/sec por consumidor e por shard
       - O consumidor faz o subscribe no shard pela nova api "SubscribeToShard()"
       - Latency ~70 ms
       - Maior custo
