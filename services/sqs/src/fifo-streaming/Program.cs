@@ -18,6 +18,7 @@ CancelKeyPress += (_, e) =>
 WriteLine(".:: SQS - FIFO Streaming Workflow Playground ::.");
 
 const string QueueName = "my-streaming.fifo";
+//const string QueueName = "my-streaming-standard";
 
 var sqsClient = new AmazonSQSClient();
 var queueResponse = await sqsClient.GetQueueUrlAsync(QueueName);
@@ -103,13 +104,14 @@ static async Task<ReceiveMessageResponse> GetMessages(IAmazonSQS sqsClient, stri
 
 static async Task SendMessagesAsync(IAmazonSQS sqsClient, string queueUrl, string messageGroupId, int qtd)
 {
+    var isFifoQueue = QueueName.EndsWith(".fifo");
     for (var i = 0; i < qtd; i++)
     {
         var message = new SendMessageRequest
         {
             QueueUrl = queueUrl,
-            MessageGroupId = messageGroupId,
-            MessageDeduplicationId = Guid.NewGuid().ToString(), // Cuidado! Isso é apenas para testes. Provavelmente no seu caso de uso há um código de negócio para utilizar aqui.
+            MessageGroupId = isFifoQueue ? messageGroupId : null,
+            MessageDeduplicationId = isFifoQueue ? Guid.NewGuid().ToString() : null, // Cuidado! Isso é apenas para testes. Provavelmente no seu caso de uso há um código de negócio para utilizar aqui.
             MessageBody = $"Teste {i + 1}",
         };
         await sqsClient.SendMessageAsync(message);
