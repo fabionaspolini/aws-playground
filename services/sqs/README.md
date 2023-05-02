@@ -1,6 +1,7 @@
 # SQS
 
 - [Visão Geral](#visão-geral)
+- [Estimativa de custos](#estimativa-de-custos)
 - [DLQ Workflow](#dlq-workflow)
   - [Exemplo de configuração para um cenário real](#exemplo-de-configuração-para-um-cenário-real)
 
@@ -34,6 +35,11 @@
     - Atribuito explícito "Message Deduplication ID"
   - Message group
     - Agrupar mensagens para atuar como streaming de eventos ordenados por uma caracteristica. Exemplo: Por cliente, por empresa. Todas as mensagens do grupo são entregues ordenadas, mas não há preservação da ordem de publicação em geral.
+
+## Estimativa de custos
+
+- [Calculadora 10 milhões msgs mês](https://calculator.aws/#/estimate?id=5c17b5225b69727b57e8303185865bfb7211bec5).
+- [Calculadora 100 milhões msgs mês](https://calculator.aws/#/estimate?id=d2fe61263e7fed9db30742b7c458ef08bf2bfec2).
 
 ## DLQ Workflow
 

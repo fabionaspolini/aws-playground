@@ -1,13 +1,22 @@
 # Kinesis
 
 - [Visão Geral](#visão-geral)
+- [Estimativa de custos](#estimativa-de-custos)
 - [Kinesis Data Streams](#kinesis-data-streams)
-- [Kinesis Data Firehouse](#kinesis-data-firehouse)
+- [Kinesis Data Firehose](#kinesis-data-firehose)
+- [Kinesis Data Analytics](#kinesis-data-analytics)
+  - [Kinesis Data Analytics for SQL Applications](#kinesis-data-analytics-for-sql-applications)
+  - [Kinesis Data Analytics for Apache Flink](#kinesis-data-analytics-for-apache-flink)
 
 
 ## Visão Geral
 
 Ferramenta para trabalhar com stream de dados real time.
+
+## Estimativa de custos
+
+- [Calculadora 10 milhões msgs mês](https://calculator.aws/#/estimate?id=5c17b5225b69727b57e8303185865bfb7211bec5).
+- [Calculadora 100 milhões msgs mês](https://calculator.aws/#/estimate?id=d2fe61263e7fed9db30742b7c458ef08bf2bfec2).
 
 ## Kinesis Data Streams
 
@@ -17,14 +26,16 @@ Semelhante ao Kafka.
 - Provisionamento prévio do cluster
 - Cluster é divido em shards
 - O dado é dividido nos shards
-- **Produtores:** Aplicações, estações de trabalho (pc/mobile/etc), SDKs, Kinesis Agent
+- **Produtores:**
+  - Inputs: Aplicações, estações de trabalho (pc/mobile/etc), SDKs, Kinesis Agent
   - Estrutura da mensagem:
     - Partition Key
     - Data blob (Até 1 Mb)
   - Cada shard recebe 1 MB/sec ou 1.000 msg/sec
   - Partition key direciona dado ao shard
   - Cuidado na seleção da partition key, se haver uma "hot key" (muito mais acesso que o normal), você pode receber "ProvisionedThroughputExceeded"
-- **Consumidores:** Aplicações, Lambdas, Kinesis Data Firehouse, Kinesis Data Analytics
+- **Consumidores:**
+  - Outputs: Aplicações, Lambdas, Kinesis Data Firehose, Kinesis Data Analytics
   - Estrutura da mensagem:
     - Partition Key
     - Sequence No.
@@ -72,7 +83,7 @@ Semelhante ao Kafka.
   - Operação para unir dois shards (Somente dois shards por operação)
   - Será criado um novo shard com os dados unificados e os shards antigos serão deletados quando os dados expirarem
 
-## Kinesis Data Firehouse
+## Kinesis Data Firehose
 
 Serviço para processamento de dados Near Real Time.
 
@@ -88,3 +99,35 @@ Serviço para processamento de dados Near Real Time.
 - Latência: No mínimo 60 segundos de 1 Mb de dados (Configurado no destination settings do Delivery Stream)
 - Pago por uso
 - Não é possível reprocessar mensagens (Não há armazenamento histórico)
+
+## Kinesis Data Analytics
+
+- Dois modelos: Para bases SQL e Apache Flink
+
+### Kinesis Data Analytics for SQL Applications
+
+- Real-time analytics
+- Fully managed (Não há servidores para gerenciar)
+- Pago por taxa de consumo
+- Sources
+  - Kinesis Data Streams
+  - Kinesis Data Firehose
+- Transform
+  - SQL statements
+  - S3 data
+- Outputs
+  - Kinesis Data Streams
+  - Kinesis Data Firehose
+
+
+### Kinesis Data Analytics for Apache Flink
+
+- Usa Flink (Java, Scala ou SQL) para processar e analisar o streming de dados
+- Flink são aplicações que você precisa codificar
+- Sources:
+  - Kinesis Data Streams
+  - Amazon MSK
+- Executa o Apache flink em custos gerenciado na AWS
+  - Provisionar recursos computacionais, paralelismo e auto scaling
+  - Application backes (Checkpoint e snapshot)
+  - Não suportar input de Firehose
