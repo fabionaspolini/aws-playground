@@ -81,7 +81,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sqs", "sqs", "{039C0EED-71A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E817B41E-1819-490B-A07A-98C2907EC97D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DlqWorkflowPlayground", "services\sqs\src\dlq-workflow\DlqWorkflowPlayground.csproj", "{0AD9217C-B684-488C-9516-63F7E6887531}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DlqWorkflowSqsPlayground", "services\sqs\src\dlq-workflow\DlqWorkflowSqsPlayground.csproj", "{0AD9217C-B684-488C-9516-63F7E6887531}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgreSqlLambdaBenchmark.Jit", "services\lambda-benchmark\src\postgresql-dotnet-jit\PostgreSqlLambdaBenchmark.Jit.csproj", "{0D948B15-2931-4AE9-BB0A-22A62E022A77}"
 EndProject

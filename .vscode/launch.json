@@ -121,7 +121,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-sqs-dlq-workflow",
-            "program": "${workspaceFolder}/services/sqs/src/dlq-workflow/bin/Debug/net7.0/DlqWorkflowPlayground.dll",
+            "program": "${workspaceFolder}/services/sqs/src/dlq-workflow/bin/Debug/net7.0/DlqWorkflowSqsPlayground.dll",
             "args": [],
             "cwd": "${workspaceFolder}/services/sqs/src/dlq-workflow",
             "console": "externalTerminal",

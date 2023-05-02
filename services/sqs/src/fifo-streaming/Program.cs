@@ -90,13 +90,13 @@ static void LogMessage(Message message, string queueName, string consumerIdentif
     WriteLine($"{DateTime.Now:dd/MM/yyyy HH:mm:ss.fff} {queueName} [{consumerIdentifier} - Fetch: {fetchIndex}] => Group: {group.Value}. Message: {message.Body}");
 }
 
-static async Task<ReceiveMessageResponse> GetMessages(IAmazonSQS sqsClient, string qUrl, int waitTime, CancellationToken cancellationToken)
+static async Task<ReceiveMessageResponse> GetMessages(IAmazonSQS sqsClient, string qUrl, int waitTimeSeconds, CancellationToken cancellationToken)
 {
     return await sqsClient.ReceiveMessageAsync(new ReceiveMessageRequest
     {
         QueueUrl = qUrl,
         MaxNumberOfMessages = MaxMessages,
-        WaitTimeSeconds = waitTime,
+        WaitTimeSeconds = waitTimeSeconds,
         AttributeNames = new List<string>() { "All" },
         MessageAttributeNames = new List<string>() { "All" },
     }, cancellationToken);

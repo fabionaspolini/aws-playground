@@ -30,7 +30,7 @@ Task.WaitAll(workers);
 WriteLine("Fim");
 
 /// <summary>
-/// 
+/// Iniciar uma thread para processamente de mensagens da fila
 /// </summary>
 /// <param name="sqsClient"></param>
 /// <param name="queueName"></param>
@@ -44,11 +44,21 @@ Task StartConsumerWorkerTask(IAmazonSQS sqsClient, string queueName, int maxRece
         var queueResponse = await sqsClient.GetQueueUrlAsync(queueName);
         while (!cancellationToken.IsCancellationRequested)
         {
-            var messages = await GetMessage(sqsClient, queueResponse.QueueUrl, WaitTimeSeconds);
+            var messages = await GetMessages(sqsClient, queueResponse.QueueUrl, WaitTimeSeconds, cancellationToken);
             foreach (var message in messages.Messages)
             {
-                LogMessage(message, queueName, maxReceiveCount);
-                // await sqsClient.DeleteMessageAsync(queueResponse.QueueUrl, message.ReceiptHandle); // Remover mensagem da fila. Sinal de processada com sucesso.
+                try
+                {
+                    LogMessage(message, queueName, maxReceiveCount);
+                    // await sqsClient.DeleteMessageAsync(queueResponse.QueueUrl, message.ReceiptHandle); // Remover mensagem da fila. Sinal de processada com sucesso.
+                }
+                catch (Exception e)
+                {
+                    // Como é um mensageria e não um streaming de dados, não há problema tratar o erro e seguir para próxima mensagem.
+                    // Como não executou o "DeleteMessageAsync" na situação de erro, a mensagem ficará invísvel até que expire o "Visibility Timeout" da fila.
+                    // Então será entregue novamente ao consumidor até que processe com sucesso ou ultrapasse o limite de entregas para redirecionar para DLQ
+                    Error.WriteLine("Erro ao processar mensagem: " + e);
+                }
             }
         }
     }, CancellationToken.None);
@@ -83,14 +93,14 @@ static void LogMessage(Message message, string queueName, int maxReceiveCount)
 }
 
 
-static async Task<ReceiveMessageResponse> GetMessage(IAmazonSQS sqsClient, string qUrl, int waitTime = 0)
+static async Task<ReceiveMessageResponse> GetMessages(IAmazonSQS sqsClient, string qUrl, int waitTimeSeconds, CancellationToken cancellationToken)
 {
     return await sqsClient.ReceiveMessageAsync(new ReceiveMessageRequest
     {
         QueueUrl = qUrl,
         MaxNumberOfMessages = MaxMessages,
-        WaitTimeSeconds = waitTime,
+        WaitTimeSeconds = waitTimeSeconds,
         AttributeNames = new List<string>() { "All" },
         MessageAttributeNames = new List<string>() { "All" }
-    });
+    }, cancellationToken);
 }

@@ -222,7 +222,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/services/sqs/src/dlq-workflow/DlqWorkflowPlayground.csproj",
+                "${workspaceFolder}/services/sqs/src/dlq-workflow/DlqWorkflowSqsPlayground.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
