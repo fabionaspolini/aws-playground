@@ -13,8 +13,6 @@ def lambda_handler(input, context):
     logger.info('Concluído')
 
 def print_pessoas():
-    # connectionString = "host=lambda-test.cblgcoxiefix.us-east-1.rds.amazonaws.com dbname=lambda_test port=8455 user=postgres password=teste.123456"
-
     connectionString = os.getenv('ConnectionString')
     conn = psycopg2.connect(connectionString, cursor_factory=RealDictCursor)
 

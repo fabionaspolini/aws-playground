@@ -3,7 +3,7 @@ using Amazon.SQS.Model;
 using static System.Console;
 
 const int MaxMessages = 1;
-const int WaitTime = 2;
+const int WaitTimeSeconds = 20; // Tempo de long pooling. Se a mensagem entrar neste periodo é encaminhada instaneamente ao consumidor. Sobreescre configuração padrão da fila.
 
 var applicationCancel = new CancellationTokenSource();
 CancelKeyPress += (_, e) =>
@@ -36,7 +36,7 @@ Task StartConsumerWorkerTask(IAmazonSQS sqsClient, string queueName, int maxRece
         var queueResponse = await sqsClient.GetQueueUrlAsync(queueName);
         while (!cancellationToken.IsCancellationRequested)
         {
-            var messages = await GetMessage(sqsClient, queueResponse.QueueUrl, WaitTime);
+            var messages = await GetMessage(sqsClient, queueResponse.QueueUrl, WaitTimeSeconds);
             foreach (var message in messages.Messages)
                 LogMessage(message, queueName, maxReceiveCount);
         }

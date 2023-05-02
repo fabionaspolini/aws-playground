@@ -12,7 +12,8 @@
 - Propriedades da fila
   - Visibility timeout [0-12 horas]: Tempo que o consumidor tem para processar a mensagem. Após isso ela volta para o status de disponível na fila e será entregue novamente ao consumidor.
   - Delivery delay [0-15 minutos]: Tempo de atraso para a primeira entrega da mensagem
-  - Receive message wait time [0-20 segundos]: Tempo para aguardar formar um pacote de mensagens antes de retornar ao consumidor. Utilizado para reduzir consumo de fila e custo.
+  - Receive message wait time [0-20 segundos]: Caso não haver nenhum mensagem na fila, aguarda este periodo até liberar o retorno do pooling do consumidor.
+    Se uma mensagem entrar na fila durante este tempo, o retorno é liberado na hora para o consumidor. Utilize isso para evitar consumo desnecessário da fila e reduzir custos.
   - Message retention period [1 minuto-14 dias]: Tempo que a mensagem é armazenada na fila.  
     Se o periodo expirar antes da regra de DLQ ser atingia, a mensagem é descartada e perdida (sem encaminhamento para DLQ).
   - Maximum message size [1 kb-256 kb]: Tamanho máximo da mensagem
