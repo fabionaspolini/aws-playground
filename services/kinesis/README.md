@@ -39,6 +39,7 @@ Ferramenta para trabalhar com stream de dados real time.
       - Latency ~70 ms
       - Maior custo
       - Soft limit de 5 consumer application por stream
+  - Necessário informar shard id em libraries/cli de baixo nível
 - Retenção de dados entre 1 e 365 dias
 - Pode reprocessar dados antigos
 - O dado inserido não pode ser apagado
@@ -58,3 +59,11 @@ Ferramenta para trabalhar com stream de dados real time.
   - IAM policies
   - Para acessar da VPC precisa configurar o VPC endpoint (Para não trafegar pela internet)
   - Chamadas de API monitoradas pelo CloudTrail
+- KCL: Library Java que trablha com uma tabela no DynamoDB para compartilhar progresso da leitura dos shards
+- Shard Spliting
+  - Operação para dividir um shard em dois (Não é permitido mais de 2 na mesma operação)
+  - Será criado dois novos shards com os dados divididos e o shard antigo será deletado quando os dados expirarem
+  - Não há rotina para escala automatica (Apenas manualmente para cima/baixo e pela api)
+- Merging shards
+  - Operação para unir dois shards (Somente dois shards por operação)
+  - Será criado um novo shard com os dados unificados e os shards antigos serão deletados quando os dados expirarem

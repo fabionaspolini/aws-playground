@@ -14,14 +14,13 @@ Repostório com exemplos de uso da stack AWS.
 
 Focado no gerenciamento de recursos através de terraform e código fonte C#.
 
-Nas pastas de exemplos também são possíveis encontrar comandos via aws cli.
+Em alguns exemplos também existem os comandos por AWS CLI.
 
-Informações de Terraform no arquivo **[README.terraform.md](README.terraform.md)**.  
-Informações de AWS no arquivo **[README.aws.md](README.aws.md)**.
-
-[Documentação oficial AWS.](https://docs.aws.amazon.com/index.html)
-[Página oficial Terraform.](https://www.terraform.io/)
-[Documentação do profile AWS para Terraform.](https://registry.terraform.io/providers/hashicorp/aws/latest)
+- [Documentação oficial AWS.](https://docs.aws.amazon.com/index.html)
+- [Página oficial Terraform.](https://www.terraform.io/)
+- [Documentação do provider AWS para Terraform.](https://registry.terraform.io/providers/hashicorp/aws/latest)
+- **[README.terraform.md](README.terraform.md)**
+- **[README.aws.md](README.aws.md)**
 
 ## Pré requisitos
 
