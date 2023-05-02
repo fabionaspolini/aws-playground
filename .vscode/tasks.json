@@ -229,6 +229,18 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "build-sqs-fifo-streaming",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/sqs/src/fifo-streaming/FifoStreamingSqsPlayground.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "build-rds-benchmark",
             "command": "dotnet",
             "type": "process",

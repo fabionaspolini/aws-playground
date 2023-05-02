@@ -29,6 +29,14 @@ Task.WaitAll(workers);
 
 WriteLine("Fim");
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="sqsClient"></param>
+/// <param name="queueName"></param>
+/// <param name="maxReceiveCount">Apenas para mensagem de log de redirecionamento a outra fila</param>
+/// <param name="cancellationToken"></param>
+/// <returns></returns>
 Task StartConsumerWorkerTask(IAmazonSQS sqsClient, string queueName, int maxReceiveCount, CancellationToken cancellationToken)
 {
     return Task.Run(async () =>
@@ -56,11 +64,11 @@ static void LogMessage(Message message, string queueName, int maxReceiveCount)
     {
         WriteLine();
         WriteLine("message.MessageAttributes");
-        WriteLine(string.Join("\n", message.MessageAttributes.Select(x => $"    {x.Key}: {x.Value.StringValue}")));
+        WriteLine(string.Join("\n", message.MessageAttributes.Select(x => $"    {x.Key}: {x.Value.StringValue}"))); // Metadados implícitos da AWS
     }
 
     var receiveCountStr = message.Attributes["ApproximateReceiveCount"];
-    if (!string.IsNullOrWhiteSpace(receiveCountStr))
+    if (!string.IsNullOrWhiteSpace(receiveCountStr)) // Atributos personalizados da mensagem
     {
         var receiveCount = int.Parse(receiveCountStr);
         if (receiveCount >= maxReceiveCount)
@@ -83,12 +91,6 @@ static async Task<ReceiveMessageResponse> GetMessage(IAmazonSQS sqsClient, strin
         MaxNumberOfMessages = MaxMessages,
         WaitTimeSeconds = waitTime,
         AttributeNames = new List<string>() { "All" },
-        MessageAttributeNames = new List<string>() { "All" },
+        MessageAttributeNames = new List<string>() { "All" }
     });
-}
-
-static async Task DeleteMessage(IAmazonSQS sqsClient, Message message, string qUrl)
-{
-    WriteLine($"\nDeleting message {message.MessageId} from queue...");
-    await sqsClient.DeleteMessageAsync(qUrl, message.ReceiptHandle);
 }

@@ -115,7 +115,7 @@
             "internalConsoleOptions": "openOnSessionStart",
             "envFile": "${workspaceFolder}/services/lambda-benchmark/src/refit-jit/.env"
         },
-        // sqs / dlq-workflow
+        // sqs
         {
             "name": "sqs / dlq-workflow",
             "type": "coreclr",
@@ -127,7 +127,18 @@
             "console": "externalTerminal",
             "stopAtEntry": false
         },
-        // rds / rds-benchmark
+        {
+            "name": "sqs / fifo-streaming",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-sqs-fifo-streaming",
+            "program": "${workspaceFolder}/services/sqs/src/fifo-streaming/bin/Debug/net7.0/FifoStreamingSqsPlayground.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/sqs/src/fifo-streaming",
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        // rds
         {
             "name": "rds / rds-benchmark",
             "type": "coreclr",

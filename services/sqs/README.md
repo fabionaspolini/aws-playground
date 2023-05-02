@@ -23,6 +23,17 @@
 - Purge: Ato de limpar a fila
 - Propriedades do consumidor
   - MaxNumberOfMessages [1-10. Default 1]: Quantidade de mensagens para retornar no pacote do pooling
+  - WaitTimeSeconds [0-20 segundos]: Equivalente a propriedade "Receive message wait time" da fila
+- FIFO queue
+  - Limited throuphput 300 msg/s ou 3000 msg/s com batch
+  - Nome precisa terminar com ".fifo"
+  - Remover mensagens duplicadas através da do valor em "Message deduplication Id" (Primeiro payload é preservado)
+  - Intervalo para deduplcation é de 5 minutos
+  - Deduplication methods:
+    - Content-based: Comparar hash SHA-256 da mensagem
+    - Atribuito explícito "Message Deduplication ID"
+  - Message group
+    - Agrupar mensagens para atuar como streaming de eventos ordenados por uma caracteristica. Exemplo: Por cliente, por empresa. Todas as mensagens do grupo são entregues ordenadas, mas não há preservação da ordem de publicação em geral.
 
 ## DLQ Workflow
 
