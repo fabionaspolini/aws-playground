@@ -1,14 +1,18 @@
 # Kinesis
 
 - [Visão Geral](#visão-geral)
-- [Data Streams](#data-streams)
+- [Kinesis Data Streams](#kinesis-data-streams)
+- [Kinesis Data Firehouse](#kinesis-data-firehouse)
 
 
 ## Visão Geral
 
 Ferramenta para trabalhar com stream de dados real time.
 
-## Data Streams
+## Kinesis Data Streams
+
+Serviço para processamento de dados em tempo real.  
+Semelhante ao Kafka.
 
 - Provisionamento prévio do cluster
 - Cluster é divido em shards
@@ -67,3 +71,20 @@ Ferramenta para trabalhar com stream de dados real time.
 - Merging shards
   - Operação para unir dois shards (Somente dois shards por operação)
   - Será criado um novo shard com os dados unificados e os shards antigos serão deletados quando os dados expirarem
+
+## Kinesis Data Firehouse
+
+Serviço para processamento de dados Near Real Time.
+
+- Fully Managed Service: Sem administração, automatica scaling e serveless
+- Estrutura do serviço:
+  - Input (produtores): Aplicações, estações de trabalho (pc/mobile/etc), SDKs, Kinesis Agent, Kinesis Data Stream, Amazon CloudWatch (Logs & Events), AWS IoT
+    - Até 1 Mb
+  - Tranformation: Lambda function
+  - Output: Batch writes
+    - AWS: Redshifth, Amazon S3, OpenSearch
+    - 3rd party: Splunk, MongoDB, DataDog, NewRelic, etc...
+    - Custom: HTTP endpoint
+- Latência: No mínimo 60 segundos de 1 Mb de dados (Configurado no destination settings do Delivery Stream)
+- Pago por uso
+- Não é possível reprocessar mensagens (Não há armazenamento histórico)
