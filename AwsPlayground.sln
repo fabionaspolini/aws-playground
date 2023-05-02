@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamoDb", "DynamoDb", "{3A1A9926-E47C-49B7-A373-77AD9F8267E7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dynamodb", "dynamodb", "{3A1A9926-E47C-49B7-A373-77AD9F8267E7}"
 	ProjectSection(SolutionItems) = preProject
 		dynamodb\README.md = dynamodb\README.md
 	EndProjectSection
@@ -28,7 +28,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lambda", "Lambda", "{7E430694-CAC8-4E7B-AEE9-20BD99427806}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lambda", "lambda", "{7E430694-CAC8-4E7B-AEE9-20BD99427806}"
+	ProjectSection(SolutionItems) = preProject
+		services\lambda\README.md = services\lambda\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C1F90A39-C011-4858-B203-E2B518ABE367}"
 EndProject
@@ -36,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleFunctionJit", "servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContextDetails", "services\lambda\src\context-details\ContextDetails.csproj", "{BCDF0980-42F4-44EE-A919-AE5D78376C8C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8ADB1E8A-70C9-4182-9CA6-5D34038C403E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{8ADB1E8A-70C9-4182-9CA6-5D34038C403E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleFunctionAot", "services\lambda\src\simple-function-aot\SimpleFunctionAot.csproj", "{15749A30-6B83-4A82-B47B-CF530A62117E}"
 EndProject
@@ -47,6 +50,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic.Aot", "services\lambda-benchmark\src\basic-aot\Basic.Aot.csproj", "{F054D7C4-8EF1-4E64-9C8A-20D5FD0FCAEB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lambda-benchmark", "lambda-benchmark", "{38E5D63F-E327-4A25-8D82-7113061C925F}"
+	ProjectSection(SolutionItems) = preProject
+		services\lambda-benchmark\README.md = services\lambda-benchmark\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}"
 EndProject
@@ -88,6 +94,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgreSqlLambdaBenchmark.Aot", "services\lambda-benchmark\src\postgresql-dotnet-aot\PostgreSqlLambdaBenchmark.Aot.csproj", "{660CB344-C165-47E8-9DF1-180965F497ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rds", "rds", "{C2D4EC07-F4D9-4A96-A5F8-2E4F058ABEC9}"
+	ProjectSection(SolutionItems) = preProject
+		services\rds\README.md = services\rds\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4A1EC043-0056-4CC3-8EA8-16ED74486383}"
 EndProject
@@ -101,6 +110,72 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{C7FD5396
 		services\sqs\infra\dlq-workflow.tf = services\sqs\infra\dlq-workflow.tf
 		services\sqs\infra\fifo-streaming.tf = services\sqs\infra\fifo-streaming.tf
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{63623ABF-9D80-415D-87AD-24B09F10F89F}"
+	ProjectSection(SolutionItems) = preProject
+		services\rds\infra\aurora_mysql.tf = services\rds\infra\aurora_mysql.tf
+		services\rds\infra\aurora_mysql_serveless.tf = services\rds\infra\aurora_mysql_serveless.tf
+		services\rds\infra\aurora_postgresql.tf = services\rds\infra\aurora_postgresql.tf
+		services\rds\infra\aurora_postgresql_serveless.tf = services\rds\infra\aurora_postgresql_serveless.tf
+		services\rds\infra\backend.tf = services\rds\infra\backend.tf
+		services\rds\infra\locals.tf = services\rds\infra\locals.tf
+		services\rds\infra\rds_postgresql.tf = services\rds\infra\rds_postgresql.tf
+		services\rds\infra\shared.tf = services\rds\infra\shared.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{CCA52DAC-5FE4-45AA-BAB2-47B0FC45851A}"
+	ProjectSection(SolutionItems) = preProject
+		services\lambda-benchmark\infra\backend.tf = services\lambda-benchmark\infra\backend.tf
+		services\lambda-benchmark\infra\basic-aot-lambda.tf = services\lambda-benchmark\infra\basic-aot-lambda.tf
+		services\lambda-benchmark\infra\basic-jit-lambda.tf = services\lambda-benchmark\infra\basic-jit-lambda.tf
+		services\lambda-benchmark\infra\dapper-jit-lambda.tf = services\lambda-benchmark\infra\dapper-jit-lambda.tf
+		services\lambda-benchmark\infra\dapper.aot-aot-lambda.tf = services\lambda-benchmark\infra\dapper.aot-aot-lambda.tf
+		services\lambda-benchmark\infra\dapper.aot-jit-lambda.tf = services\lambda-benchmark\infra\dapper.aot-jit-lambda.tf
+		services\lambda-benchmark\infra\ef-aot-lambda.tf = services\lambda-benchmark\infra\ef-aot-lambda.tf
+		services\lambda-benchmark\infra\ef-jit-lambda.tf = services\lambda-benchmark\infra\ef-jit-lambda.tf
+		services\lambda-benchmark\infra\geral-aot-lambda.tf = services\lambda-benchmark\infra\geral-aot-lambda.tf
+		services\lambda-benchmark\infra\geral-jit-lambda.tf = services\lambda-benchmark\infra\geral-jit-lambda.tf
+		services\lambda-benchmark\infra\locals.tf = services\lambda-benchmark\infra\locals.tf
+		services\lambda-benchmark\infra\npgsql-aot-lambda.tf = services\lambda-benchmark\infra\npgsql-aot-lambda.tf
+		services\lambda-benchmark\infra\npgsql-jit-lambda.tf = services\lambda-benchmark\infra\npgsql-jit-lambda.tf
+		services\lambda-benchmark\infra\policies.tf = services\lambda-benchmark\infra\policies.tf
+		services\lambda-benchmark\infra\postgresql-dotnet-aot-lambda.tf = services\lambda-benchmark\infra\postgresql-dotnet-aot-lambda.tf
+		services\lambda-benchmark\infra\postgresql-dotnet-jit-lambda.tf = services\lambda-benchmark\infra\postgresql-dotnet-jit-lambda.tf
+		services\lambda-benchmark\infra\postgresql-nodejs-lambda.tf = services\lambda-benchmark\infra\postgresql-nodejs-lambda.tf
+		services\lambda-benchmark\infra\postgresql-python-lambda.tf = services\lambda-benchmark\infra\postgresql-python-lambda.tf
+		services\lambda-benchmark\infra\rds.tf = services\lambda-benchmark\infra\rds.tf
+		services\lambda-benchmark\infra\refit-aot-lambda.tf = services\lambda-benchmark\infra\refit-aot-lambda.tf
+		services\lambda-benchmark\infra\refit-jit-lambda.tf = services\lambda-benchmark\infra\refit-jit-lambda.tf
+		services\lambda-benchmark\infra\shared.tf = services\lambda-benchmark\infra\shared.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{53D9CCD8-618C-4981-8DB8-7FC60F3D61EC}"
+	ProjectSection(SolutionItems) = preProject
+		services\lambda-benchmark\scripts\rds-init.sql = services\lambda-benchmark\scripts\rds-init.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{D5E5D351-EA52-4CBF-830E-0B385C4A1B93}"
+	ProjectSection(SolutionItems) = preProject
+		services\rds\scripts\mysql.sql = services\rds\scripts\mysql.sql
+		services\rds\scripts\postgresql.sql = services\rds\scripts\postgresql.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{6F57ED38-ABC6-4508-AB39-C6C25EA19ED6}"
+	ProjectSection(SolutionItems) = preProject
+		services\lambda\infra\backend.tf = services\lambda\infra\backend.tf
+		services\lambda\infra\context-details-lambda.tf = services\lambda\infra\context-details-lambda.tf
+		services\lambda\infra\locals.tf = services\lambda\infra\locals.tf
+		services\lambda\infra\policies.tf = services\lambda\infra\policies.tf
+		services\lambda\infra\shared.tf = services\lambda\infra\shared.tf
+		services\lambda\infra\simple-function-aot-lambda.tf = services\lambda\infra\simple-function-aot-lambda.tf
+		services\lambda\infra\simple-function-containerized.tf = services\lambda\infra\simple-function-containerized.tf
+		services\lambda\infra\simple-function-jit-lambda.tf = services\lambda\infra\simple-function-jit-lambda.tf
+		services\lambda\infra\simple-function-jit-no-reflection-lambda.tf = services\lambda\infra\simple-function-jit-no-reflection-lambda.tf
+		services\lambda\infra\simple-function-nodejs-lambda.tf = services\lambda\infra\simple-function-nodejs-lambda.tf
+		services\lambda\infra\simple-function-python-lambda.tf = services\lambda\infra\simple-function-python-lambda.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{52F855AE-D4E8-4F2A-B3E5-53D99B4A66F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -229,7 +304,7 @@ Global
 		{6A291733-DFF6-48AF-A73C-F5E3F3682634} = {6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}
 		{75ECE9C0-CB88-4C6B-9DB1-07F9E1260D1E} = {6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}
 		{B829CF54-C719-4C1A-A0BF-F2933F117BAA} = {6AE9AC11-1CFB-49AF-86CB-6D25602DE9B4}
-		{2605BFF2-AB05-486E-AB09-111BF838100A} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
+		{2605BFF2-AB05-486E-AB09-111BF838100A} = {52F855AE-D4E8-4F2A-B3E5-53D99B4A66F0}
 		{039C0EED-71A3-4D62-B546-30F725A823B6} = {8ADB1E8A-70C9-4182-9CA6-5D34038C403E}
 		{E817B41E-1819-490B-A07A-98C2907EC97D} = {039C0EED-71A3-4D62-B546-30F725A823B6}
 		{0AD9217C-B684-488C-9516-63F7E6887531} = {E817B41E-1819-490B-A07A-98C2907EC97D}
@@ -240,6 +315,12 @@ Global
 		{6CA2F4E0-7C53-4F24-B4DE-101CF38E58D1} = {4A1EC043-0056-4CC3-8EA8-16ED74486383}
 		{3C725D22-7177-4D24-9D82-084F37B7115D} = {E817B41E-1819-490B-A07A-98C2907EC97D}
 		{C7FD5396-BFEA-4955-AB61-03BA2DBD8732} = {039C0EED-71A3-4D62-B546-30F725A823B6}
+		{63623ABF-9D80-415D-87AD-24B09F10F89F} = {C2D4EC07-F4D9-4A96-A5F8-2E4F058ABEC9}
+		{CCA52DAC-5FE4-45AA-BAB2-47B0FC45851A} = {38E5D63F-E327-4A25-8D82-7113061C925F}
+		{53D9CCD8-618C-4981-8DB8-7FC60F3D61EC} = {38E5D63F-E327-4A25-8D82-7113061C925F}
+		{D5E5D351-EA52-4CBF-830E-0B385C4A1B93} = {C2D4EC07-F4D9-4A96-A5F8-2E4F058ABEC9}
+		{6F57ED38-ABC6-4508-AB39-C6C25EA19ED6} = {7E430694-CAC8-4E7B-AEE9-20BD99427806}
+		{52F855AE-D4E8-4F2A-B3E5-53D99B4A66F0} = {3A1A9926-E47C-49B7-A373-77AD9F8267E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {277EE416-CD21-45A4-98BE-8C431904FB59}
