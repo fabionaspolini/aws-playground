@@ -12,7 +12,7 @@
 - Propriedades da fila
   - Visibility timeout [0-12 horas]: Tempo que o consumidor tem para processar a mensagem. Após isso ela volta para o status de disponível na fila e será entregue novamente ao consumidor.
   - Delivery delay [0-15 minutos]: Tempo de atraso para a primeira entrega da mensagem
-  - Receive message wait time [0-20 segundos]: Caso não haver nenhum mensagem na fila, aguarda este periodo até liberar o retorno do pooling do consumidor.
+  - Receive message wait time [0-20 segundos]: Caso não haver nenhum mensagem na fila, aguarda este periodo até liberar o retorno do polling do consumidor.
     Se uma mensagem entrar na fila durante este tempo, o retorno é liberado na hora para o consumidor. Utilize isso para evitar consumo desnecessário da fila e reduzir custos.
   - Message retention period [1 minuto-14 dias]: Tempo que a mensagem é armazenada na fila.  
     Se o periodo expirar antes da regra de DLQ ser atingia, a mensagem é descartada e perdida (sem encaminhamento para DLQ).
@@ -22,7 +22,7 @@
     - Maximum receives [1-1000]: Máximo de tentativas de processamento da mensagem antes de direciona-la para a DLQ.
 - Purge: Ato de limpar a fila
 - Propriedades do consumidor
-  - MaxNumberOfMessages [1-10. Default 1]: Quantidade de mensagens para retornar no pacote do pooling
+  - MaxNumberOfMessages [1-10. Default 1]: Quantidade de mensagens para retornar no pacote do polling
   - WaitTimeSeconds [0-20 segundos]: Equivalente a propriedade "Receive message wait time" da fila
 - FIFO queue
   - Limited throuphput 300 msg/s ou 3000 msg/s com batch

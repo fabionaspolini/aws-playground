@@ -3,7 +3,7 @@ using Amazon.SQS.Model;
 using static System.Console;
 
 const int MaxMessages = 10;
-const int WaitTimeSeconds = 20; // Tempo de long pooling. Se a mensagem entrar neste periodo é encaminhada instaneamente ao consumidor. Sobreescre configuração padrão da fila.
+const int WaitTimeSeconds = 20; // Tempo de long polling. Se a mensagem entrar neste periodo é encaminhada instaneamente ao consumidor. Sobreescre configuração padrão da fila.
 
 var applicationCancel = new CancellationTokenSource();
 CancelKeyPress += (_, e) =>
