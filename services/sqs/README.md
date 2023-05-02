@@ -21,6 +21,8 @@
     - Queue ARN: ARN da fila destino quando a mensagem expirar
     - Maximum receives [1-1000]: Máximo de tentativas de processamento da mensagem antes de direciona-la para a DLQ.
 - Purge: Ato de limpar a fila
+- Propriedades do consumidor
+  - MaxNumberOfMessages [1-10. Default 1]: Quantidade de mensagens para retornar no pacote do pooling
 
 ## DLQ Workflow
 
