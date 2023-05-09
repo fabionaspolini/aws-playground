@@ -2,6 +2,9 @@
 
 - [Visão geral](#visão-geral)
   - [Terraform](#terraform)
+- [Invocações sincronas](#invocações-sincronas)
+  - [HTTP](#http)
+- [Invocações assíncronas](#invocações-assíncronas)
 - [.NET](#net)
   - [Configurar ambiente](#configurar-ambiente)
   - [Criar função](#criar-função)
@@ -29,11 +32,31 @@
     - Instalar [libraries no linux para linker de publish AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/).
 - [.NET containerized](https://www.c-sharpcorner.com/article/deploy-net-lambda-functions-as-containers/)
 
-
 ### Terraform
 
 - O terraform não faz o build/publish da aplicação, antes do `terraform apply` execute o script `publish.sh` para publicar a aplicação e gerar o arquivo `publish.zip` (Binários ficam na raiz do zip)
 - O módulo "archive_file" copia o arquivo para para `output_path` ou gera um zip neste local
+
+
+## Invocações sincronas
+
+### HTTP
+
+- ALB possui a configuração "HTTP headers and query string parameters that are sent with multiple values" que habilita o encaminhamento como array do item com multiplo valor.
+- Através do target group o ALB executa a lambda
+
+## Invocações assíncronas
+
+- S3, SNS, CloudWatch events, Code Commit, Code Pipeline, SES, Cloud Formation, Config, IoT, IoT events
+- Fila de events interna
+- Padrão: Tenta executar até 3 vezes em caso de falhas (3 vezes total)
+  - 1 minuto após primeira falha
+  - 2 minutos após segunda falha
+  - Pode definir um SQS DLQ para as falhas
+  - Todas as invocações possuem o mesmo request id
+- Ao invocar receber status code 202 (Accpeted)
+  - Se o código disparar exception, receberá o código 202 e deverá investigar detalhes no cloud watch logs
+- Para definir a invocação assincrona vá em Configuration / Asynchronous invocation
 
 ## .NET
 
