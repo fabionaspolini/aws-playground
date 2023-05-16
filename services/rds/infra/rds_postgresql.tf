@@ -12,8 +12,8 @@ resource "aws_db_instance" "postgresql" {
   username               = "postgres"
   password               = "teste.123456"
   parameter_group_name   = "default.postgres15"
-  instance_class         = "db.t4g.micro"
-  storage_type           = "gp3" # general purpose SSD
+  instance_class         = "db.t4g.micro" # "db.t4g.medium"
+  storage_type           = "gp3"          # general purpose SSD
   allocated_storage      = 20
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.rds_postgresql_playground[0].id]
@@ -39,8 +39,8 @@ resource "aws_db_instance" "postgresql_replicas" {
   engine_version         = "15.2"
   port                   = 8455
   parameter_group_name   = "default.postgres15"
-  instance_class         = "db.t4g.micro"
-  storage_type           = "gp3" # general purpose SSD
+  instance_class         = "db.t4g.micro" # "db.t4g.medium"
+  storage_type           = "gp3"          # general purpose SSD
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.rds_postgresql_playground[0].id]
   publicly_accessible    = true # autorizar acesso pela internet
@@ -96,13 +96,15 @@ resource "aws_vpc_security_group_ingress_rule" "rds_postgresql_playground_allow_
 # Secret Manager
 
 resource "aws_secretsmanager_secret" "rds_postgresql_playground_username" {
-  count = local.rds_postgresql ? 1 : 0
-  name  = "rds-postgresql-playground-username"
+  count                   = local.rds_postgresql ? 1 : 0
+  name                    = "rds-postgresql-playground-username"
+  recovery_window_in_days = 0 # forçar exclusão sem periodo de retenção
 }
 
 resource "aws_secretsmanager_secret" "rds_postgresql_playground_password" {
-  count = local.rds_postgresql ? 1 : 0
-  name  = "rds-postgresql-playground-password"
+  count                   = local.rds_postgresql ? 1 : 0
+  name                    = "rds-postgresql-playground-password"
+  recovery_window_in_days = 0 # forçar exclusão sem periodo de retenção
 }
 
 resource "aws_secretsmanager_secret_version" "rds_postgresql_playground_username" {

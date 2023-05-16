@@ -80,13 +80,15 @@ resource "aws_vpc_security_group_ingress_rule" "aurora_mysql_playground_allow_in
 # Secret Manager
 
 resource "aws_secretsmanager_secret" "aurora_mysql_playground_username" {
-  count = local.aurora_mysql ? 1 : 0
-  name  = "aurora-mysql-playground-username"
+  count                   = local.aurora_mysql ? 1 : 0
+  name                    = "aurora-mysql-playground-username"
+  recovery_window_in_days = 0 # forçar exclusão sem periodo de retenção
 }
 
 resource "aws_secretsmanager_secret" "aurora_mysql_playground_password" {
-  count = local.aurora_mysql ? 1 : 0
-  name  = "aurora-mysql-playground-password"
+  count                   = local.aurora_mysql ? 1 : 0
+  name                    = "aurora-mysql-playground-password"
+  recovery_window_in_days = 0 # forçar exclusão sem periodo de retenção
 }
 
 resource "aws_secretsmanager_secret_version" "aurora_mysql_playground_username" {

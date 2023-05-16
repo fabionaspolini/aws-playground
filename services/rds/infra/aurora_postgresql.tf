@@ -80,13 +80,15 @@ resource "aws_vpc_security_group_ingress_rule" "aurora_postgresql_playground_all
 # Secret Manager
 
 resource "aws_secretsmanager_secret" "aurora_postgresql_playground_username" {
-  count = local.aurora_postgresql ? 1 : 0
-  name  = "aurora-postgresql-playground-username"
+  count                   = local.aurora_postgresql ? 1 : 0
+  name                    = "aurora-postgresql-playground-username"
+  recovery_window_in_days = 0 # forçar exclusão sem periodo de retenção
 }
 
 resource "aws_secretsmanager_secret" "aurora_postgresql_playground_password" {
-  count = local.aurora_postgresql ? 1 : 0
-  name  = "aurora-postgresql-playground-password"
+  count                   = local.aurora_postgresql ? 1 : 0
+  name                    = "aurora-postgresql-playground-password"
+  recovery_window_in_days = 0 # forçar exclusão sem periodo de retenção
 }
 
 resource "aws_secretsmanager_secret_version" "aurora_postgresql_playground_username" {
