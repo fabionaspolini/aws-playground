@@ -36,7 +36,7 @@
 - [.NET containerized](https://www.c-sharpcorner.com/article/deploy-net-lambda-functions-as-containers/)
 - Para agendamento de execuções, use CloudWatchEvents
 - Armazenamento em disco temporário no path **/tmp**
-  - Conteúdo pode ser utilizado entre multiplas execuções e permanece mesmo após descarte do contexto de execução da lambda
+  - Conteúdo pode ser utilizado entre multiplas execuções do mesmo contexto, mas é descartado junto com a lambda quando ficar ociosa
   - 512 Mb de espaço
 
 ## Network

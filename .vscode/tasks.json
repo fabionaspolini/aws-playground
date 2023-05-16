@@ -169,6 +169,18 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "build-lambda-tmp-file-sytem",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/lambda/src/tmp-file-sytem/TmpFileSystemPlayground.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "build-lambda-benchmark-ef-jit",
             "command": "dotnet",
             "type": "process",
