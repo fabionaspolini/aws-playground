@@ -1,10 +1,13 @@
 # Lambda
 
 - [Visão geral](#visão-geral)
+- [Network](#network)
   - [Terraform](#terraform)
 - [Invocações sincronas](#invocações-sincronas)
   - [HTTP](#http)
 - [Invocações assíncronas](#invocações-assíncronas)
+- [Lambda Event Mapper Scaling](#lambda-event-mapper-scaling)
+- [X-Ray tracing](#x-ray-tracing)
 - [.NET](#net)
   - [Configurar ambiente](#configurar-ambiente)
   - [Criar função](#criar-função)
@@ -31,12 +34,33 @@
     - Necessário estar no Linux para realizar este deploy
     - Instalar [libraries no linux para linker de publish AOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/).
 - [.NET containerized](https://www.c-sharpcorner.com/article/deploy-net-lambda-functions-as-containers/)
+- Para agendamento de execuções, use CloudWatchEvents
+- Armazenamento em disco temporário no path **/tmp**
+  - Conteúdo pode ser utilizado entre multiplas execuções e permanece mesmo após descarte do contexto de execução da lambda
+  - 512 Mb de espaço
+
+## Network
+
+- Por padrão lambda são implantadas fora da sua VPC, possuem acessoa internet, mas não a recursos na sua VPC (Ex.: RDS)
+- Lambda na VPC
+  - Para a lambda funcionar com a rede privada e acesso a internet é necessário configurar NAT Gateway conforme [tutorial](https://nodogmablog.bryanhogan.net/2022/06/accessing-the-internet-from-vpc-connected-lambda-functions-using-a-nat-gateway/) (Nat Gateway + Route Tables + Internet Gateway).
+  - Para acessar serviços gerenciados como DynamoDb / S3 sem fazer um salto na internet, é necessário configurar **VPC Endpoint** na rede privada
+  - A lambda precisa de permissão para criar Elatic Network Interface na IAM Role (Policy: AWSLambdaENIManagementAccess)
+
+# Performance
+
+- **RAM**
+  - de 128 MB até 10 GB
+  - Quanto mais RAM, mais vCPU
+  - Com 1792 MB a função possui o equivalente a 1 vCPU
+    - Após isso, para se beneficiar por ter mais de 1 vCPU é necessário código multi-thread
+- Timeout default 3 segundos, podendo ser incrementado até 900 segundos (15 minutos)
+- Código comuns entre contextos diferentes não devem estar no function handlers (Ex.: conexão com banco, configuração de http client)
 
 ### Terraform
 
 - O terraform não faz o build/publish da aplicação, antes do `terraform apply` execute o script `publish.sh` para publicar a aplicação e gerar o arquivo `publish.zip` (Binários ficam na raiz do zip)
 - O módulo "archive_file" copia o arquivo para para `output_path` ou gera um zip neste local
-
 
 ## Invocações sincronas
 
@@ -57,6 +81,25 @@
 - Ao invocar receber status code 202 (Accpeted)
   - Se o código disparar exception, receberá o código 202 e deverá investigar detalhes no cloud watch logs
 - Para definir a invocação assincrona vá em Configuration / Asynchronous invocation
+
+## Lambda Event Mapper Scaling
+
+- Kinesis Data Streams & DynamoDB Streams
+  - Uma lambda invocation por shard
+  - Se paralelizar, pode processar até 10 batchs por shard simultaneamente
+- SQS Standard
+  - Adicionar 60 instâncias por minuto
+  - Até 1000 batchs são processadas simultâneamente
+- SQS FIFO
+  - Mensagens com mesmo group ID são processadas em ordem
+  - Pode escalar até a quantidade de grupos de mensagens
+
+## X-Ray tracing
+
+- Envrionment variables
+  - _X_AMZN_TRACE_ID: Tracind header
+  - AWS_XRAY_CONTEXT_MISSING: by default, LOG_ERROR
+  - AWX_XRAY_DAEMON_ADDRESS: X-Ray daemon IP_DDRESS:PORT
 
 ## .NET
 

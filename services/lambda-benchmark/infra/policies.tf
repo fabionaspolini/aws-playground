@@ -6,6 +6,7 @@ data "aws_iam_policy" "AWSLambdaBasicExecutionRole" {
   name = "AWSLambdaBasicExecutionRole"
 }
 
+# Pode trocar pela policy gerenciada AWSLambdaENIManagementAccess
 resource "aws_iam_policy" "ManageNetworkInterface" {
   name        = "ManageNetworkInterface"
   path        = "/lambda-benchmark/"
@@ -18,7 +19,9 @@ resource "aws_iam_policy" "ManageNetworkInterface" {
         Action = [
           "ec2:CreateNetworkInterface",
           "ec2:DescribeNetworkInterfaces",
-          "ec2:DeleteNetworkInterface"
+          "ec2:DeleteNetworkInterface",
+          "ec2:AssignPrivateIpAddresses",
+          "ec2:UnassignPrivateIpAddresses"
         ]
         Effect   = "Allow"
         Resource = "*"
