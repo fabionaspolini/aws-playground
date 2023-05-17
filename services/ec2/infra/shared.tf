@@ -10,6 +10,11 @@ data "aws_subnet" "zone_a" {
   availability_zone = "us-east-1a"
 }
 
+data "aws_subnet" "zone_b" {
+  vpc_id            = data.aws_vpc.default.id
+  availability_zone = "us-east-1b"
+}
+
 data "aws_security_group" "default" {
   vpc_id = data.aws_vpc.default.id
   name   = "default" # security group padrão da VPC possui o nome "default", mas exibe em branco no console aws.
@@ -38,7 +43,7 @@ resource "aws_key_pair" "ec2_playground" {
   public_key = data.tls_public_key.ec2_playground.public_key_openssh
 }
 
-# Security Group + Rules para acesso SSH
+# Security Group + Rules - SSH ingress
 resource "aws_security_group" "allow_ssh_ingress_from_my_pc" {
   name        = "allow-ssh-ingress-from-my-pc-playground"
   description = "Habilitar acesso SSH"
@@ -58,28 +63,5 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ingress_from_my_pc" {
   cidr_ipv4         = "${data.http.ip.response_body}/32" # ip externo que pode conectar no db
   tags = {
     Name = "ssh-from-my-pc"
-  }
-}
-
-# Security Group + Rules para acesso a internet
-resource "aws_security_group" "allow_internet_egress" {
-  name        = "allow-internet-egress-playground"
-  description = "Habilitar acesso a internet"
-  vpc_id      = data.aws_vpc.default.id
-
-  tags = {
-    Name = "allow-internet-egress-playground"
-  }
-}
-
-resource "aws_vpc_security_group_egress_rule" "allow_internet" {
-  security_group_id = aws_security_group.allow_internet_egress.id
-  description       = "Acesso de saida para internet"
-  ip_protocol       = "tcp"
-  from_port         = 0
-  to_port           = 0
-  cidr_ipv4         = "0.0.0.0/0"
-  tags = {
-    Name = "internet-access"
   }
 }

@@ -1,6 +1,20 @@
 # EC2
 
-## Setup chaves SSH
+- [Setup](#setup)
+  - [VMs para implatar](#vms-para-implatar)
+  - [Chave SSH](#chave-ssh)
+
+## Setup
+
+Script `user_data.sh` é executado para configurar a VM automaticamente após a subida (Recurso da AWS).
+
+Logs do setup da VM ficam no arquivo `/var/log/cloud-init-output.log`.
+
+### VMs para implatar
+
+Habilitar VMs no arquivo [locals.tf](infra/locals.tf).
+
+### Chave SSH
 
 Necessário criar chave pública e private para conexão por SSH em seu computador.
 
