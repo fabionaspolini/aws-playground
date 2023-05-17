@@ -98,6 +98,7 @@ Neste repositório o foco é apenas no recurso unitário da AWS. Haverá muita d
 
 - [Cloud Front](services/cloudfront)
 - [DynamoDB](services/dynamodb)
+- [EC2](services/ec2)
 - [Kinesis](services/kinesis)
 - [Lambda](services/lambda)
 - [Lambda Benchmark](services/lambda-benchmark)
