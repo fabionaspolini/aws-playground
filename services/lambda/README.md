@@ -8,12 +8,21 @@
 - [Invocações assíncronas](#invocações-assíncronas)
 - [Lambda Event Mapper Scaling](#lambda-event-mapper-scaling)
 - [X-Ray tracing](#x-ray-tracing)
+- [Layers](#layers)
+- [File System](#file-system)
+- [Concurrency and Throttling](#concurrency-and-throttling)
+- [Preço](#preço)
+- [Dependências](#dependências)
+- [Container Images](#container-images)
+- [Versions and Aliases](#versions-and-aliases)
+- [Lambda \& CodeDeploy](#lambda--codedeploy)
+- [Lambda Function URL](#lambda-function-url)
+- [Limites por região](#limites-por-região)
 - [.NET](#net)
   - [Configurar ambiente](#configurar-ambiente)
   - [Criar função](#criar-função)
   - [Deploy pelo CLI](#deploy-pelo-cli)
   - [Limpar ambiente](#limpar-ambiente)
-- [Preço](#preço)
 - [Notas](#notas)
 
 ## Visão geral
@@ -100,6 +109,96 @@
   - _X_AMZN_TRACE_ID: Tracind header
   - AWS_XRAY_CONTEXT_MISSING: by default, LOG_ERROR
   - AWX_XRAY_DAEMON_ADDRESS: X-Ray daemon IP_DDRESS:PORT
+
+## Layers
+
+Dois são os principais casos de uso:
+
+- Fornecer compatibilidade com runtime não suportado oficialmente (Ex.: C++, Rust)
+- Empacotar dependências e agilizar deploy do código que frequentemente é alterado
+
+## File System
+
+- Pode acessar EFS em execução na VPC
+  - Configurar ponto de montagem do diretório
+  - Necessário EFS Access Point
+  - Cuidado com o limite de conexões do EFS
+
+
+## Concurrency and Throttling
+
+- Até 1000 execuções concorrentes
+- Boa prática: Limitar execuções concorrentes
+- Se ultrapassar limites:
+  - Execuções sincronas: retornar ThrottleError - 429
+  - Execuções assincronas: retry automático e envio para DLQ
+- Os limites são na account, uma lambda com muito acesso simultâneo pode gerar ThrottleError para outra
+- S3 events
+  - Para erros do tipo 429 (Throttle) e 5XX, a Lambda retorna o evento para fila e tentará reprocessar por até 6 horas
+  - Intervalo entre tentativas exponencial de 1 segundo até no máximo 5 minutos
+
+## Preço
+
+- [Estimativas](https://calculator.aws/#/estimate?id=40da936de5afe333d8505a2fd57f66dd89440a87)
+- [Como é realizada a cobrança](https://docs.aws.amazon.com/pt_br/whitepapers/latest/how-aws-pricing-works/lambda.html)
+- **Free tier:** 1 milhão de requisições por mês e 400 GB de tráfego
+- Após free tier, $ 0.20 por milhão de requisição mensal
+
+## Dependências
+
+- Necessário empacotar todas as dependências junto no pacote zip para upload
+- Se ultrapassar 50 Mb é necessário subir o zip para S3 e referência-lo na lambda
+- Bibliotecas nativas do Amazon Linux não precisam ser empacotadas
+- AWS SDK não precisa ser empacotado
+
+## Container Images
+
+- Até 10 Gb no ECR
+- Base imagem deve implementar Lambda Runtime API (Ex.: public.ecr.aws/lambda/dotnet:6)
+  - Disponívels para Python, Node.js, Java, .NET, Go, Ruby
+
+## Versions and Aliases
+
+- $LATEST: Versão em desenvolvimento (A que é alterada no console/ultimo deploy)
+- Após validada, pode-se gerar a versão imutável (v1, v2, v3, etc)
+  - Versão = Código + configuração (imutáveis)
+- Cada versão pode ser utilizada
+- Aliases são apenas ponteiros para versões
+  - Sâo mutáveis
+  - Ex.: prod = v1, dev = v2
+  - São utilizados para Canary Deployment
+  - Alias pode apontar para duas versões e possuir configuração de peso para o balanceamento
+
+## Lambda & CodeDeploy
+
+- Aplica lógica incremental nos pesos do alias para troca de versão
+  - Linear: Aumentar tráfego a cada X minutos até 100% (Linear10PercentEvery3Minutes, Linear10PercentEvery10Minutes)
+  - Canary: Aumentar tráfego em X percento até 100% (Canary10Percent5Minutos, Canary10Percent30Minutes)
+  - AllAtOnce: Imediato
+
+## Lambda Function URL
+
+- URL dedicada para o endpoint
+  - https://\<url-id\>.lambda-url.\<region\>.on.aws
+  - Permanece sempre a mesma para o alias
+- Acesso pela internet pública
+  - Não suporta link privado
+- Throttle by Reserved Concurrency
+- Suportar CORS
+- Autenticação IAM ou nenhuma
+
+
+## Limites por região
+
+- Execution
+  - Memória: 128 mb - 10 gb
+  - Tempo máximo: 900 segundos (15 minutos)
+  - Environment variables: 4 kb
+  - Temporary space (/tmp): 512 mb - 10 gb
+  - Concurrency executions: 1000 (pode ser incrementado com chamado)
+- Deployment
+  - Max size .zip: 50 mb (Descomprido 250 mb)
+  - Pode usar diretório /tmp para manipular arquivos
 
 ## .NET
 
@@ -192,13 +291,6 @@ Recursos para apagar em caso de testes manuais:
 - Lambda function
 - Cloud watch / Log group
 - IAM / Role
-
-## Preço
-
-https://docs.aws.amazon.com/pt_br/whitepapers/latest/how-aws-pricing-works/lambda.html
-
-- **Free tier:** 1 milhão de requisições por mês e 400 GB de tráfego
-- Após free tier, $ 0.20 por milhão de requisição mensal
 
 ## Notas
 
