@@ -1,11 +1,10 @@
 # AWS Playground
 
 - [Visão geral](#visão-geral)
+- [Serviços](#serviços)
 - [Pré requisitos](#pré-requisitos)
 - [Setup inicial](#setup-inicial)
 - [Estrutura do repositório](#estrutura-do-repositório)
-- [Exemplos](#exemplos)
-  - [Services](#services)
 - [Alternativa com Localstack](#alternativa-com-localstack)
 
 ## Visão geral
@@ -19,8 +18,23 @@ Em alguns exemplos também existem os comandos por AWS CLI.
 - [Documentação oficial AWS.](https://docs.aws.amazon.com/index.html)
 - [Página oficial Terraform.](https://www.terraform.io/)
 - [Documentação do provider AWS para Terraform.](https://registry.terraform.io/providers/hashicorp/aws/latest)
-- **[README.terraform.md](README.terraform.md)**
-- **[README.aws.md](README.aws.md)**
+- **[docs/terraform](docs/terraform.md)**
+- **[docs/aws](docs/aws.md)**
+
+
+## Serviços
+
+Neste repositório o foco é apenas no recurso unitário da AWS. Haverá muita duplicidade de código terraform e .net.
+
+- [Cloud Front](services/cloudfront)
+- [DynamoDB](services/dynamodb)
+- [EC2](services/ec2)
+- [Kinesis](services/kinesis)
+- [Lambda](services/lambda)
+- [Lambda Benchmark](services/lambda-benchmark)
+- [RDS](services/rds)
+- [S3](services/s3)
+- [SQS](services/sqs)
 
 ## Pré requisitos
 
@@ -89,22 +103,6 @@ terraform apply -auto-approve -destroy
 # Limpeza total
 apply-all.sh -destroy
 ```
-
-## Exemplos
-
-### Services
-
-Neste repositório o foco é apenas no recurso unitário da AWS. Haverá muita duplicidade de código terraform e .net.
-
-- [Cloud Front](services/cloudfront)
-- [DynamoDB](services/dynamodb)
-- [EC2](services/ec2)
-- [Kinesis](services/kinesis)
-- [Lambda](services/lambda)
-- [Lambda Benchmark](services/lambda-benchmark)
-- [RDS](services/rds)
-- [S3](services/s3)
-- [SQS](services/sqs)
 
 ## Alternativa com Localstack
 
