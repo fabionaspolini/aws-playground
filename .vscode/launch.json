@@ -161,6 +161,18 @@
             "cwd": "${workspaceFolder}/services/rds/src/rds-benchmark",
             "console": "internalConsole",
             "stopAtEntry": false
+        },
+        // sample-arch
+        {
+            "name": "sample-arch / sample-api",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-sample-api",
+            "program": "${workspaceFolder}/sample-arch/apps/sample-api/bin/Debug/net7.0/SampleApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/sample-arch/apps/sample-api",
+            "console": "internalConsole",
+            "stopAtEntry": false
         }
     ]
 }
