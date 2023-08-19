@@ -5,15 +5,10 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 4.61"
     }
-
-    archive = {
-      source  = "hashicorp/archive"
-      version = "2.3.0"
-    }
   }
   backend "s3" {
     # bucket = "terraform-state-$AWS_ACCOUNT_ID" # Não é permitido utilizar environment neste bloco. Estamos injetando no comando: terraform init -backend-config="bucket=terraform-state-${AWS_ACCOUNT_ID}"
-    key    = "aws-playground/sample-arch/shared.tfstate"
+    key    = "aws-playground/sample-arch/infra/rds.tfstate"
     region = "us-east-1"
   }
 }
@@ -24,7 +19,7 @@ provider "aws" {
   default_tags {
     tags = {
       managed-by = "terraform"
-      repo       = "aws-playground/sample-arch/infra/shared"
+      repo       = "aws-playground/sample-arch/infra/rds"
     }
   }
 }

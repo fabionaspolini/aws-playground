@@ -25,8 +25,8 @@ resource "aws_db_instance" "postgresql" {
   performance_insights_enabled          = true # monitoramento
   performance_insights_retention_period = 7    # dias para armazenar histórico de monitoramento (7 dias free tier)
 
-  maintenance_window      = "Mon:00:00-Mon:03:00"
-  backup_window           = "03:00-06:00"
+  maintenance_window      = "Mon:02:00-Mon:04:00"
+  backup_window           = "00:00-02:00"
   backup_retention_period = 1
 }
 

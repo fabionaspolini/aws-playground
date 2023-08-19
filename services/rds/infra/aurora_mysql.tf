@@ -16,8 +16,8 @@ resource "aws_rds_cluster" "aurora_mysql" {
   vpc_security_group_ids = [aws_security_group.aurora_mysql_playground[0].id]
   db_subnet_group_name   = aws_db_subnet_group.default.name
 
-  preferred_maintenance_window = "Mon:00:00-Mon:03:00"
-  preferred_backup_window      = "03:00-06:00"
+  preferred_maintenance_window = "Mon:02:00-Mon:04:00"
+  preferred_backup_window      = "00:00-02:00"
   backup_retention_period      = 1
 }
 
