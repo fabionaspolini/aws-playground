@@ -26,7 +26,7 @@ resource "aws_ecs_cluster" "sample_arch_playground" {
 resource "aws_ecs_cluster_capacity_providers" "sample_arch_fargate_spot" {
   cluster_name = aws_ecs_cluster.sample_arch_playground.name
 
-  capacity_providers = ["FARGATE", "FARGATE_SPOT"]
+  capacity_providers = ["FARGATE_SPOT", "FARGATE"]
 
   default_capacity_provider_strategy {
     base              = 1

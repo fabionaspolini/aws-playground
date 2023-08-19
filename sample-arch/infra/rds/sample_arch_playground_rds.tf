@@ -78,7 +78,6 @@ resource "aws_vpc_security_group_ingress_rule" "rds_sample_arch_playground_allow
   }
 }
 
-
 resource "aws_vpc_security_group_ingress_rule" "rds_sample_arch_playground_allow_internet_access" {
   security_group_id = aws_security_group.rds_sample_arch_playground.id
   description       = "Acesso publico internet"
