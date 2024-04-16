@@ -35,6 +35,7 @@ Neste repositório o foco é apenas no recurso unitário da AWS. Haverá muita d
 - [RDS](services/rds)
 - [S3](services/s3)
 - [SQS](services/sqs)
+- [Step Function](services/step-function)
 
 ## Pré requisitos
 
