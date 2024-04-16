@@ -20,7 +20,9 @@ resource "aws_sfn_state_machine" "sample_work_flow" {
       "OutputPath": "$.Payload",
       "Parameters": {
         "FunctionName": "arn:aws:lambda:us-east-1:452970698287:function:string-upper-case-to-step-function-sample:$LATEST",
-        "Payload.$": "$"
+        "Payload": {
+          "value.$": "$.inputText"
+        }
       },
       "Retry": [
         {
