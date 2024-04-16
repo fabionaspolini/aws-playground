@@ -59,6 +59,11 @@ resource "aws_lambda_function" "simple_function_containerized" {
 
   # source_code_hash = "aaaash" # necessário atualizar o hash para aplicar atualização na hora
 
+  logging_config {
+    log_format = "Text"
+    log_group  = aws_cloudwatch_log_group.simple_function_containerized.name
+  }
+
   tracing_config {
     mode = "Active"
   }
@@ -70,7 +75,6 @@ resource "aws_lambda_function" "simple_function_containerized" {
   }
 
   depends_on = [
-    aws_cloudwatch_log_group.simple_function_containerized,
     null_resource.publish_simple_function_containerized
   ]
 }

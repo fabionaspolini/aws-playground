@@ -162,6 +162,19 @@
             "console": "internalConsole",
             "stopAtEntry": false
         },
+        // step-function
+        {
+            "name": "Step Function / string-upper-case",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-step-function-string-upper-case",
+            "program": "${userHome}/.dotnet/tools/dotnet-lambda-test-tool-8.0",
+            "args": [],
+            "cwd": "${workspaceFolder}/services/step-function/src/string-upper-case",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
         // sample-arch
         {
             "name": "sample-arch / sample-api",

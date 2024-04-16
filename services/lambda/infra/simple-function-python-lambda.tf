@@ -39,6 +39,11 @@ resource "aws_lambda_function" "simple_function_python" {
 
   source_code_hash = data.archive_file.publish_simple_function_python.output_base64sha256
 
+  logging_config {
+    log_format = "Text"
+    log_group  = aws_cloudwatch_log_group.simple_function_python.name
+  }
+
   tracing_config {
     mode = "Active"
   }
@@ -48,8 +53,6 @@ resource "aws_lambda_function" "simple_function_python" {
       foo = "bar"
     }
   }
-
-  depends_on = [aws_cloudwatch_log_group.simple_function_python]
 }
 
 resource "aws_cloudwatch_log_group" "simple_function_python" {

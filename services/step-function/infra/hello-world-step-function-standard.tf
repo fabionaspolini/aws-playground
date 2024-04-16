@@ -6,7 +6,7 @@ resource "aws_sfn_state_machine" "hello_world_standard" {
   logging_configuration {
     log_destination        = "${aws_cloudwatch_log_group.hello_world_standard.arn}:*"
     include_execution_data = true
-    level                  = "ERROR"
+    level                  = "ERROR" # ALL, ERROR, CRITICAL, OFF
   }
 
   definition = <<EOF
@@ -88,13 +88,13 @@ EOF
 }
 
 resource "aws_cloudwatch_log_group" "hello_world_standard" {
-  name              = "/aws/vendedlogs/states/hello-world-standard"
+  name              = "/aws/vendedlogs/states/aws-playground/services/step-function/hello-world-standard"
   retention_in_days = 1
 }
 
 resource "aws_iam_role" "hello_world_standard" {
   name = "hello-world-standard-state-machine"
-  path = "/aws-playground/"
+  path = "/aws-playground/services/step-function/"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",

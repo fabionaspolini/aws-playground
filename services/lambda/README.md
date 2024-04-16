@@ -236,8 +236,9 @@ dotnet tool update -g Amazon.Lambda.Tools
 
 ```bash
 # De acordo com seu runtime
-dotnet tool update -g Amazon.Lambda.TestTool-6.0
-dotnet tool update -g Amazon.Lambda.TestTool-7.0
+dotnet tool install -g Amazon.Lambda.TestTool-8.0
+dotnet tool install -g Amazon.Lambda.TestTool-7.0
+dotnet tool install -g Amazon.Lambda.TestTool-6.0
 ```
 
 Criar configuração no arquivo [.vscode\launch.json](..\.vscode\launch.json) para inicializar debugger.

@@ -59,6 +59,11 @@ resource "aws_lambda_function" "simple_function_aot" {
 
   source_code_hash = data.archive_file.publish_simple_function_aot[0].output_base64sha256
 
+  logging_config {
+    log_format = "Text"
+    log_group  = aws_cloudwatch_log_group.simple_function_aot.name
+  }
+
   tracing_config {
     mode = "Active"
   }
@@ -68,8 +73,6 @@ resource "aws_lambda_function" "simple_function_aot" {
       foo = "bar"
     }
   }
-
-  depends_on = [aws_cloudwatch_log_group.simple_function_aot]
 }
 
 resource "aws_cloudwatch_log_group" "simple_function_aot" {

@@ -264,6 +264,19 @@
             ],
             "problemMatcher": "$msCompile"
         },
+        // step-function
+        {
+            "label": "build-step-function-string-upper-case",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/services/step-function/src/string-upper-case/StringUpperCase.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
         // sample-arch
         {
             "label": "build-sample-api",

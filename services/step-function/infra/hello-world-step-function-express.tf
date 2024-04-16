@@ -88,13 +88,13 @@ EOF
 }
 
 resource "aws_cloudwatch_log_group" "hello_world_express" {
-  name              = "/aws/vendedlogs/states/hello-world-express"
+  name              = "/aws/vendedlogs/states/aws-playground/services/step-function/hello-world-express"
   retention_in_days = 1
 }
 
 resource "aws_iam_role" "hello_world_express" {
   name = "hello-world-express-state-machine"
-  path = "/aws-playground/"
+  path = "/aws-playground/services/step-function/"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",

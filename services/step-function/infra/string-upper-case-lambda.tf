@@ -1,5 +1,6 @@
-resource "aws_iam_role" "simple_function_jit" {
-  name = "simple-function-jit-lambda"
+resource "aws_iam_role" "string_upper_case" {
+  name = "string-upper-case-lambda"
+  path = "/aws-playground/services/step-function/"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
@@ -23,9 +24,9 @@ resource "aws_iam_role" "simple_function_jit" {
 
 # Neste exemplo de estudos está sendo executado o script de build and publish da aplicação para garantir o deploy atualizado do código.
 # Numa pipeline de CI/CD isso é desnecessário por você já terá os artefatos gerados previamente.
-resource "null_resource" "publish_simple_function_jit" {
+resource "null_resource" "publish_string_upper_case" {
   provisioner "local-exec" {
-    working_dir = "../src/simple-function-jit"
+    working_dir = "../src/string-upper-case"
     command     = "publish.sh"
     interpreter = ["bash"]
   }
@@ -34,28 +35,27 @@ resource "null_resource" "publish_simple_function_jit" {
   }
 }
 
-data "archive_file" "publish_simple_function_jit" {
+data "archive_file" "publish_string_upper_case" {
   type        = "zip"
-  source_dir  = "../src/simple-function-jit/publish"
-  output_path = "./.temp/simple-function-jit.zip"
-  depends_on  = [null_resource.publish_simple_function_jit]
+  source_dir  = "../src/string-upper-case/publish"
+  output_path = "./.temp/string-upper-case.zip"
+  depends_on  = [null_resource.publish_string_upper_case]
 }
 
-resource "aws_lambda_function" "simple_function_jit" {
-  filename      = "./.temp/simple-function-jit.zip"
-  function_name = "simple-function-jit"
-  role          = aws_iam_role.simple_function_jit.arn
-  handler       = "SimpleFunctionJit::SimpleFunctionJit.Function::FunctionHandler"
-  runtime       = "dotnet6"
+resource "aws_lambda_function" "string_upper_case" {
+  filename      = "./.temp/string-upper-case.zip"
+  function_name = "string-upper-case-to-step-function-sample"
+  role          = aws_iam_role.string_upper_case.arn
+  handler       = "StringUpperCase::StringUpperCase.Function::FunctionHandler"
+  runtime       = "dotnet8"
   memory_size   = 256
   timeout       = 15
-  architectures = ["x86_64"]
+  architectures = ["arm64"]
 
-  source_code_hash = data.archive_file.publish_simple_function_jit.output_base64sha256
-
+  source_code_hash = data.archive_file.publish_string_upper_case.output_base64sha256
   logging_config {
     log_format = "Text"
-    log_group  = aws_cloudwatch_log_group.simple_function_jit.name
+    log_group  = aws_cloudwatch_log_group.string_upper_case.name
   }
 
   tracing_config {
@@ -69,7 +69,7 @@ resource "aws_lambda_function" "simple_function_jit" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "simple_function_jit" {
-  name              = "/aws/lambda/simple-function-jit"
+resource "aws_cloudwatch_log_group" "string_upper_case" {
+  name              = "/aws/lambda/aws-playground/services/step-function/string-upper-case-to-step-function-sample"
   retention_in_days = 1
 }
