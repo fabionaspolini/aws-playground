@@ -26,7 +26,7 @@ resource "aws_rds_cluster_instance" "aurora_postgresql" {
   apply_immediately   = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
   identifier          = "aurora-postgresql-playground-${count.index}"
   cluster_identifier  = aws_rds_cluster.aurora_postgresql[0].id
-  instance_class      = "db.t4g.medium"
+  instance_class      = "db.t4g.medium" # "db.t4g.small"
   engine              = aws_rds_cluster.aurora_postgresql[0].engine
   engine_version      = aws_rds_cluster.aurora_postgresql[0].engine_version
   publicly_accessible = true # autorizar acesso pela internet

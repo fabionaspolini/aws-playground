@@ -96,7 +96,9 @@ Serviço para processamento de dados Near Real Time.
     - AWS: Redshifth, Amazon S3, OpenSearch
     - 3rd party: Splunk, MongoDB, DataDog, NewRelic, etc...
     - Custom: HTTP endpoint
-- Latência: No mínimo 60 segundos de 1 Mb de dados (Configurado no destination settings do Delivery Stream)
+- Latência:
+  - Mínimo: 60 segundos e 1 MB de dados (Configurado no destination settings do Delivery Stream)
+  - Máximo: 900 segundos e 128 MB de dados
 - Pago por uso
 - Não é possível reprocessar mensagens (Não há armazenamento histórico)
 
