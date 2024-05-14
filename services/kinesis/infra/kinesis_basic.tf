@@ -1,3 +1,15 @@
+# Recursos criados:
+# - Kinesis Data Stream
+# - Bucket S3
+# - Kinesis Firehose
+# - Log group + log stream
+# - Role + policy
+
+# O que este exemplo faz?
+# - Recebe um input no Data Stream
+# - Repassa para o Firehouse agrupar por tamanho e tempo
+# - Escreve agrupamento no S3
+
 # Para utilizar este template, altere os textos:
 # - kinesis-basic-playground
 # - kinesis_basic_playground
@@ -160,27 +172,3 @@ resource "aws_iam_policy" "kinesis_basic_playground" {
     ]
   })
 }
-
-
-# resource "aws_iam_role" "context_details" {
-#   name = "context-details-lambda"
-
-#   assume_role_policy = jsonencode({
-#     "Version" : "2012-10-17",
-#     "Statement" : [
-#       {
-#         "Sid" : "",
-#         "Effect" : "Allow",
-#         "Principal" : {
-#           "Service" : "lambda.amazonaws.com"
-#         },
-#         "Action" : "sts:AssumeRole"
-#       }
-#     ]
-#   })
-
-#   managed_policy_arns = [
-#     data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn,
-#     data.aws_iam_policy.AWSXRayDaemonWriteAccess.arn
-#   ]
-# }
