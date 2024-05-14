@@ -19,7 +19,7 @@ resource "aws_sfn_state_machine" "sample_work_flow" {
       "Resource": "arn:aws:states:::lambda:invoke",
       "OutputPath": "$.Payload",
       "Parameters": {
-        "FunctionName": "arn:aws:lambda:us-east-1:452970698287:function:string-upper-case-to-step-function-sample:$LATEST",
+        "FunctionName": "arn:aws:lambda:us-east-1:${data.aws_caller_identity.current.account_id}:function:string-upper-case-to-step-function-sample:$LATEST",
         "Payload": {
           "value.$": "$.inputText"
         }

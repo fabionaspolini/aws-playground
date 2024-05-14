@@ -7,6 +7,7 @@
 - [Kinesis Data Analytics](#kinesis-data-analytics)
   - [Kinesis Data Analytics for SQL Applications](#kinesis-data-analytics-for-sql-applications)
   - [Kinesis Data Analytics for Apache Flink](#kinesis-data-analytics-for-apache-flink)
+- [Hands on](#hands-on)
 
 
 ## Visão Geral
@@ -96,8 +97,8 @@ Serviço para processamento de dados Near Real Time.
     - AWS: Redshifth, Amazon S3, OpenSearch
     - 3rd party: Splunk, MongoDB, DataDog, NewRelic, etc...
     - Custom: HTTP endpoint
-- Latência:
-  - Mínimo: 60 segundos e 1 MB de dados (Configurado no destination settings do Delivery Stream)
+- Latência: Configurado no destination settings do Delivery Stream
+  - Mínimo: 0 segundos e 1 MB de dados (Antigamente era 60 segundos o mínimo)
   - Máximo: 900 segundos e 128 MB de dados
 - Pago por uso
 - Não é possível reprocessar mensagens (Não há armazenamento histórico)
@@ -133,3 +134,20 @@ Serviço para processamento de dados Near Real Time.
   - Provisionar recursos computacionais, paralelismo e auto scaling
   - Application backes (Checkpoint e snapshot)
   - Não suportar input de Firehose
+
+## Hands on
+
+Comandos para testar fluxo de dados:
+
+1. Publicar mensagem no Kinesis Data Strems
+2. Delivery para Kinesis Firehouse
+3. Agrupamento de mensagens em pacotes de no máximo 1 MB ou 60 segundos
+4. Delivery para bucket s3 "kinesis-simple-playground-(ACCOUNT_ID)"
+
+```bash
+aws kinesis put-record \
+  --stream-name "kinesis-simple-playground" \
+  --partition-key "1" \
+  --cli-binary-format raw-in-base64-out \
+  --data 'Ola'
+```
