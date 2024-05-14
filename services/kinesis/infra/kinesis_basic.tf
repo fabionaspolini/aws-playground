@@ -1,12 +1,12 @@
 # Para utilizar este template, altere os textos:
-# - kinesis-simple-playground
-# - kinesis_simple_playground
+# - kinesis-basic-playground
+# - kinesis_basic_playground
 
 ###################################
 ###     Kinesis Data Stream     ###
 ###################################
-resource "aws_kinesis_stream" "kinesis_simple_playground" {
-  name = "kinesis-simple-playground"
+resource "aws_kinesis_stream" "kinesis_basic_playground" {
+  name = "kinesis-basic-playground"
   # shard_count      = 1 # Obrigatório se provisionado
   retention_period = 24
 
@@ -25,8 +25,8 @@ resource "aws_kinesis_stream" "kinesis_simple_playground" {
 ###     Bucket S3 - Target     ###
 ##################################
 
-resource "aws_s3_bucket" "kinesis_simple_playground" {
-  bucket        = "kinesis-simple-playground-${data.aws_caller_identity.current.account_id}"
+resource "aws_s3_bucket" "kinesis_basic_playground" {
+  bucket        = "kinesis-basic-playground-${data.aws_caller_identity.current.account_id}"
   force_destroy = true # permitir destruir arquivos no "terraform destroy"
 }
 
@@ -34,18 +34,18 @@ resource "aws_s3_bucket" "kinesis_simple_playground" {
 ###     Kinesis Firehose     ###
 ################################
 
-resource "aws_kinesis_firehose_delivery_stream" "kinesis_simple_playground" {
-  name        = "kinesis-simple-playground"
+resource "aws_kinesis_firehose_delivery_stream" "kinesis_basic_playground" {
+  name        = "kinesis-basic-playground"
   destination = "extended_s3"
 
   kinesis_source_configuration {
-    kinesis_stream_arn = aws_kinesis_stream.kinesis_simple_playground.arn
-    role_arn           = aws_iam_role.kinesis_simple_playground.arn
+    kinesis_stream_arn = aws_kinesis_stream.kinesis_basic_playground.arn
+    role_arn           = aws_iam_role.kinesis_basic_playground.arn
   }
 
   extended_s3_configuration {
-    bucket_arn = aws_s3_bucket.kinesis_simple_playground.arn
-    role_arn   = aws_iam_role.kinesis_simple_playground.arn
+    bucket_arn = aws_s3_bucket.kinesis_basic_playground.arn
+    role_arn   = aws_iam_role.kinesis_basic_playground.arn
 
     buffering_size     = 1  # MB
     buffering_interval = 15 # segundos
@@ -61,8 +61,8 @@ resource "aws_kinesis_firehose_delivery_stream" "kinesis_simple_playground" {
 
     cloudwatch_logging_options {
       enabled         = true
-      log_group_name  = aws_cloudwatch_log_group.kinesis_simple_playground.name
-      log_stream_name = aws_cloudwatch_log_stream.kinesis_simple_playground_error_stream.name
+      log_group_name  = aws_cloudwatch_log_group.kinesis_basic_playground.name
+      log_stream_name = aws_cloudwatch_log_stream.kinesis_basic_playground_error_stream.name
     }
   }
 }
@@ -72,33 +72,33 @@ resource "aws_kinesis_firehose_delivery_stream" "kinesis_simple_playground" {
 #########################
 
 # Log group
-resource "aws_cloudwatch_log_group" "kinesis_simple_playground" {
-  name              = "/aws/kinesisfirehose/kinesis-simple-playground"
+resource "aws_cloudwatch_log_group" "kinesis_basic_playground" {
+  name              = "/aws/kinesisfirehose/kinesis-basic-playground"
   retention_in_days = 1
 }
 
-resource "aws_cloudwatch_log_stream" "kinesis_simple_playground_error_stream" {
+resource "aws_cloudwatch_log_stream" "kinesis_basic_playground_error_stream" {
   name           = "Error" # Delivery padrão do Kinesis Firehose
-  log_group_name = aws_cloudwatch_log_group.kinesis_simple_playground.name
+  log_group_name = aws_cloudwatch_log_group.kinesis_basic_playground.name
 }
 
-# resource "aws_cloudwatch_log_stream" "kinesis_simple_playground_backup_stream" {
+# resource "aws_cloudwatch_log_stream" "kinesis_basic_playground_backup_stream" {
 #   name           = "Backup" # Delivery padrão do Kinesis Firehose
-#   log_group_name = aws_cloudwatch_log_group.kinesis_simple_playground.name
+#   log_group_name = aws_cloudwatch_log_group.kinesis_basic_playground.name
 # }
 
 ####################
 ###     Role     ###
 ####################
 
-resource "aws_iam_role" "kinesis_simple_playground" {
-  name                = "kinesis-simple-playground"
+resource "aws_iam_role" "kinesis_basic_playground" {
+  name                = "kinesis-basic-playground"
   path                = "/aws-playground/services/kinesis/"
-  assume_role_policy  = data.aws_iam_policy_document.kinesis_simple_playground_assume_role.json
-  managed_policy_arns = [aws_iam_policy.kinesis_simple_playground.arn]
+  assume_role_policy  = data.aws_iam_policy_document.kinesis_basic_playground_assume_role.json
+  managed_policy_arns = [aws_iam_policy.kinesis_basic_playground.arn]
 }
 
-data "aws_iam_policy_document" "kinesis_simple_playground_assume_role" {
+data "aws_iam_policy_document" "kinesis_basic_playground_assume_role" {
   statement {
     effect = "Allow"
 
@@ -111,8 +111,8 @@ data "aws_iam_policy_document" "kinesis_simple_playground_assume_role" {
   }
 }
 
-resource "aws_iam_policy" "kinesis_simple_playground" {
-  name        = "kinesis-simple-playground-policy"
+resource "aws_iam_policy" "kinesis_basic_playground" {
+  name        = "kinesis-basic-playground-policy"
   path        = "/aws-playground/services/kinesis/"
   description = "Role genérica para gravação de log no CloudWatch"
 
@@ -130,8 +130,8 @@ resource "aws_iam_policy" "kinesis_simple_playground" {
           "s3:PutObject"
         ]
         Resource = [
-          "arn:aws:s3:::kinesis-simple-playground-${data.aws_caller_identity.current.account_id}",
-          "arn:aws:s3:::kinesis-simple-playground-${data.aws_caller_identity.current.account_id}/*"
+          "arn:aws:s3:::kinesis-basic-playground-${data.aws_caller_identity.current.account_id}",
+          "arn:aws:s3:::kinesis-basic-playground-${data.aws_caller_identity.current.account_id}/*"
         ]
       },
       {
@@ -140,7 +140,7 @@ resource "aws_iam_policy" "kinesis_simple_playground" {
           "logs:PutLogEvents"
         ]
         Resource = [
-          "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:/aws/kinesisfirehose/kinesis-simple-playground:log-stream:*"
+          "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:/aws/kinesisfirehose/kinesis-basic-playground:log-stream:*"
         ]
 
         # "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%:log-stream:*"
@@ -154,7 +154,7 @@ resource "aws_iam_policy" "kinesis_simple_playground" {
           "kinesis:ListShards"
         ]
         Resource = [
-          "arn:aws:kinesis:us-east-1:${data.aws_caller_identity.current.account_id}:stream/kinesis-simple-playground"
+          "arn:aws:kinesis:us-east-1:${data.aws_caller_identity.current.account_id}:stream/kinesis-basic-playground"
         ]
       },
     ]
