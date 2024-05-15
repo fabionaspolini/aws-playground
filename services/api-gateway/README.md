@@ -2,8 +2,18 @@
 
 - [Visão geral](#visão-geral)
 - [API Gateway - Integrations High Level](#api-gateway---integrations-high-level)
+  - [Lambda Function](#lambda-function)
+  - [HTTP](#http)
+  - [Serviços AWS](#serviços-aws)
+  - [Mock](#mock)
 - [Tipos de endpoints](#tipos-de-endpoints)
 - [Segurança](#segurança)
+- [Stages \& Deployment](#stages--deployment)
+  - [Configurações adicionais do stage](#configurações-adicionais-do-stage)
+  - [Logs e tracing](#logs-e-tracing)
+  - [Canary deploy](#canary-deploy)
+- [Mapping templates](#mapping-templates)
+- [Open API spec](#open-api-spec)
 
 ## Visão geral
 
@@ -24,21 +34,26 @@ Principais funcionalidades:
 
 ## API Gateway - Integrations High Level
 
-**Lambda Function**
+### Lambda Function
 
 - Invocar lambdas.
 - Caminho fácil para expor REST API baseados em lambdas.
 
-**HTTP**
+### HTTP
 
 - Exposição de HTTP API on premisse, Application Load Balancer, etc.
 - Motivo: Adicionar rate limit, cache, user authenticamente, api keys, etc... a serviços legados.
+- Para acessar recursos hospedados na VPC, é necessário o VPC Link.
 
-**Serviços AWS**
+### Serviços AWS
 
 - Expor qualquer serviço AWS a partir do Gateway.
 - Exemplo: Iniciar uma step function a partir de uma mensagem SQS postada diretamente do gateway.
 - Motivo: Adicionar autenticação, rate limit, etc...
+
+### Mock
+
+- Respostas pré-definidas no gateway, geralmente para testes.
 
 ## Tipos de endpoints
 
@@ -75,3 +90,81 @@ Pode ser utilizado "resource policy" para definitir acessos ao gateway.
   - Se utilizado Edge-Optimized endpoint, o certificado ficará em us-east-1.
   - Se utilizado Regional endpoint, o certificado ficará na mesma região.
   - Deve ser configurado o CNAME, A, ou ALIAS no Route 53.
+
+## Stages & Deployment
+
+- Podem ser criadas variáveis do stage e elas podem ser utilizadas para compor muitos nomes no template de integrações, por exemplo:
+  - Lambda ARN.
+  - HTTP endpoint.
+  - Parameter mapping template.
+- Stage variable são passadas no objeto "context" para Lambdas.
+- Format para utiliza-las na definição de api: `${stageVariables.NOME}`
+
+Existem configurações independentes por stage, veja abaixo os detalhes.
+
+### Configurações adicionais do stage
+
+- Cache
+  - TTL
+- Throttling
+  - Rate
+  - Burst
+- Firewal and cetificate (WAF)
+
+### Logs e tracing
+
+- Nível de log gerado no cloud watch:
+  - Off.
+  - Errors only.
+  - Erros and info.
+  - Full request and response logs.
+- Métricas detalhadas: Chamadas de API, Adicionar latencia, 400 erros e 500 erros nas estatísticas.
+- X-ray.
+
+### Canary deploy
+
+![canary-deployment.png](assets/canary-deployment.png)
+
+- Habilitado por stage.
+- Indicar o percentual do trafego que cada canal canário deve receber.
+- Métricas e logs são separados.
+- Possibilidade de sobrescrever variáveis de state.
+
+## Mapping templates
+
+Permite manipular a requesição encaminha para o backend, e a resposta enviada para o cliente.
+
+![lambda-gtw-payload.png](assets/lambda-gtw-payload.png)
+
+Feature x Integration types:
+
+- MOCK: Retorna um payload sem backend, portante não precisa de mapeamento de templates para manipular isso.
+- AWS_PROXY / Lambda Proxy:
+  - Suporte a manipulação de informações.
+  - Não ativar feature "proxy integration" no setip da rota/metodo.
+- HTTP_PROXY:
+  - Sem suporte a manipulação de payload por mapeamento de templates.
+  - Possível adicionar headers.
+
+Funcionalidades:
+
+- Modificar request/response.
+- Renomear e modificar query string.
+- Modificar body.
+- Adicionar headers.
+- Linguagem: Velocity Template Language (VTL): for loop, if, etc...
+- Filtrar resultado e remover dados desnecessários.
+- Aplicar Content-Type application/json ou application/xml.
+
+Template exemplo para renomear campo e retornar um valor fixo:
+
+```json
+{
+    "valorFixo": "meu valor",
+    "campoRenomeado": $input.json('$.campoOrigem')
+}
+```
+
+## Open API spec
+
+API Gateway pode ser gerado a partir da especificação de API como código (Open API).
