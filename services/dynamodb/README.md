@@ -22,7 +22,7 @@
 
 ## Visão geral
 
-Base de dados serveless NoSQL gerenciado pela AWS.  
+Base de dados serveless, NoSQL e chave-valor gerenciado pela AWS.  
 
 ## Informações importantes antes de optar por sua utilização
 
