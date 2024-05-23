@@ -68,9 +68,14 @@ Existem duas opções para compor a primary key, você informará o nome dos cam
 Em ambas opções, os dados são distribuidos em shards pela partition key.  
 A segunda opção é uma subdivisão de dados dentro do shard da partition key.
 
-**Exempo:** Vamos imaginar diferente cenário de uso para uma tabela de vendas com cabeçalho, itens e dados do pagamento.
+**Exempo:** Vamos imaginar diferentes cenários de uso para uma tabela de vendas com: cabeçalho, itens e dados do pagamento.
 
 O exemplo está ilustrado com número inteiros como ID para facilitar a leitura, mas devem ser guids na vida real.
+
+Sendo:
+- O cabeçalho represetado por uma única linha.
+- Itens da venda são representados por um array para facilitar a didatica, mas na vida real provavelmente fará mais sentido um linha para cada item.
+- Pagamento represetado por uma única linha.
 
 **Caso de uso 1:** Imagine que o principal caso de uso é no setor de atendimento ao cliente,
 sendo necessário obter todos os dados de uma venda selecionada pelo usuário no front-end.  
@@ -82,9 +87,9 @@ A PK ficaria:
 
 A sort key será utilizada para separar as entidades relacionadas a cada venda:
 
-1. Cabeçalho da venda: sort key = header.
-2. Itens da venda, sendo uma única linha com um array de item. Sort key = itens.
-3. Informações de pagamento. Sort key = invoice..
+1. Cabeçalho da venda: Sort key = header.
+2. Itens da venda: Sort key = itens.
+3. Informações de pagamento: Sort key = invoice.
 
 | partition | sort      |
 |-----------|-----------|
@@ -118,8 +123,8 @@ Perceba que no segundo exemplo a sort key é a concatenação do código da vend
 O separador `#` é um design pattern do DynamoDB seguido como boa prática, mas poderia ser qualquer outro caracter na prática.
 Pode parcer um pouco estranho o conceito para quem está vindo de modelagens relacionais ou orientadas a documentos, mas é o recomendado para o paradigma do DynamoDB.
 
-A informação da sort key não é um atributo em específico que possa ser nomeado de forma lógica.  
-Nesta situação a recomendação é utilizar `pk` como nome de atributo para sort key. Caso ocorrer necessidade da mesma abordagem na partition key, nomeie o atributo como `pk`.
+O dado da sort key não é um atributo em específico que possa ser nomeado de forma lógica.  
+Nesta situação, a recomendação é utilizar `sk` como nome de atributo para sort key. Assim como, caso ocorrer necessidade da mesma abordagem na partition key, nomear o atributo como `pk`.
 
 ## Dimensionamento
 
