@@ -14,7 +14,7 @@ Biblioteca .NET para geração de métricas personalizadas.
 - Não possui dependência com AWSSDK
 - Newtonsoft.Json
 - Microsoft.Extensions.Logging.Abstractions
-
+- Ela envia para API do CloudWatch Metrics, e depende do cloud watch agent rodando no ambiente.
 
 
 ## Exemplos
