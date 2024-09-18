@@ -33,6 +33,11 @@ resource "aws_dynamodb_table" "vendas" {
   # stream_enabled   = true
   # stream_view_type = "NEW_AND_OLD_IMAGES"
 
+  tags = {
+    Owner       = "Fábio"
+    Environment = "sample"
+  }
+
   attribute {
     name = "Id"
     type = "S"
