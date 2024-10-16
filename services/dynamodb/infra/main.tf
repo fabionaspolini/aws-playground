@@ -61,8 +61,9 @@ resource "aws_dynamodb_table" "vendas" {
   }
 }
 
+#
 # Auto scaling policy
-
+#
 resource "aws_appautoscaling_target" "dynamodb_table_read_target" {
   min_capacity       = 1
   max_capacity       = 3
@@ -71,8 +72,9 @@ resource "aws_appautoscaling_target" "dynamodb_table_read_target" {
   service_namespace  = "dynamodb"
 }
 
+#
 # Read capacity utilization autoscaling
-
+#
 resource "aws_appautoscaling_policy" "dynamodb_table_read_policy" {
   name               = "DynamoDBReadCapacityUtilization:${aws_appautoscaling_target.dynamodb_table_read_target.resource_id}"
   policy_type        = "TargetTrackingScaling"
@@ -89,7 +91,9 @@ resource "aws_appautoscaling_policy" "dynamodb_table_read_policy" {
   }
 }
 
+#
 # Scheduled auto scaling
+#
 
 resource "aws_appautoscaling_scheduled_action" "dynamodb_table_read_up" {
   name               = "dynamodb-table-vendas-up"

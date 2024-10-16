@@ -120,6 +120,14 @@ Existem configurações independentes por stage, veja abaixo os detalhes.
   - Full request and response logs.
 - Métricas detalhadas: Chamadas de API, Adicionar latencia, 400 erros e 500 erros nas estatísticas.
 - X-ray.
+- CloudWatch Logs: Logs internos do api gateway
+  - Em apis rest, é armazenado no log group: API-Gateway-Execution-Logs_{rest-api-id}/{stage-name}  (não pode ser alterado)
+  - <https://repost.aws/knowledge-center/api-gateway-cloudwatch-logs>
+- Custom Access Logging: Log das requisições
+  - Detalhes em <https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html#apigateway-cloudwatch-log-formats>
+  - Campos disponíveis em:
+    - <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-logging-variables.html>
+    - <https://www.alexdebrie.com/posts/api-gateway-access-logs/#access-logging-fields>
 
 ### Canary deploy
 
