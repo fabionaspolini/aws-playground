@@ -17,6 +17,7 @@
 - [Transactions](#transactions)
 - [Security](#security)
 - [Modelo de dados](#modelo-de-dados)
+- [Autoscaling](#autoscaling)
 - [.NET](#net)
 - [Extra](#extra)
 
@@ -312,6 +313,17 @@ Venda
     - Sorting key: Igual da primary key.
 - Criar campo `ExpireOn` para ser utilizado no TTL. Definir com data da venda + 1 ano => Para requisito 4.
 - Ao final da modelagem, a base de dados não é totalmente focada na orientação a documentos. Separamos nosso documento em duas linhas pelo fator custo.
+
+## Autoscaling
+
+Verificar politicas: <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CostOptimization_AutoScalingSettings.html>
+
+```bash
+aws application-autoscaling describe-scalable-targets --service-namespace dynamodb --resource-id "table/Vendas"
+
+aws application-autoscaling describe-scaling-policies --service-namespace dynamodb --resource-id "table/Vendas"
+aws application-autoscaling describe-scheduled-actions --service-namespace dynamodb --resource-id "table/Vendas"
+```
 
 ## .NET
 

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.61"
+      version = ">= 5.72.0"
     }
   }
   backend "s3" {
