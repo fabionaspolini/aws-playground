@@ -123,6 +123,8 @@ Existem configurações independentes por stage, veja abaixo os detalhes.
 - CloudWatch Logs: Logs internos do api gateway
   - Em apis rest, é armazenado no log group: API-Gateway-Execution-Logs_{rest-api-id}/{stage-name}  (não pode ser alterado)
   - <https://repost.aws/knowledge-center/api-gateway-cloudwatch-logs>
+  - Necessário configurar a role utilizada pelo serviço da AWS de API Gateway para gerar logs. Não é do seu gateway, mas do serviço AWS.
+    - <https://coady.tech/aws-cloudwatch-logs-arn/>
 - Custom Access Logging: Log das requisições
   - Detalhes em <https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html#apigateway-cloudwatch-log-formats>
   - Campos disponíveis em:

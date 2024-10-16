@@ -47,6 +47,8 @@ resource "aws_api_gateway_deployment" "example" {
 #
 
 resource "aws_api_gateway_stage" "example" {
+  depends_on = [aws_cloudwatch_log_group.api_logs]
+
   deployment_id = aws_api_gateway_deployment.example.id
   rest_api_id   = aws_api_gateway_rest_api.example.id
   stage_name    = var.stage_name
@@ -54,7 +56,7 @@ resource "aws_api_gateway_stage" "example" {
   xray_tracing_enabled = true
 
   access_log_settings {
-    destination_arn = aws_cloudwatch_log_group.example.arn
+    destination_arn = aws_cloudwatch_log_group.api_access_logging.arn
 
     # Somente exemplo, isso deve vir de arquivo json. Alguns dos campos abaixo não precisam extrar entre aspas duplas.
     format = jsonencode({
@@ -90,7 +92,12 @@ resource "aws_api_gateway_method_settings" "example" {
 # Log group - Custom access logging
 #
 
-resource "aws_cloudwatch_log_group" "example" {
+resource "aws_cloudwatch_log_group" "api_access_logging" {
   name              = "/aws/apigateway/${aws_api_gateway_rest_api.example.id}/${var.stage_name}/access-logging"
+  retention_in_days = 1
+}
+
+resource "aws_cloudwatch_log_group" "api_logs" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.example.id}/${var.stage_name}"
   retention_in_days = 1
 }
