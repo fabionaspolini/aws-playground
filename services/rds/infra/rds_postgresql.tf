@@ -12,14 +12,16 @@ resource "aws_db_instance" "postgresql" {
   username               = "postgres"
   password               = "teste.123456"
   parameter_group_name   = "default.postgres16"
-  instance_class         = "db.t4g.micro" # # db.t4g.large, db.t4g.medium, db.t4g.small, db.t4g.micro
-  storage_type           = "gp3"          # general purpose SSD
-  allocated_storage      = 30
-  # max_allocated_storage  = 100
+  instance_class         = "db.t4g.large" # # db.t4g.large, db.t4g.medium, db.t4g.small, db.t4g.micro
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.rds_postgresql_playground[0].id]
   db_subnet_group_name   = aws_db_subnet_group.default.name
   publicly_accessible    = true # autorizar acesso pela internet
+
+  storage_type           = "gp2"          # general purpose SSD
+  allocated_storage      = 20
+  max_allocated_storage  = 100
+  storage_encrypted      = false # Importante ativar em ambiente real
   # iops                  = 3000 # padrão para discos menores de 400 gb
   # storage_throughput    = 125 #  padrão para discos menores de 400 gb
 

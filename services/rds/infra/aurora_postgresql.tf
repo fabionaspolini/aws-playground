@@ -15,6 +15,7 @@ resource "aws_rds_cluster" "aurora_postgresql" {
   deletion_protection    = false # proteção de exclusão da instância pelo console (desabilitar apenas para testes)
   vpc_security_group_ids = [aws_security_group.aurora_postgresql_playground[0].id]
   db_subnet_group_name   = aws_db_subnet_group.default.name
+  storage_encrypted      = false # Importante ativar em ambiente real
 
   preferred_maintenance_window = "Mon:02:00-Mon:04:00"
   preferred_backup_window      = "00:00-02:00"

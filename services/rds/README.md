@@ -57,18 +57,24 @@ aws rds describe-db-engine-versions --engine aurora-postgresql --no-cli-pager
 
 ## Teste de atualização de configuração
 
-| Ação                          | Aurora PG | RDS PG  |
-|-------------------------------|-----------|---------|
-| Aumentar tamanho disco        | n/a       | OK      |
-| Reduzir tamanho disco         | n/a       |         |
-| Alterar classe armazenamento  | n/a       |         |
-| Atualizar engine version      | OK        |         |
-| Atualizar instance size       | OK        |         |
+Teste de alteração de configurações, avaliando instabilidade causada no ambiente e perda de dados.
+
+| Ação                          | Aurora PG     | RDS PG        |
+|-------------------------------|---------------|---------------|
+| Aumentar tamanho disco        | n/a           | OK            |
+| Reduzir tamanho disco         | n/a           | Não permitido |
+| Alterar classe armazenamento  | n/a           | OK            |
+| Atualizar engine version      | Instabilidade |               |
+| Atualizar instance size       | Instabilidade |               |
+| Aplicar criptografia          |               | Falha         |
 
 **Roteiro RDS**
 
 1. **Alterado de 20 Gb para 30 Gb (GP3):** OK, sem instabilidades e sem perda de dados.
 2. **Alterado GP3 para GP2, com max storage 100 Gb:** Erro antes de 6 horas.
+3. **Destruir e recriar instância**
+4. **Alterado GP3 para GP2, reduzido de 30 Gb para 20 Gb, e aplicado autoscaling para max storage 100 Gb:** Sem instabilidade e sem perda de dados. Alteração GP3 para GP2 OK, mas redução de armazenamento não é suportada pela AWS.
+5. **Aplicar criptografia:** Destruiu e recriou a instância, ocasionando perda de dados.
 
 **Roteiro Aurora**
 
