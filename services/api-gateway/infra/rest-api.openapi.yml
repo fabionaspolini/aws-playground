@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: example
+  description: |-
+    API exemplo playground
+  version: 1.0.0
+paths:
+  /aws-ip-ranges:
+    get:
+      x-amazon-apigateway-integration:
+        httpMethod: GET
+        payloadFormatVersion: 1.0
+        type: HTTP_PROXY
+        uri: https://ip-ranges.amazonaws.com/ip-ranges.json
+        timeoutInMillis: 10000
+      summary: Lista de ips públicos da AWS
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+  /consultar-cep/{cep}:
+    get:
+      x-amazon-apigateway-integration:
+        httpMethod: GET
+        payloadFormatVersion: 1.0
+        type: HTTP_PROXY
+        uri: https://viacep.com.br/ws/{cep}/json/
+        timeoutInMillis: 5000
+        requestParameters:
+          integration.request.path.cep: method.request.path.cep
+      summary: Consultar CEP
+      description: Consultar CEP no serviço viacep.com.br
+      parameters:
+        - name: cep
+          in: path
+          description: CEP para consultar
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid status value

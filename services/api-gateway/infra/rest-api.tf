@@ -9,25 +9,7 @@ resource "aws_api_gateway_rest_api" "example" {
     types = ["REGIONAL"]
   }
 
-  body = jsonencode({
-    openapi = "3.0.1"
-    info = {
-      title   = "example"
-      version = "1.0"
-    }
-    paths = {
-      "/path1" = {
-        get = {
-          x-amazon-apigateway-integration = {
-            httpMethod           = "GET"
-            payloadFormatVersion = "1.0"
-            type                 = "HTTP_PROXY"
-            uri                  = "https://ip-ranges.amazonaws.com/ip-ranges.json"
-          }
-        }
-      }
-    }
-  })
+  body = file("./rest-api.openapi.yml")
 }
 
 resource "aws_api_gateway_deployment" "example" {
@@ -57,23 +39,7 @@ resource "aws_api_gateway_stage" "example" {
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_access_logging.arn
-
-    # Somente exemplo, isso deve vir de arquivo json. Alguns dos campos abaixo não precisam extrar entre aspas duplas.
-    format = jsonencode({
-      requestId         = "$context.requestId"
-      extendedRequestId = "$context.extendedRequestId"
-      ip                = "$context.identity.sourceIp"
-      caller            = "$context.identity.caller"
-      user              = "$context.identity.user"
-      requestTime       = "$context.requestTime"
-      httpMethod        = "$context.httpMethod"
-      resourcePath      = "$context.resourcePath"
-      status            = "$context.status"
-      protocol          = "$context.protocol"
-      responseLength    = "$context.responseLength"
-      responseLatency   = "$context.responseLatency"
-      xrayTraceId       = "$context.xrayTraceId"
-    })
+    format          = replace(replace(file("./rest-api.access-logging-format.json"), "\r\n", ""), "  ", "")
   }
 }
 

@@ -178,3 +178,6 @@ Template exemplo para renomear campo e retornar um valor fixo:
 ## Open API spec
 
 API Gateway pode ser gerado a partir da especificação de API como código (Open API).
+
+- [Extensões OpenAPI para o API Gateway](https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-swagger-extensions.html)
+- [Objeto x-amazon-apigateway-integration.requestParameters](https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-swagger-extensions-integration-requestParameters.html)
