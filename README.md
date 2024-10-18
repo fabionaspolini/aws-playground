@@ -30,9 +30,12 @@ Em alguns exemplos também existem os comandos por AWS CLI.
 Neste repositório o foco é apenas no recurso unitário da AWS. Haverá muita duplicidade de código terraform e .net.
 
 - [API Gateway](services/apigatey)
+- [Athena](services/athena)
 - [Cloud Front](services/cloudfront)
+- [Cloud Watch](services/cloudwatch)
 - [DynamoDB](services/dynamodb)
 - [EC2](services/ec2)
+- [Glue](services/glue)
 - [Kinesis](services/kinesis)
 - [Lambda](services/lambda)
   - [Benchmarks](services/lambda-benchmark)
@@ -40,6 +43,7 @@ Neste repositório o foco é apenas no recurso unitário da AWS. Haverá muita d
 - [S3](services/s3)
 - [SQS](services/sqs)
 - [Step Function](services/step-function)
+- [VPC](services/vpc)
 
 ## Pré requisitos
 

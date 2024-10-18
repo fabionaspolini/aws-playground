@@ -12,7 +12,7 @@ resource "aws_db_instance" "postgresql" {
   username               = "postgres"
   password               = "teste.123456"
   parameter_group_name   = "default.postgres16"
-  instance_class         = "db.t4g.large" # # db.t4g.large, db.t4g.medium, db.t4g.small, db.t4g.micro
+  instance_class         = "db.t4g.micro" # # db.t4g.large, db.t4g.medium, db.t4g.small, db.t4g.micro
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.rds_postgresql_playground[0].id]
   db_subnet_group_name   = aws_db_subnet_group.default.name
