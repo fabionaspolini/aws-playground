@@ -129,6 +129,7 @@ Existem configurações independentes por stage, veja abaixo os detalhes.
   - Detalhes em <https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html#apigateway-cloudwatch-log-formats>
   - Campos disponíveis em:
     - <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-logging-variables.html>
+    - <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html>
     - <https://www.alexdebrie.com/posts/api-gateway-access-logs/#access-logging-fields>
 
 ### Canary deploy
@@ -181,3 +182,18 @@ API Gateway pode ser gerado a partir da especificação de API como código (Ope
 
 - [Extensões OpenAPI para o API Gateway](https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-swagger-extensions.html)
 - [Objeto x-amazon-apigateway-integration.requestParameters](https://docs.aws.amazon.com/pt_br/apigateway/latest/developerguide/api-gateway-swagger-extensions-integration-requestParameters.html)
+
+**Exemplo**
+
+```yml
+/consultar-cep/{cep}:
+    get:
+      x-amazon-apigateway-integration:
+        httpMethod: GET
+        payloadFormatVersion: 1.0
+        type: HTTP_PROXY
+        uri: https://viacep.com.br/ws/{cep}/json/
+        timeoutInMillis: 5000
+        requestParameters:
+          integration.request.path.cep: method.request.path.cep
+```
