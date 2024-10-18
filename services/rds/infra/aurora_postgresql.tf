@@ -5,7 +5,7 @@ resource "aws_rds_cluster" "aurora_postgresql" {
   apply_immediately      = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
   cluster_identifier     = "aurora-postgresql-playground"
   engine                 = "aurora-postgresql"
-  engine_version         = "15.2"
+  engine_version         = "16.4"
   engine_mode            = "provisioned"
   port                   = 8455
   master_username        = "postgres"
@@ -19,6 +19,8 @@ resource "aws_rds_cluster" "aurora_postgresql" {
   preferred_maintenance_window = "Mon:02:00-Mon:04:00"
   preferred_backup_window      = "00:00-02:00"
   backup_retention_period      = 1
+
+  allow_major_version_upgrade = true # autorizar atualização de versões majors
 }
 
 resource "aws_rds_cluster_instance" "aurora_postgresql" {
@@ -26,7 +28,7 @@ resource "aws_rds_cluster_instance" "aurora_postgresql" {
   apply_immediately   = true # forçar aplicar alterações que causam indisponibilidade agora (habilitar apenas para testes)
   identifier          = "aurora-postgresql-playground-${count.index}"
   cluster_identifier  = aws_rds_cluster.aurora_postgresql[0].id
-  instance_class      = "db.t4g.medium" # "db.t4g.small"
+  instance_class      = "db.t4g.medium" # db.t4g.large, db.t4g.medium, db.t4g.small
   engine              = aws_rds_cluster.aurora_postgresql[0].engine
   engine_version      = aws_rds_cluster.aurora_postgresql[0].engine_version
   publicly_accessible = true # autorizar acesso pela internet

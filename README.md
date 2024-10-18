@@ -6,6 +6,7 @@
 - [Setup inicial](#setup-inicial)
 - [Estrutura do repositório](#estrutura-do-repositório)
 - [Alternativa com Localstack](#alternativa-com-localstack)
+- [CLI](#cli)
 
 ## Visão geral
 
@@ -15,11 +16,13 @@ Focado no gerenciamento de recursos através de terraform e código fonte C#.
 
 Em alguns exemplos também existem os comandos por AWS CLI.
 
+- **[docs/terraform](docs/terraform.md)**
+- **[docs/aws](docs/aws.md)**
 - [Documentação oficial AWS.](https://docs.aws.amazon.com/index.html)
 - [Página oficial Terraform.](https://www.terraform.io/)
 - [Documentação do provider AWS para Terraform.](https://registry.terraform.io/providers/hashicorp/aws/latest)
-- **[docs/terraform](docs/terraform.md)**
-- **[docs/aws](docs/aws.md)**
+- [Lista de serviços de banco de dados gratuitos](https://aws.amazon.com/pt/free/database/)
+- [Lista com todos serviços gratuitos](https://aws.amazon.com/pt/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=categories%23databases)
 
 
 ## Serviços
@@ -147,3 +150,7 @@ Clique em ***resources*** para acessar os detalhes do mesmo.
 > Obs.: Todas as documentações presentes neste repositório estão apontando para o aws cli oficial, gerindo recursos na AWS.  
 > Substitua `aws` ou `awslocal` para utilizar o localstack.  
 > Também é possível apontar o terraform para o localstack, mas nenhum exemplo daqui tratará isso.
+
+## CLI
+
+- `--no-cli-pager`: Imprimir resultado completo no console sem interação do usuário.

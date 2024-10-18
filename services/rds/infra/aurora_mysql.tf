@@ -19,6 +19,8 @@ resource "aws_rds_cluster" "aurora_mysql" {
   preferred_maintenance_window = "Mon:02:00-Mon:04:00"
   preferred_backup_window      = "00:00-02:00"
   backup_retention_period      = 1
+
+  allow_major_version_upgrade = true # autorizar atualização de versões majors
 }
 
 resource "aws_rds_cluster_instance" "aurora_mysql" {

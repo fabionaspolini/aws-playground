@@ -20,6 +20,8 @@ resource "aws_rds_cluster" "aurora_mysql_serverless" {
   preferred_backup_window      = "00:00-02:00"
   backup_retention_period      = 1
 
+  allow_major_version_upgrade = true # autorizar atualização de versões majors
+
   serverlessv2_scaling_configuration {
     min_capacity = 0.5
     max_capacity = 3.0
