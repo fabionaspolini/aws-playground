@@ -1,0 +1,20 @@
+{
+    "requestId": "$context.requestId",
+    "extendedRequestId": "$context.extendedRequestId",
+    "xrayTraceId": "$context.xrayTraceId",
+    "ip": "$context.identity.sourceIp",
+    "apiId": "$context.apiId",
+    "request": {
+        "method": "$context.httpMethod",
+        "path": "$context.resourcePath"
+    },
+    "response": {
+        "status": $context.status,
+        "latency": $context.responseLatency
+    },
+    "integration": {
+        "status": "$context.integration.status",
+        "latency": $context.integration.latency,
+        "error": "$context.integration.error"
+    }
+}

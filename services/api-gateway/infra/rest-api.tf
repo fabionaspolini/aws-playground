@@ -59,9 +59,13 @@ resource "aws_api_gateway_method_settings" "example" {
 #
 
 resource "aws_cloudwatch_log_group" "api_access_logging" {
-  name              = "/aws/apigateway/${aws_api_gateway_rest_api.example.id}/${var.stage_name}/access-logging"
+  name              = "/aws/apigateway/${aws_api_gateway_rest_api.example.name}-${aws_api_gateway_rest_api.example.id}/${var.stage_name}/access-logging"
   retention_in_days = 1
 }
+
+#
+# Log group - CloudWatch logs
+#
 
 resource "aws_cloudwatch_log_group" "api_logs" {
   name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.example.id}/${var.stage_name}"
