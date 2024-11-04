@@ -5,6 +5,14 @@
 
 ## Visão geral
 
+Por padrão bucket são criados privados.
+
+
+## Acesso público
+
+1. Desativar opção "Block public access".
+2. Em "Object OwnershipInfo", ativar "ACLs" e selecionar "Bucket owner preferred".
+3. Ao realizar upload do arquivo, deve-se informar o acl do arquivo como "public-read".
 
 ## Events
 
