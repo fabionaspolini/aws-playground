@@ -3,6 +3,10 @@ resource "aws_s3_bucket" "api_gateway_access_logging" {
   force_destroy = true # Apenas para testes - Está propriedade permite que o `terraform destroy` exclua todos os objetos e apague o bucket, resultando em perda de dados
 }
 
+#
+# Shared Policy - Para outros recursos publicarem no S3
+#
+
 resource "aws_iam_policy" "api_gateway_access_logging_bucket_put_object" {
   name        = "api-gateway-access-logging-bucket-put-object"
   path        = "/aws-playground/sample-arch/"

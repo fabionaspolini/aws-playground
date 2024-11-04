@@ -88,7 +88,7 @@ resource "aws_iam_role_policy_attachment" "api_gateway_access_logging_kinesis_fi
 }
 
 #
-# Policy - Publish no Kinesis firehose
+# Shared Policy - Para outros recursos publicarem no kinesis firehose
 #
 
 resource "aws_iam_policy" "api_gateway_access_logging_kinesis_firehose_policy" {
