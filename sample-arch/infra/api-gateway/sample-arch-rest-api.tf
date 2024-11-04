@@ -56,6 +56,15 @@ resource "aws_api_gateway_method_settings" "sample" {
 }
 
 #
+# Log group - CloudWatch logs
+#
+
+resource "aws_cloudwatch_log_group" "api_logs" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.sample.id}/${var.stage_name}"
+  retention_in_days = 1
+}
+
+#
 # Log group - Custom access logging
 #
 
@@ -65,10 +74,47 @@ resource "aws_cloudwatch_log_group" "api_access_logging" {
 }
 
 #
-# Log group - CloudWatch logs
+# Log group - Custom access logging - Subscription filter to Kinesis firehose
 #
 
-resource "aws_cloudwatch_log_group" "api_logs" {
-  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.sample.id}/${var.stage_name}"
-  retention_in_days = 1
+resource "aws_cloudwatch_log_subscription_filter" "api_access_logging_to_kinesis_firehose_subscription_filter" {
+  name            = "Kinesis Firehose"
+  role_arn        = aws_iam_role.api_gateway_access_logging_log_group_to_kinesis_firehose_subscription_filter.arn
+  log_group_name  = aws_cloudwatch_log_group.api_access_logging.name
+  filter_pattern  = ""
+  destination_arn = aws_kinesis_firehose_delivery_stream.api_gateway_access_logging.arn
+  distribution    = "Random" # ByLogStream, Random
+}
+
+resource "aws_iam_role" "api_gateway_access_logging_log_group_to_kinesis_firehose_subscription_filter" {
+  name                = "api-gateway-access-logging-log-group-to-kinesis-firehose-sub-fil"
+  path                = "/aws-playground/sample-arch/"
+  assume_role_policy  = data.aws_iam_policy_document.trust_policy_for_cloud_watch_logs.json
+}
+
+# resource "aws_iam_role_policy" "api_gateway_access_logging_log_group_to_kinesis_firehose_subscription_filter_inline_policy" {
+#   name = "inline-policy"
+#   role = aws_iam_role.api_gateway_access_logging_log_group_to_kinesis_firehose_subscription_filter.id
+# 
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Effect = "Allow"
+#         Action = [
+#           "logs:*",
+#         ]
+#         Resource = [
+#           aws_cloudwatch_log_group.api_gateway_access_logging_kinesis_firehose.arn,
+#           "${aws_cloudwatch_log_group.api_gateway_access_logging_kinesis_firehose.arn}:*",
+#           # aws_cloudwatch_log_stream.api_gateway_access_logging_error_stream.arn
+#         ]
+#       },
+#     ]
+#   })
+# }
+
+resource "aws_iam_role_policy_attachment" "api_gateway_access_logging_log_group_to_kinesis_firehose_subscription_filter_role_attach" {
+  role       = aws_iam_role.api_gateway_access_logging_log_group_to_kinesis_firehose_subscription_filter.name
+  policy_arn = aws_iam_policy.api_gateway_access_logging_kinesis_firehose_policy.arn
 }

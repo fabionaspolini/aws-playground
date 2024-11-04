@@ -1,6 +1,7 @@
 # Terraform
 
 - [Meta arguments](#meta-arguments)
+- [Convenções](#convenções)
 - [Cheat Sheet](#cheat-sheet)
   - [IP público do ambiente executando o TF](#ip-público-do-ambiente-executando-o-tf)
 
@@ -15,6 +16,17 @@ Argumentos disponíveis para todos os elmentos.
 - for_each
 - provider
 - lifecycle
+
+
+## Convenções
+
+| Elemento  | Convenção    | Exemplo                     |
+|-----------|--------------|-----------------------------|
+| Recursos  | `snake_case` | `aws_instance "web_server"` |
+| Variáveis | `snake_case` | `variable "instance_type"`  |
+| Outputs   | `snake_case` | `output "database_url"`     |
+| Módulos   | `kebab-case` | `module "network-setup"`    |
+| Arquivos  | `kebab-case` | `main.tf, network-setup.tf` |
 
 ## Cheat Sheet
 
