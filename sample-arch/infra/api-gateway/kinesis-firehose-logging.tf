@@ -19,6 +19,8 @@ resource "aws_kinesis_firehose_delivery_stream" "api_gateway_access_logging" {
     buffering_interval = 15 # segundos
     file_extension     = ".gz" # formato do loggroup para o subscription filter é gzip
     custom_time_zone   = "America/Sao_Paulo"
+    
+    error_output_prefix = "/errors/"
 
     processing_configuration {
       enabled = true
