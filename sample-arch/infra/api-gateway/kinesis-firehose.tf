@@ -11,6 +11,11 @@ resource "aws_kinesis_firehose_delivery_stream" "api_gateway_access_logging" {
   name        = var.kinesis_firehose_name
   destination = "extended_s3"
 
+  kinesis_source_configuration {
+    kinesis_stream_arn = aws_kinesis_stream.kinesis_basic_playground.arn
+    role_arn           = aws_iam_role.api_gateway_access_logging_firehose.arn
+  }
+
   extended_s3_configuration {
     bucket_arn = aws_s3_bucket.api_gateway_access_logging.arn
     role_arn   = aws_iam_role.api_gateway_access_logging_firehose.arn
@@ -161,6 +166,11 @@ resource "aws_iam_role_policy" "api_gateway_access_logging_firehose_inline_polic
 resource "aws_iam_role_policy_attachment" "api_gateway_access_logging_firehose_role_attach_s3_bucket_put_object" {
   role       = aws_iam_role.api_gateway_access_logging_firehose.name
   policy_arn = aws_iam_policy.api_gateway_access_logging_bucket_put_object.arn
+}
+
+resource "aws_iam_role_policy_attachment" "api_gateway_access_logging_firehose_role_from_stream" {
+  role       = aws_iam_role.api_gateway_access_logging_firehose.name
+  policy_arn = aws_iam_policy.api_gateway_access_logging_stream_policy.arn
 }
 
 # resource "aws_iam_role_policy_attachment" "api_gateway_access_logging_firehose_role_attach_s3_backup_bucket_put_object" {

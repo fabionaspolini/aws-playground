@@ -19,4 +19,12 @@ aws firehose put-record \
 aws firehose put-record \
   --delivery-stream-name "api-gateway-access-logging" \
   --record '{"Data":"eyAiaWQiOiAxLCAibm9tZSI6ICJUZXN0ZSIgfQ=="}'
+  
+  
+  
+aws kinesis put-record \
+  --stream-name "api-gateway-access-logging" \
+  --partition-key "1" \
+  --cli-binary-format raw-in-base64-out \
+  --data 'Ola'
 ```
