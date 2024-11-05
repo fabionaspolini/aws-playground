@@ -18,16 +18,17 @@ resource "aws_iam_policy" "api_gateway_access_logging_bucket_put_object" {
       {
         Effect = "Allow"
         Action = [
-          "s3:AbortMultipartUpload",
-          "s3:GetBucketLocation",
-          "s3:GetObject",
-          "s3:ListBucket",
-          "s3:ListBucketMultipartUploads",
-          "s3:PutObject"
+          # "s3:AbortMultipartUpload",
+          # "s3:GetBucketLocation",
+          # "s3:GetObject",
+          # "s3:ListBucket",
+          # "s3:ListBucketMultipartUploads",
+          # "s3:PutObject"
+          "s3:*"
         ]
         Resource = [
-          "arn:aws:s3:::api-gateway-access-logging-${data.aws_caller_identity.current.account_id}",
-          "arn:aws:s3:::api-gateway-access-logging-${data.aws_caller_identity.current.account_id}/*"
+          aws_s3_bucket.api_gateway_access_logging.arn,
+          "${aws_s3_bucket.api_gateway_access_logging.arn}/*"
         ]
       }
     ]
