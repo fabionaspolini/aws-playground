@@ -7,7 +7,7 @@ resource "aws_cloudfront_response_headers_policy" "image_png" {
       override = true
     }
   }
-  
+
   custom_headers_config {
     items {
       header   = "Content-Type"
