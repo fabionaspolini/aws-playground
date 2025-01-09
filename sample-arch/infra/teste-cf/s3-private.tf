@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "bucket" {
   bucket        = "teste-cf-${data.aws_caller_identity.current.account_id}"
-  force_destroy = true
-  # Apenas para testes - Está propriedade permite que o `terraform destroy` exclua todos os objetos e apague o bucket, resultando em perda de dados
+  force_destroy = true # Apenas para testes - Está propriedade permite que o `terraform destroy` exclua todos os objetos e apague o bucket, resultando em perda de dados
 }
 
 #
